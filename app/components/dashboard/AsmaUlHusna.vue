@@ -6,10 +6,20 @@ const { currentDay } = useRamadanDay()
 
 const todayNames = computed(() => {
   const day = currentDay.value || 1
-  const total = ASMA_UL_HUSNA.length
-  const perDay = Math.ceil(total / 30)
-  const startIndex = (day - 1) * perDay
-  return ASMA_UL_HUSNA.slice(startIndex, Math.min(startIndex + perDay, total))
+  let startIndex: number
+  let count: number
+
+  if (day <= 20) {
+    // Days 1-20: 3 names per day (names 1-60)
+    startIndex = (day - 1) * 3
+    count = 3
+  } else {
+    // Days 21-30: 4 names per day (names 61-100)
+    startIndex = 60 + (day - 21) * 4
+    count = 4
+  }
+
+  return ASMA_UL_HUSNA.slice(startIndex, Math.min(startIndex + count, ASMA_UL_HUSNA.length))
 })
 
 function getMeaning(name: (typeof ASMA_UL_HUSNA)[number]): string {
