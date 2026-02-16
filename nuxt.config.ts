@@ -1,0 +1,79 @@
+export default defineNuxtConfig({
+  compatibilityDate: '2025-01-01',
+  devtools: { enabled: true },
+  future: { compatibilityVersion: 4 },
+
+  css: ['~/assets/css/tailwind.css'],
+
+  components: [
+    {
+      path: '~/components/ui',
+      extensions: ['.vue'],
+      prefix: '',
+    },
+    {
+      path: '~/components',
+      ignore: ['ui/**'],
+    },
+  ],
+
+  modules: [
+    '@nuxtjs/supabase',
+    '@nuxtjs/i18n',
+    '@vueuse/nuxt',
+  ],
+
+  supabase: {
+    redirectOptions: {
+      login: '/auth/login',
+      callback: '/auth/confirm',
+      exclude: ['/auth/*'],
+    },
+  },
+
+  i18n: {
+    locales: [
+      { code: 'uz', file: 'uz.json', name: "O'zbekcha" },
+      { code: 'ru', file: 'ru.json', name: 'Русский' },
+      { code: 'en', file: 'en.json', name: 'English' },
+    ],
+    defaultLocale: 'uz',
+    langDir: '../i18n/locales',
+    strategy: 'no_prefix',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_locale',
+      fallbackLocale: 'uz',
+    },
+  },
+
+  runtimeConfig: {
+    telegramBotToken: process.env.TELEGRAM_BOT_TOKEN ?? '',
+    supabaseUrl: process.env.SUPABASE_URL ?? '',
+    supabaseServiceKey: process.env.SUPABASE_SERVICE_ROLE_KEY ?? '',
+    public: {
+      telegramBotUsername: process.env.TELEGRAM_BOT_USERNAME ?? '',
+      telegramBotId: process.env.TELEGRAM_BOT_TOKEN?.split(':')[0] ?? '',
+    },
+  },
+
+  vite: {
+    plugins: [
+      // @ts-expect-error - tailwindcss vite plugin
+      (await import('@tailwindcss/vite')).default(),
+    ],
+  },
+
+  app: {
+    head: {
+      title: 'Ramazon Rejam',
+      meta: [
+        { name: 'description', content: 'Ramazon oyida odatlarni kuzatish va ibodat rejasi' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      ],
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      ],
+    },
+  },
+})
