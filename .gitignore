@@ -28,3 +28,6 @@ ref/
 
 # Supabase temp
 supabase/.temp/
+
+# Claude Code
+.claude/
