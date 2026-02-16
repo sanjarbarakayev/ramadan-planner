@@ -56,11 +56,11 @@
     "streak": "Ketma-ketlik",
     "days": "kun",
     "motivational": {
-      "before": "Ro'zaga oz qoldi... Siz dagi reja va tayyorgarlik qaysi darajada?",
-      "excellent": "Ajoyib! Bugun juda yaxshi natija ko'rsatdingiz!",
-      "good": "Yaxshi! Davom eting, maqsadga yaqinlashyapsiz!",
-      "average": "Yomon emas, lekin yaxshiroq qilishingiz mumkin!",
-      "needsWork": "Bugun ko'proq harakat qilishingiz kerak!"
+      "before": "«Kim Ramazon oyida ro'za tutsa, uning oldingi gunohlari kechiriladi» (Buxoriy). Tayyormisiz?",
+      "excellent": "«Alloh sabr qiluvchilar bilan birgadir» (Baqara, 153). Bugun ajoyib natija ko'rsatdingiz — davom eting!",
+      "good": "«Kim Alloh yo'lida bir qadam tashlasa, Alloh unga o'n qadam yaqinlashadi» (Muslim). Yaxshi ketayapsiz!",
+      "average": "«Eng yaxshi amal — oz bo'lsa ham, doimiy bo'lganidir» (Buxoriy). Bir qadam ham qimmatli!",
+      "needsWork": "«Alloh hech kimga toqati yetmaydigan yukni yuklamaydi» (Baqara, 286). Biroz vaqt ajrating — Alloh sizga yordam beradi!"
     },
     "asmaUlHusna": "Allohning go'zal ismlari",
     "dailyZikr": "Kunlik zikr va duo",
@@ -162,7 +162,7 @@
     "asr": "Asr",
     "maghrib": "Shom",
     "isha": "Xufton",
-    "imsak": "Saharlik",
-    "iftar": "Iftorlik"
+    "imsak": "Saharlik (Bomdod)",
+    "iftar": "Iftorlik (Shom)"
   }
 }

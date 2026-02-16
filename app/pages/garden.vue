@@ -3,6 +3,7 @@ definePageMeta({ middleware: ['auth', 'onboarding'] })
 
 const { t } = useI18n()
 const { fetchHabits, fetchEntries } = useHabits()
+const { fetchProfile } = useProfile()
 const { gardenType, growthStage, flowerCount, overallPercentage } = useGarden()
 
 const gardenTitle = computed(() =>
@@ -10,7 +11,7 @@ const gardenTitle = computed(() =>
 )
 
 onMounted(async () => {
-  await Promise.all([fetchHabits(), fetchEntries()])
+  await Promise.all([fetchProfile(), fetchHabits(), fetchEntries()])
 })
 </script>
 
@@ -38,7 +39,7 @@ onMounted(async () => {
       </CardContent>
     </Card>
 
-    <GardenGardenCounter
+    <GardenCounter
       :type="gardenType"
       :count="flowerCount"
       :stage="growthStage"

@@ -56,11 +56,11 @@
     "streak": "Streak",
     "days": "days",
     "motivational": {
-      "before": "Ramadan is almost here... How is your preparation going?",
-      "excellent": "Excellent! You showed great results today!",
-      "good": "Good job! Keep going, you're getting closer to your goal!",
-      "average": "Not bad, but you can do better!",
-      "needsWork": "You need to try harder today!"
+      "before": "\"Whoever fasts Ramadan out of faith and hope for reward, their past sins will be forgiven\" (Bukhari). Are you ready?",
+      "excellent": "\"Allah is with the patient\" (Al-Baqarah, 153). You showed amazing results today — keep going!",
+      "good": "\"Whoever draws closer to Allah by a hand span, Allah draws closer by an arm's length\" (Muslim). You're on the right path!",
+      "average": "\"The best deed is that which is consistent, even if small\" (Bukhari). Every step counts!",
+      "needsWork": "\"Allah does not burden a soul beyond what it can bear\" (Al-Baqarah, 286). Take a moment — Allah will help you!"
     },
     "asmaUlHusna": "Beautiful Names of Allah",
     "dailyZikr": "Daily Dhikr & Dua",
@@ -162,7 +162,7 @@
     "asr": "Asr",
     "maghrib": "Maghrib",
     "isha": "Isha",
-    "imsak": "Suhoor",
-    "iftar": "Iftar"
+    "imsak": "Suhoor (Fajr)",
+    "iftar": "Iftar (Maghrib)"
   }
 }
