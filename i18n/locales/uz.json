@@ -34,8 +34,11 @@
     "selectLocation": "Shahringizni tanlang",
     "city": "Shahar",
     "country": "Davlat",
+    "searchCity": "Shahar qidirish...",
+    "noResults": "Shahar topilmadi",
     "ramadanStart": "Ramazon boshlanishi",
     "ramadanStartHint": "Ramazon boshlanish sanasini tanlang",
+    "ramadanStartAutoDetected": "Islomiy taqvim asosida aniqlandi. Kerak bo'lsa o'zgartirishingiz mumkin.",
     "confirm": "Tasdiqlash",
     "next": "Keyingi",
     "back": "Orqaga",
@@ -159,7 +162,7 @@
     "asr": "Asr",
     "maghrib": "Shom",
     "isha": "Xufton",
-    "imsak": "Imsok",
-    "iftar": "Iftor"
+    "imsak": "Saharlik",
+    "iftar": "Iftorlik"
   }
 }

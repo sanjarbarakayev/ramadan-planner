@@ -10,17 +10,12 @@ watch(() => profile.value?.gender, (val) => {
   if (val) gender.value = val
 })
 
-const themeCookie = useCookie('app_theme', { maxAge: 60 * 60 * 24 * 90 })
-
 async function save() {
   saving.value = true
-  const theme = gender.value === 'male' ? 'men' : 'women'
-  await updateProfile({ gender: gender.value as 'male' | 'female', theme })
+  await updateProfile({ gender: gender.value as 'male' | 'female' })
   saving.value = false
   saved.value = true
   setTimeout(() => { saved.value = false }, 2000)
-
-  themeCookie.value = `theme-${theme}`
 }
 </script>
 

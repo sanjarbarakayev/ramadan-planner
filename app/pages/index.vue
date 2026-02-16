@@ -1,8 +1,9 @@
 <script setup lang="ts">
 const user = useSupabaseUser()
+const session = useSupabaseSession()
 
 watchEffect(() => {
-  if (user.value) {
+  if (user.value?.id || session.value) {
     navigateTo('/dashboard')
   } else {
     navigateTo('/auth/login')

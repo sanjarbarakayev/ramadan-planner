@@ -6,19 +6,37 @@ definePageMeta({ middleware: ['auth'] })
 const { t, locale, setLocale } = useI18n()
 const client = useSupabaseClient()
 const user = useSupabaseUser()
+const session = useSupabaseSession()
 const router = useRouter()
 const { completeOnboarding } = useProfile()
 
 const step = ref(1)
 const totalSteps = 5
 const loading = ref(false)
+const dateLoading = ref(false)
+const dateAutoDetected = ref(false)
 
 const form = reactive({
   language: locale.value,
   gender: '' as 'male' | 'female' | '',
   city: '',
   country: '',
-  ramadan_start_date: '2026-02-28',
+  lat: null as number | null,
+  lng: null as number | null,
+  ramadan_start_date: '',
+})
+
+onMounted(async () => {
+  dateLoading.value = true
+  try {
+    const { date } = await $fetch<{ date: string }>('/api/ramadan-date')
+    form.ramadan_start_date = date
+    dateAutoDetected.value = true
+  } catch {
+    form.ramadan_start_date = '2026-02-19'
+  } finally {
+    dateLoading.value = false
+  }
 })
 
 function nextStep() {
@@ -39,23 +57,23 @@ function selectLanguage(lang: string) {
 }
 
 async function finish() {
-  if (!user.value?.id) return
+  const userId = user.value?.id || session.value?.user?.id
+  if (!userId) return
   loading.value = true
-
-  const theme = form.gender === 'female' ? 'women' : 'men'
 
   await completeOnboarding({
     gender: form.gender as 'male' | 'female',
     language: form.language,
-    theme,
     city: form.city || null,
     country: form.country || null,
+    lat: form.lat,
+    lng: form.lng,
     ramadan_start_date: form.ramadan_start_date,
   })
 
   // Seed default habits
   const habits = DEFAULT_HABITS.map((h) => ({
-    user_id: user.value!.id,
+    user_id: userId,
     name_uz: h.nameUz,
     name_ru: h.nameRu,
     name_en: h.nameEn,
@@ -147,24 +165,17 @@ const canProceed = computed(() => {
           <h3 class="text-lg font-medium text-center">
             {{ t('onboarding.selectLocation') }}
           </h3>
-          <div class="space-y-3">
-            <div class="space-y-2">
-              <Label for="city">{{ t('onboarding.city') }}</Label>
-              <Input
-                id="city"
-                v-model="form.city"
-                :placeholder="t('onboarding.city')"
-              />
-            </div>
-            <div class="space-y-2">
-              <Label for="country">{{ t('onboarding.country') }}</Label>
-              <Input
-                id="country"
-                v-model="form.country"
-                :placeholder="t('onboarding.country')"
-              />
-            </div>
-          </div>
+          <LocationSearch
+            @select="({ city, country, lat, lng }) => {
+              form.city = city
+              form.country = country
+              form.lat = lat
+              form.lng = lng
+            }"
+          />
+          <p v-if="form.city" class="text-sm text-muted-foreground text-center">
+            {{ form.city }}, {{ form.country }}
+          </p>
         </div>
 
         <!-- Step 4: Ramadan Start Date -->
@@ -173,11 +184,12 @@ const canProceed = computed(() => {
             {{ t('onboarding.ramadanStart') }}
           </h3>
           <p class="text-sm text-muted-foreground text-center">
-            {{ t('onboarding.ramadanStartHint') }}
+            {{ dateAutoDetected ? t('onboarding.ramadanStartAutoDetected') : t('onboarding.ramadanStartHint') }}
           </p>
           <Input
             v-model="form.ramadan_start_date"
             type="date"
+            :disabled="dateLoading"
           />
         </div>
 

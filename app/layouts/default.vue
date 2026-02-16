@@ -1,19 +1,17 @@
 <script setup lang="ts">
-const { profile, fetchProfile } = useProfile()
+const { fetchProfile, themeClass } = useProfile()
 const user = useSupabaseUser()
 const themeCookie = useCookie('app_theme', { default: () => 'theme-women', maxAge: 60 * 60 * 24 * 90 })
 
 const isDev = import.meta.dev
 
-const themeClass = computed(() => {
-  if (profile.value) {
-    return profile.value.theme === 'men' ? 'theme-men' : 'theme-women'
-  }
+const appliedTheme = computed(() => {
+  if (themeClass.value) return themeClass.value
   return themeCookie.value
 })
 
 useHead({
-  htmlAttrs: { class: themeClass },
+  htmlAttrs: { class: appliedTheme },
 })
 
 onMounted(async () => {
@@ -22,7 +20,7 @@ onMounted(async () => {
   }
 })
 
-watch(themeClass, (cls) => {
+watch(appliedTheme, (cls) => {
   themeCookie.value = cls
 })
 </script>

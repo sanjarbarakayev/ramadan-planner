@@ -1,6 +1,6 @@
 import { differenceInDays, startOfDay, addDays, isWithinInterval } from 'date-fns'
 
-export const DEFAULT_RAMADAN_START = new Date(2026, 1, 28) // Feb 28, 2026
+export const DEFAULT_RAMADAN_START = new Date(2026, 1, 19) // Feb 19, 2026
 
 export function getRamadanDay(today: Date, ramadanStart: Date): number {
   const start = startOfDay(ramadanStart)

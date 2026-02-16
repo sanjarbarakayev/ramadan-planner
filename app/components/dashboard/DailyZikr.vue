@@ -9,6 +9,14 @@ const todayZikr = computed(() => {
   return DAILY_ZIKR.find((z) => z.day === day) ?? DAILY_ZIKR[0]
 })
 
+const transliteration = computed(() => {
+  if (!todayZikr.value) return ''
+  if (locale.value === 'uz' && todayZikr.value.transliterationUz) {
+    return todayZikr.value.transliterationUz
+  }
+  return todayZikr.value.transliteration
+})
+
 const meaning = computed(() => {
   if (!todayZikr.value) return ''
   switch (locale.value) {
@@ -31,7 +39,7 @@ const meaning = computed(() => {
         </p>
       </div>
       <p class="text-sm text-center font-medium">
-        {{ todayZikr.transliteration }}
+        {{ transliteration }}
       </p>
       <p class="text-sm text-muted-foreground text-center">
         {{ meaning }}

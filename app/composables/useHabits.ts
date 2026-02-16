@@ -23,11 +23,16 @@ export interface HabitEntry {
 export function useHabits() {
   const client = useSupabaseClient()
   const user = useSupabaseUser()
+  const session = useSupabaseSession()
   const { locale } = useI18n()
 
   const habits = useState<Habit[]>('habits', () => [])
   const entries = useState<Map<string, boolean>>('habitEntries', () => new Map())
   const loading = ref(false)
+
+  function getUserId(): string | undefined {
+    return user.value?.id || session.value?.user?.id
+  }
 
   function entryKey(habitId: string, day: number): string {
     return `${habitId}-${day}`
@@ -42,13 +47,14 @@ export function useHabits() {
   }
 
   async function fetchHabits() {
-    if (!user.value?.id) return
+    const userId = getUserId()
+    if (!userId) return
     loading.value = true
 
     const { data } = await client
       .from('habits')
       .select('*')
-      .eq('user_id', user.value.id)
+      .eq('user_id', userId)
       .eq('is_active', true)
       .order('sort_order')
 
@@ -57,12 +63,13 @@ export function useHabits() {
   }
 
   async function fetchEntries() {
-    if (!user.value?.id) return
+    const userId = getUserId()
+    if (!userId) return
 
     const { data } = await client
       .from('habit_entries')
       .select('*')
-      .eq('user_id', user.value.id)
+      .eq('user_id', userId)
 
     const map = new Map<string, boolean>()
     for (const entry of (data ?? []) as HabitEntry[]) {
@@ -76,7 +83,8 @@ export function useHabits() {
   }
 
   async function toggleEntry(habitId: string, day: number) {
-    if (!user.value?.id) return
+    const userId = getUserId()
+    if (!userId) return
 
     const key = entryKey(habitId, day)
     const current = entries.value.get(key) ?? false
@@ -91,7 +99,7 @@ export function useHabits() {
       const { error } = await client
         .from('habit_entries')
         .upsert({
-          user_id: user.value.id,
+          user_id: userId,
           habit_id: habitId,
           ramadan_day: day,
           completed: true,
@@ -109,7 +117,7 @@ export function useHabits() {
       const { error } = await client
         .from('habit_entries')
         .delete()
-        .eq('user_id', user.value.id)
+        .eq('user_id', userId)
         .eq('habit_id', habitId)
         .eq('ramadan_day', day)
 
@@ -128,14 +136,15 @@ export function useHabits() {
     category: string
     target_days: number
   }) {
-    if (!user.value?.id) return
+    const userId = getUserId()
+    if (!userId) return
 
     const maxOrder = habits.value.reduce((max, h) => Math.max(max, h.sort_order), 0)
 
     const { data, error } = await client
       .from('habits')
       .insert({
-        user_id: user.value.id,
+        user_id: userId,
         ...habit,
         sort_order: maxOrder + 1,
         is_custom: true,

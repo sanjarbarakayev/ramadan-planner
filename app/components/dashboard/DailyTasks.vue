@@ -2,7 +2,12 @@
 const { t } = useI18n()
 const client = useSupabaseClient()
 const user = useSupabaseUser()
+const session = useSupabaseSession()
 const { currentDay } = useRamadanDay()
+
+function getUserId(): string | undefined {
+  return user.value?.id || session.value?.user?.id
+}
 
 interface DailyTask {
   id: string
@@ -13,15 +18,17 @@ interface DailyTask {
 
 const tasks = ref<DailyTask[]>([])
 const newTask = ref('')
-const loading = ref(false)
+const editingId = ref<string | null>(null)
+const editingTitle = ref('')
 
 async function fetchTasks() {
-  if (!user.value?.id || currentDay.value === 0) return
+  const userId = getUserId()
+  if (!userId || currentDay.value === 0) return
 
   const { data } = await client
     .from('daily_tasks')
     .select('*')
-    .eq('user_id', user.value.id)
+    .eq('user_id', userId)
     .eq('ramadan_day', currentDay.value)
     .order('sort_order')
 
@@ -29,12 +36,13 @@ async function fetchTasks() {
 }
 
 async function addTask() {
-  if (!user.value?.id || !newTask.value.trim() || currentDay.value === 0) return
+  const userId = getUserId()
+  if (!userId || !newTask.value.trim() || currentDay.value === 0) return
 
   const { data, error } = await client
     .from('daily_tasks')
     .insert({
-      user_id: user.value.id,
+      user_id: userId,
       ramadan_day: currentDay.value,
       title: newTask.value.trim(),
       sort_order: tasks.value.length,
@@ -60,6 +68,33 @@ async function toggleTask(task: DailyTask) {
     .eq('id', task.id)
 }
 
+function startEdit(task: DailyTask) {
+  editingId.value = task.id
+  editingTitle.value = task.title
+}
+
+async function saveEdit(taskId: string) {
+  const trimmed = editingTitle.value.trim()
+  if (!trimmed) {
+    editingId.value = null
+    return
+  }
+
+  tasks.value = tasks.value.map((t) =>
+    t.id === taskId ? { ...t, title: trimmed } : t
+  )
+  editingId.value = null
+
+  await client
+    .from('daily_tasks')
+    .update({ title: trimmed })
+    .eq('id', taskId)
+}
+
+function cancelEdit() {
+  editingId.value = null
+}
+
 async function deleteTask(taskId: string) {
   tasks.value = tasks.value.filter((t) => t.id !== taskId)
   await client.from('daily_tasks').delete().eq('id', taskId)
@@ -82,28 +117,52 @@ watch(currentDay, fetchTasks)
       <div
         v-for="task in tasks"
         :key="task.id"
-        class="flex items-center gap-2"
+        class="group flex items-center gap-2"
       >
         <Checkbox
           :checked="task.completed"
           @update:checked="toggleTask(task)"
         />
+
+        <Input
+          v-if="editingId === task.id"
+          v-model="editingTitle"
+          class="h-7 flex-1 text-sm"
+          autofocus
+          @keydown.enter="saveEdit(task.id)"
+          @keydown.escape="cancelEdit"
+          @blur="saveEdit(task.id)"
+        />
         <span
+          v-else
           class="flex-1 text-sm"
           :class="task.completed ? 'line-through text-muted-foreground' : ''"
         >
           {{ task.title }}
         </span>
-        <Button
-          variant="ghost"
-          size="icon"
-          class="h-6 w-6 text-muted-foreground hover:text-destructive"
-          @click="deleteTask(task.id)"
-        >
-          <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </Button>
+
+        <div v-if="editingId !== task.id" class="flex shrink-0">
+          <Button
+            variant="ghost"
+            size="icon"
+            class="h-6 w-6 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity"
+            @click="startEdit(task)"
+          >
+            <svg class="h-3 w-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931z" />
+            </svg>
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            class="h-6 w-6 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity hover:text-destructive"
+            @click="deleteTask(task.id)"
+          >
+            <svg class="h-3 w-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </Button>
+        </div>
       </div>
 
       <form class="flex gap-2" @submit.prevent="addTask">

@@ -1,8 +1,13 @@
 export type GrowthStage = 'barren' | 'sprouts' | 'small' | 'medium' | 'lush' | 'paradise'
 
 export function useGarden() {
-  const { overallPercentage } = useStats()
+  const { overallPercentage: realPercentage } = useStats()
+  const { override: devOverride } = useDevGarden()
   const { profile } = useProfile()
+
+  const overallPercentage = computed(() =>
+    devOverride.value !== null ? devOverride.value : realPercentage.value
+  )
 
   const growthStage = computed((): GrowthStage => {
     const pct = overallPercentage.value

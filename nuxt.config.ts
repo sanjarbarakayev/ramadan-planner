@@ -24,11 +24,18 @@ export default defineNuxtConfig({
   ],
 
   supabase: {
+    redirect: false,
     redirectOptions: {
       login: '/auth/login',
       callback: '/auth/confirm',
-      exclude: ['/auth/*'],
     },
+    cookieOptions: {
+      secure: false,
+    },
+  },
+
+  routeRules: {
+    '/auth/confirm': { ssr: false },
   },
 
   i18n: {

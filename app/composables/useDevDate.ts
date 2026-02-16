@@ -20,3 +20,19 @@ export function useDevDate() {
 
   return { override, isActive, currentDate, setDate, reset }
 }
+
+export function useDevGarden() {
+  const override = useState<number | null>('dev-garden-override', () => null)
+
+  const isActive = computed(() => override.value !== null)
+
+  function setPercentage(value: number | null) {
+    override.value = value
+  }
+
+  function reset() {
+    override.value = null
+  }
+
+  return { override, isActive, setPercentage, reset }
+}

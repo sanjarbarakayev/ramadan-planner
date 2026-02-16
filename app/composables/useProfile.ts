@@ -13,20 +13,35 @@ export interface Profile {
   onboarding_complete: boolean
 }
 
+export function genderToTheme(gender: 'male' | 'female' | null): 'men' | 'women' {
+  return gender === 'male' ? 'men' : 'women'
+}
+
 export function useProfile() {
   const client = useSupabaseClient()
   const user = useSupabaseUser()
+  const session = useSupabaseSession()
   const profile = useState<Profile | null>('profile', () => null)
   const loading = ref(false)
 
+  const themeClass = computed(() => {
+    if (!profile.value) return null
+    return `theme-${genderToTheme(profile.value.gender)}`
+  })
+
+  function getUserId(): string | undefined {
+    return user.value?.id || session.value?.user?.id
+  }
+
   async function fetchProfile() {
-    if (!user.value?.id) return null
+    const userId = getUserId()
+    if (!userId) return null
     loading.value = true
 
     const { data, error } = await client
       .from('profiles')
       .select('*')
-      .eq('id', user.value.id)
+      .eq('id', userId)
       .single()
 
     if (error) {
@@ -41,12 +56,18 @@ export function useProfile() {
   }
 
   async function updateProfile(updates: Partial<Profile>) {
-    if (!user.value?.id) return null
+    const userId = getUserId()
+    if (!userId) return null
+
+    // Auto-sync theme when gender changes
+    if (updates.gender) {
+      updates.theme = genderToTheme(updates.gender)
+    }
 
     const { data, error } = await client
       .from('profiles')
       .update(updates)
-      .eq('id', user.value.id)
+      .eq('id', userId)
       .select()
       .single()
 
@@ -69,6 +90,7 @@ export function useProfile() {
   return {
     profile: readonly(profile),
     loading: readonly(loading),
+    themeClass,
     fetchProfile,
     updateProfile,
     completeOnboarding,

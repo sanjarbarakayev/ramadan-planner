@@ -4,7 +4,10 @@ definePageMeta({ middleware: ['auth', 'onboarding'] })
 const { t } = useI18n()
 const { fetchHabits, fetchEntries } = useHabits()
 const { gardenType, growthStage, flowerCount, overallPercentage } = useGarden()
-const { profile } = useProfile()
+
+const gardenTitle = computed(() =>
+  gardenType.value === 'tulip' ? t('garden.tulipGarden') : t('garden.palmGrove'),
+)
 
 onMounted(async () => {
   await Promise.all([fetchHabits(), fetchEntries()])
@@ -13,9 +16,12 @@ onMounted(async () => {
 
 <template>
   <div class="space-y-6">
-    <h1 class="text-2xl font-bold">{{ t('garden.title') }}</h1>
+    <div>
+      <h1 class="text-2xl font-bold">{{ gardenTitle }}</h1>
+      <p class="text-sm text-muted-foreground">{{ t('garden.title') }}</p>
+    </div>
 
-    <Card class="overflow-hidden">
+    <Card class="overflow-hidden py-0">
       <CardContent class="p-0">
         <GardenTulipGarden
           v-if="gardenType === 'tulip'"

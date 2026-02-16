@@ -53,7 +53,7 @@ const prayerList = computed(() => {
     { key: 'sunrise', label: t('prayer.sunrise'), time: adjustTime(times.value.Sunrise), highlight: false },
     { key: 'dhuhr', label: t('prayer.dhuhr'), time: adjustTime(times.value.Dhuhr), highlight: false },
     { key: 'asr', label: t('prayer.asr'), time: adjustTime(times.value.Asr), highlight: false },
-    { key: 'maghrib', label: t('prayer.maghrib'), time: adjustTime(times.value.Maghrib), highlight: true },
+    { key: 'maghrib', label: t('prayer.iftar'), time: adjustTime(times.value.Maghrib), highlight: true },
     { key: 'isha', label: t('prayer.isha'), time: adjustTime(times.value.Isha), highlight: false },
   ]
 })

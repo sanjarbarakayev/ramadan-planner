@@ -1,10 +1,8 @@
 export default defineNuxtRouteMiddleware((to) => {
   const user = useSupabaseUser()
+  const session = useSupabaseSession()
 
-  console.log('[auth] to:', to.path, 'user:', user.value?.id ?? 'null')
-
-  if (!user.value?.id && !to.path.startsWith('/auth')) {
-    console.log('[auth] no user, redirecting to /auth/login')
+  if (!user.value?.id && !session.value && !to.path.startsWith('/auth')) {
     return navigateTo('/auth/login')
   }
 })

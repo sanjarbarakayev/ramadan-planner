@@ -30,7 +30,6 @@ async function handleLogin() {
 
 async function handleGoogleLogin() {
   loading.value = true
-  console.log('[login] handleGoogleLogin, redirectTo:', `${window.location.origin}/auth/confirm`)
   const { error: authError } = await client.auth.signInWithOAuth({
     provider: 'google',
     options: {

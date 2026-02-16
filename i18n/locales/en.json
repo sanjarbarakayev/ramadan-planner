@@ -34,8 +34,11 @@
     "selectLocation": "Select Your City",
     "city": "City",
     "country": "Country",
+    "searchCity": "Search for a city...",
+    "noResults": "No cities found",
     "ramadanStart": "Ramadan Start Date",
     "ramadanStartHint": "Select Ramadan start date",
+    "ramadanStartAutoDetected": "Auto-detected based on Islamic calendar. You can adjust if needed.",
     "confirm": "Confirm",
     "next": "Next",
     "back": "Back",
@@ -159,7 +162,7 @@
     "asr": "Asr",
     "maghrib": "Maghrib",
     "isha": "Isha",
-    "imsak": "Imsak",
+    "imsak": "Suhoor",
     "iftar": "Iftar"
   }
 }

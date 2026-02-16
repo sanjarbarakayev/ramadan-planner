@@ -4,7 +4,7 @@ import { PRAYER_METHODS } from '~/utils/constants'
 const { t } = useI18n()
 const { profile, updateProfile } = useProfile()
 
-const startDate = ref(profile.value?.ramadan_start_date ?? '2026-02-28')
+const startDate = ref(profile.value?.ramadan_start_date ?? '2026-02-19')
 const timeAdj = ref(profile.value?.time_adjustment ?? 0)
 const method = ref(String(profile.value?.prayer_method ?? 14))
 const saving = ref(false)
@@ -12,7 +12,7 @@ const saved = ref(false)
 
 watch(() => profile.value, (p) => {
   if (p) {
-    startDate.value = p.ramadan_start_date ?? '2026-02-28'
+    startDate.value = p.ramadan_start_date ?? '2026-02-19'
     timeAdj.value = p.time_adjustment ?? 0
     method.value = String(p.prayer_method ?? 14)
   }
