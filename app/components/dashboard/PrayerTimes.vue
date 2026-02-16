@@ -58,7 +58,9 @@ const prayerList = computed(() => {
   ]
 })
 
-onMounted(fetchPrayerTimes)
+watch(() => profile.value?.city, (city) => {
+  if (city && !times.value) fetchPrayerTimes()
+}, { immediate: true })
 </script>
 
 <template>
