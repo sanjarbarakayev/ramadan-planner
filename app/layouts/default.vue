@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const { fetchProfile, themeClass } = useProfile()
 const user = useSupabaseUser()
+const { isActive: isTelegram } = useTelegram()
 const themeCookie = useCookie('app_theme', { default: () => 'theme-women', maxAge: 60 * 60 * 24 * 90 })
 
 const isDev = import.meta.dev
@@ -14,6 +15,8 @@ useHead({
   htmlAttrs: { class: appliedTheme },
 })
 
+useTelegramBackButton()
+
 onMounted(async () => {
   if (user.value) {
     await fetchProfile()
@@ -26,13 +29,13 @@ watch(appliedTheme, (cls) => {
 </script>
 
 <template>
-  <div class="flex min-h-screen">
-    <!-- Desktop Sidebar -->
-    <SharedAppSidebar class="hidden lg:flex" />
+  <div class="flex min-h-screen" :class="{ 'tg-safe-area': isTelegram }">
+    <!-- Desktop Sidebar (hidden in Telegram) -->
+    <SharedAppSidebar v-if="!isTelegram" class="hidden lg:flex" />
 
     <!-- Main Content -->
     <div class="flex flex-1 flex-col">
-      <SharedAppHeader />
+      <SharedAppHeader v-if="!isTelegram" />
 
       <main class="flex-1 overflow-auto p-4 pb-20 lg:p-6 lg:pb-6">
         <slot />
@@ -40,9 +43,9 @@ watch(appliedTheme, (cls) => {
     </div>
 
     <!-- Mobile Bottom Nav -->
-    <SharedMobileNav class="lg:hidden" />
+    <SharedMobileNav :class="isTelegram ? '' : 'lg:hidden'" />
 
-    <!-- Dev Date Override (dev only) -->
-    <SharedDevDatePanel v-if="isDev" />
+    <!-- Dev Date Override (dev only, not in Telegram) -->
+    <SharedDevDatePanel v-if="isDev && !isTelegram" />
   </div>
 </template>

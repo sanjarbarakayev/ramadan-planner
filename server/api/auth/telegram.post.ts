@@ -43,18 +43,15 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 500, message: 'Telegram bot token not configured' })
   }
 
-  // Verify hash signature
   if (!verifyTelegramHash(body, botToken)) {
     throw createError({ statusCode: 401, message: 'Invalid Telegram auth signature' })
   }
 
-  // Reject stale auth data (older than 1 hour)
   const maxAge = 3600
   if (Math.floor(Date.now() / 1000) - body.auth_date > maxAge) {
     throw createError({ statusCode: 401, message: 'Telegram auth data expired' })
   }
 
-  // Create admin Supabase client
   const supabaseUrl = config.supabaseUrl as string
   const supabaseServiceKey = config.supabaseServiceKey as string
 
@@ -66,42 +63,11 @@ export default defineEventHandler(async (event) => {
     auth: { autoRefreshToken: false, persistSession: false },
   })
 
-  const syntheticEmail = `tg_${body.id}@telegram.local`
-
-  // Check if user already exists
-  const { data: existingUsers } = await supabase.auth.admin.listUsers()
-  const existingUser = existingUsers?.users?.find((u) => u.email === syntheticEmail)
-
-  if (!existingUser) {
-    // Create new user
-    const { error: createError_ } = await supabase.auth.admin.createUser({
-      email: syntheticEmail,
-      email_confirm: true,
-      user_metadata: {
-        telegram_id: body.id,
-        full_name: [body.first_name, body.last_name].filter(Boolean).join(' '),
-        avatar_url: body.photo_url ?? '',
-        provider: 'telegram',
-      },
-    })
-
-    if (createError_) {
-      throw createError({ statusCode: 500, message: `Failed to create user: ${createError_.message}` })
-    }
-  }
-
-  // Generate magic link for sign-in
-  const { data: linkData, error: linkError } = await supabase.auth.admin.generateLink({
-    type: 'magiclink',
-    email: syntheticEmail,
+  const email = await findOrCreateTelegramUser(supabase, {
+    telegramId: body.id,
+    fullName: [body.first_name, body.last_name].filter(Boolean).join(' '),
+    avatarUrl: body.photo_url ?? '',
   })
 
-  if (linkError || !linkData?.properties?.hashed_token) {
-    throw createError({ statusCode: 500, message: `Failed to generate session: ${linkError?.message}` })
-  }
-
-  return {
-    token_hash: linkData.properties.hashed_token,
-    email: syntheticEmail,
-  }
+  return generateTelegramSession(supabase, email)
 })

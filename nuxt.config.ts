@@ -66,7 +66,6 @@ export default defineNuxtConfig({
 
   vite: {
     plugins: [
-      // @ts-expect-error - tailwindcss vite plugin
       (await import('@tailwindcss/vite')).default(),
     ],
   },
@@ -74,9 +73,12 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: 'Ramazon Rejam',
+      script: [
+        { src: 'https://telegram.org/js/telegram-web-app.js' },
+      ],
       meta: [
         { name: 'description', content: 'Ramazon oyida odatlarni kuzatish va ibodat rejasi' },
-        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1, viewport-fit=cover' },
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },

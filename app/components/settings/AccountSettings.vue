@@ -3,6 +3,7 @@ const { t } = useI18n()
 const client = useSupabaseClient()
 const user = useSupabaseUser()
 const router = useRouter()
+const { isActive: isTelegram } = useTelegram()
 
 const showDeleteConfirm = ref(false)
 const newPassword = ref('')
@@ -30,9 +31,11 @@ async function signOut() {
   await router.push('/auth/login')
 }
 
+function closeApp() {
+  window.Telegram?.WebApp?.close()
+}
+
 async function deleteAccount() {
-  // Note: full account deletion requires a server-side function
-  // For now, sign out the user
   await client.auth.signOut()
   await router.push('/auth/login')
 }
@@ -44,12 +47,12 @@ async function deleteAccount() {
       <CardTitle class="text-base">{{ t('settings.account') }}</CardTitle>
     </CardHeader>
     <CardContent class="space-y-4">
-      <div class="space-y-2">
+      <div v-if="!isTelegram" class="space-y-2">
         <Label>{{ t('auth.email') }}</Label>
         <Input :model-value="user?.email ?? ''" disabled />
       </div>
 
-      <div class="space-y-2">
+      <div v-if="!isTelegram" class="space-y-2">
         <Label>{{ t('settings.changePassword') }}</Label>
         <div class="flex gap-2">
           <Input
@@ -68,7 +71,10 @@ async function deleteAccount() {
       <Separator />
 
       <div class="flex gap-3">
-        <Button variant="outline" @click="signOut">
+        <Button v-if="isTelegram" variant="outline" @click="closeApp">
+          {{ t('settings.closeApp') }}
+        </Button>
+        <Button v-else variant="outline" @click="signOut">
           {{ t('auth.signOut') }}
         </Button>
         <Button variant="destructive" @click="showDeleteConfirm = true">

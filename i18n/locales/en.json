@@ -147,6 +147,7 @@
     "save": "Save",
     "saved": "Saved!",
     "changePassword": "Change Password",
+    "closeApp": "Close App",
     "deleteAccount": "Delete Account",
     "deleteConfirm": "Are you sure you want to delete your account?",
     "timeAdjustment": "Time Adjustment (minutes)",
