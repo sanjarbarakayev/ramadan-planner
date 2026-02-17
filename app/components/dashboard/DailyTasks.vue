@@ -20,6 +20,7 @@ interface DailyTask {
 }
 
 const tasks = ref<DailyTask[]>([])
+const loading = ref(false)
 const newTask = ref('')
 const editingId = ref<string | null>(null)
 const editingTitle = ref('')
@@ -28,6 +29,7 @@ async function fetchTasks() {
   const userId = getUserId()
   if (!userId || currentDay.value === 0) return
 
+  loading.value = true
   const { data } = await client
     .from('daily_tasks')
     .select('*')
@@ -36,6 +38,7 @@ async function fetchTasks() {
     .order('sort_order')
 
   tasks.value = (data ?? []) as DailyTask[]
+  loading.value = false
 }
 
 async function addTask() {
@@ -148,6 +151,13 @@ watch(currentDay, fetchTasks)
       <CardTitle class="text-base">{{ t('dashboard.dailyTasks') }}</CardTitle>
     </CardHeader>
     <CardContent class="space-y-3">
+      <template v-if="loading">
+        <div v-for="i in 4" :key="i" class="flex items-center gap-2">
+          <Skeleton class="h-4 w-4 rounded" />
+          <Skeleton class="h-4 flex-1" />
+        </div>
+      </template>
+      <template v-else>
       <div v-if="tasks.length === 0" class="text-sm text-muted-foreground text-center py-2">
         {{ t('dashboard.noTasks') }}
       </div>
@@ -203,7 +213,9 @@ watch(currentDay, fetchTasks)
         </div>
       </div>
 
-      <form class="flex gap-2" @submit.prevent="addTask">
+      </template>
+
+      <form v-if="!loading" class="flex gap-2" @submit.prevent="addTask">
         <Input
           v-model="newTask"
           :placeholder="t('dashboard.addTask')"

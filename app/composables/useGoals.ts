@@ -30,6 +30,7 @@ export function useGoals() {
   const { currentDay } = useRamadanDay()
 
   const goals = useState<Goal[]>('goals', () => [])
+  const loading = ref(false)
 
   function getUserId(): string | undefined {
     return user.value?.id || session.value?.user?.id
@@ -39,6 +40,7 @@ export function useGoals() {
     const userId = getUserId()
     if (!userId) return
 
+    loading.value = true
     const { data } = await client
       .from('goals')
       .select('*')
@@ -46,6 +48,7 @@ export function useGoals() {
       .order('created_at')
 
     goals.value = (data ?? []) as Goal[]
+    loading.value = false
   }
 
   async function addGoal(input: CreateGoalInput) {
@@ -168,6 +171,7 @@ export function useGoals() {
 
   return {
     goals: readonly(goals),
+    loading: readonly(loading),
     fetchGoals,
     addGoal,
     toggleGoal,

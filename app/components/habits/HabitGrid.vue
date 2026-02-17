@@ -2,7 +2,7 @@
 import { RAMADAN_DAYS, HABIT_CATEGORIES } from '~/utils/constants'
 
 const { t } = useI18n()
-const { habits, isCompleted, toggleEntry, getHabitName } = useHabits()
+const { habits, loading, isCompleted, toggleEntry, getHabitName } = useHabits()
 const { currentDay } = useRamadanDay()
 const { showError } = useAppToast()
 
@@ -43,7 +43,16 @@ const groupedHabits = computed(() => {
 <template>
   <Card>
     <CardContent class="p-0">
-      <div ref="scrollContainer" class="overflow-x-auto">
+      <div v-if="loading" class="p-4 space-y-3">
+        <Skeleton class="h-5 w-24" />
+        <div v-for="i in 5" :key="i" class="flex items-center gap-2">
+          <Skeleton class="h-4 w-28 shrink-0" />
+          <div class="flex gap-1">
+            <Skeleton v-for="j in 10" :key="j" class="h-6 w-6 rounded" />
+          </div>
+        </div>
+      </div>
+      <div v-else ref="scrollContainer" class="overflow-x-auto">
         <table class="w-full border-collapse text-sm">
           <thead>
             <tr class="border-b">

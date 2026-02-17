@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const { t } = useI18n()
 const { habitStats, overallCompleted, overallTarget, overallPercentage } = useStats()
+const { loading } = useHabits()
 </script>
 
 <template>
@@ -9,7 +10,15 @@ const { habitStats, overallCompleted, overallTarget, overallPercentage } = useSt
       <CardTitle class="text-base">{{ t('habits.stats') }}</CardTitle>
     </CardHeader>
     <CardContent>
-      <div class="overflow-x-auto">
+      <div v-if="loading" class="space-y-3">
+        <div v-for="i in 4" :key="i" class="flex items-center gap-3">
+          <Skeleton class="h-4 w-24" />
+          <Skeleton class="h-4 w-10" />
+          <Skeleton class="h-4 w-10" />
+          <Skeleton class="h-2 flex-1" />
+        </div>
+      </div>
+      <div v-else class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
             <tr class="border-b">

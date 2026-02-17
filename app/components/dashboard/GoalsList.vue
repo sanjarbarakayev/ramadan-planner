@@ -2,6 +2,7 @@
 const { t } = useI18n()
 const {
   goals,
+  loading,
   fetchGoals,
   addGoal,
   toggleGoal,
@@ -49,6 +50,13 @@ onMounted(fetchGoals)
       </span>
     </CardHeader>
     <CardContent class="space-y-3">
+      <template v-if="loading">
+        <div v-for="i in 3" :key="i" class="flex items-center gap-2">
+          <Skeleton class="h-4 w-4 rounded" />
+          <Skeleton class="h-4 flex-1" />
+        </div>
+      </template>
+      <template v-else>
       <div v-if="goals.length === 0" class="text-sm text-muted-foreground text-center py-2">
         {{ t('dashboard.noGoals') }}
       </div>
@@ -104,7 +112,9 @@ onMounted(fetchGoals)
         </div>
       </div>
 
-      <form class="flex gap-2" @submit.prevent="handleAddGoal">
+      </template>
+
+      <form v-if="!loading" class="flex gap-2" @submit.prevent="handleAddGoal">
         <Input
           v-model="newGoalTitle"
           :placeholder="t('dashboard.addGoal')"
