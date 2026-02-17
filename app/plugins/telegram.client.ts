@@ -76,12 +76,10 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   if (tgUser?.language_code) {
     const supportedLocales = ['uz', 'ru', 'en']
     if (supportedLocales.includes(tgUser.language_code)) {
-      const i18n = nuxtApp.$i18n as { locale: { value: string } } | undefined
+      const i18n = nuxtApp.$i18n as { setLocale: (locale: string) => Promise<void> } | undefined
       if (i18n) {
-        i18n.locale.value = tgUser.language_code
+        await i18n.setLocale(tgUser.language_code)
       }
-      const localeCookie = useCookie('i18n_locale')
-      localeCookie.value = tgUser.language_code
     }
   }
 })

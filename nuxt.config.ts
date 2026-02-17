@@ -46,6 +46,7 @@ export default defineNuxtConfig({
     ],
     defaultLocale: 'uz',
     langDir: '../i18n/locales',
+    lazy: false,
     strategy: 'no_prefix',
     detectBrowserLanguage: {
       useCookie: true,
