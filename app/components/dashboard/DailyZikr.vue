@@ -34,7 +34,7 @@ const meaning = computed(() => {
     </CardHeader>
     <CardContent class="space-y-3">
       <div class="rounded-lg bg-primary/5 p-4">
-        <p class="text-2xl leading-relaxed text-center font-arabic" dir="rtl">
+        <p class="text-xl sm:text-2xl leading-relaxed text-center font-arabic" dir="rtl">
           {{ todayZikr.arabic }}
         </p>
       </div>

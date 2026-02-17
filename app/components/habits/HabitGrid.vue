@@ -15,6 +15,19 @@ async function handleToggle(habitId: string, day: number) {
 
 const days = Array.from({ length: RAMADAN_DAYS }, (_, i) => i + 1)
 
+const scrollContainer = ref<HTMLElement | null>(null)
+
+onMounted(() => {
+  nextTick(() => {
+    const el = scrollContainer.value
+    if (!el || !currentDay.value) return
+    const dayColumnWidth = 36
+    const stickyColumnWidth = 120
+    const targetScroll = (currentDay.value - 1) * dayColumnWidth - (el.clientWidth - stickyColumnWidth) / 2
+    el.scrollLeft = Math.max(0, targetScroll)
+  })
+})
+
 const groupedHabits = computed(() => {
   const groups: { category: string; habits: typeof habits.value }[] = []
   for (const cat of HABIT_CATEGORIES) {
@@ -30,11 +43,11 @@ const groupedHabits = computed(() => {
 <template>
   <Card>
     <CardContent class="p-0">
-      <div class="overflow-x-auto">
+      <div ref="scrollContainer" class="overflow-x-auto">
         <table class="w-full border-collapse text-sm">
           <thead>
             <tr class="border-b">
-              <th class="sticky left-0 z-10 bg-card px-3 py-2 text-left font-medium min-w-[160px]">
+              <th class="sticky left-0 z-10 bg-card px-3 py-2 text-left font-medium min-w-[120px]">
                 {{ t('habits.title') }}
               </th>
               <th

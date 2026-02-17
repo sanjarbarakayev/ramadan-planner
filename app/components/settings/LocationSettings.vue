@@ -36,7 +36,7 @@ async function save() {
       <CardTitle class="text-base">{{ t('settings.location') }}</CardTitle>
     </CardHeader>
     <CardContent class="space-y-4">
-      <div class="grid grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div class="space-y-2">
           <Label>{{ t('onboarding.city') }}</Label>
           <Input v-model="city" :placeholder="t('onboarding.city')" />

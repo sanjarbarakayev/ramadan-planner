@@ -20,7 +20,7 @@ const showEdit = ref(false)
   <tr class="border-b hover:bg-muted/30">
     <td class="sticky left-0 z-10 bg-card px-3 py-1.5">
       <button
-        class="text-left text-sm hover:text-primary truncate max-w-[150px] block"
+        class="text-left text-sm hover:text-primary truncate max-w-[100px] sm:max-w-[150px] block"
         @click="showEdit = true"
       >
         {{ getHabitName(habit) }}
@@ -38,7 +38,7 @@ const showEdit = ref(false)
       :class="day === currentDay ? 'bg-primary/10' : ''"
     >
       <button
-        class="inline-flex h-6 w-6 items-center justify-center rounded border transition-colors"
+        class="inline-flex h-7 w-7 sm:h-6 sm:w-6 items-center justify-center rounded border transition-colors"
         :class="isCompleted(habit.id, day)
           ? 'bg-primary border-primary text-primary-foreground'
           : 'border-input hover:border-primary/50'"

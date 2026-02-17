@@ -12,7 +12,7 @@ onMounted(async () => {
 <template>
   <div class="space-y-6">
     <div class="flex items-center justify-between">
-      <h1 class="text-2xl font-bold">{{ t('habits.title') }}</h1>
+      <h1 class="text-xl sm:text-2xl font-bold">{{ t('habits.title') }}</h1>
       <HabitsAddHabitDialog />
     </div>
 
