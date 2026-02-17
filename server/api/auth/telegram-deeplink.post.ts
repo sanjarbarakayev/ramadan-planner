@@ -12,7 +12,10 @@ export default defineEventHandler(async (event) => {
   const botUsername = config.public.telegramBotUsername as string
 
   if (!supabaseUrl || !supabaseServiceKey) {
-    throw createError({ statusCode: 500, message: 'Supabase not configured' })
+    throw createError({
+      statusCode: 500,
+      message: `Supabase not configured: url=${!!supabaseUrl}, key=${!!supabaseServiceKey}`,
+    })
   }
 
   if (!botUsername) {
@@ -37,7 +40,10 @@ export default defineEventHandler(async (event) => {
     .insert({ token })
 
   if (error) {
-    throw createError({ statusCode: 500, message: 'Failed to create login token' })
+    throw createError({
+      statusCode: 500,
+      message: `Failed to create login token: ${error.message} (code: ${error.code})`,
+    })
   }
 
   return {
