@@ -57,6 +57,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     telegramBotToken: process.env.TELEGRAM_BOT_TOKEN ?? '',
+    telegramWebhookSecret: process.env.TELEGRAM_WEBHOOK_SECRET ?? '',
     supabaseUrl: process.env.SUPABASE_URL ?? '',
     supabaseServiceKey: process.env.SUPABASE_SERVICE_ROLE_KEY ?? '',
     public: {
