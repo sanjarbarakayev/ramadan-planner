@@ -133,3 +133,35 @@
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
 }
+
+/* Telegram loading overlay - hides SSR content during auth */
+html.tg-loading > body {
+  visibility: hidden !important;
+}
+
+html.tg-loading::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: oklch(0.96 0.012 35);
+}
+
+html.tg-loading::after {
+  content: '';
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 32px;
+  height: 32px;
+  margin: -16px 0 0 -16px;
+  border: 3px solid oklch(0.86 0.025 32);
+  border-top-color: oklch(0.42 0.1 28);
+  border-radius: 50%;
+  animation: tg-spin 0.6s linear infinite;
+  z-index: 100000;
+}
+
+@keyframes tg-spin {
+  to { transform: rotate(360deg); }
+}

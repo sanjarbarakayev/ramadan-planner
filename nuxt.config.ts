@@ -75,6 +75,9 @@ export default defineNuxtConfig({
       title: 'Ramazon Rejam',
       script: [
         { src: 'https://telegram.org/js/telegram-web-app.js' },
+        {
+          innerHTML: 'if(window.Telegram&&window.Telegram.WebApp&&window.Telegram.WebApp.initData){document.documentElement.classList.add("tg-loading")}',
+        },
       ],
       meta: [
         { name: 'description', content: 'Ramazon oyida odatlarni kuzatish va ibodat rejasi' },

@@ -18,6 +18,7 @@ useHead({
 useTelegramBackButton()
 
 onMounted(async () => {
+  document.documentElement.classList.remove('tg-loading')
   if (user.value) {
     await fetchProfile()
   }
