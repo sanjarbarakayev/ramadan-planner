@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import { dailyTaskSchema } from '~/utils/validation'
+
 const { t } = useI18n()
 const client = useSupabaseClient()
 const user = useSupabaseUser()
 const session = useSupabaseSession()
 const { currentDay } = useRamadanDay()
+const { showSuccess, showError } = useAppToast()
 
 function getUserId(): string | undefined {
   return user.value?.id || session.value?.user?.id
@@ -37,35 +40,53 @@ async function fetchTasks() {
 
 async function addTask() {
   const userId = getUserId()
-  if (!userId || !newTask.value.trim() || currentDay.value === 0) return
+  if (!userId || currentDay.value === 0) return
+
+  const parsed = dailyTaskSchema.safeParse({ title: newTask.value.trim() })
+  if (!parsed.success) return
 
   const { data, error } = await client
     .from('daily_tasks')
     .insert({
       user_id: userId,
       ramadan_day: currentDay.value,
-      title: newTask.value.trim(),
+      title: parsed.data.title,
       sort_order: tasks.value.length,
     })
     .select()
     .single()
 
-  if (!error && data) {
+  if (error) {
+    showError('toast.taskError')
+    return
+  }
+
+  if (data) {
     tasks.value = [...tasks.value, data as DailyTask]
     newTask.value = ''
+    showSuccess('toast.taskAdded')
   }
 }
 
 async function toggleTask(task: DailyTask) {
-  const newCompleted = !task.completed
+  const previous = task.completed
+  const newCompleted = !previous
   tasks.value = tasks.value.map((t) =>
     t.id === task.id ? { ...t, completed: newCompleted } : t
   )
 
-  await client
+  const { error } = await client
     .from('daily_tasks')
     .update({ completed: newCompleted })
     .eq('id', task.id)
+
+  if (error) {
+    // Rollback
+    tasks.value = tasks.value.map((t) =>
+      t.id === task.id ? { ...t, completed: previous } : t
+    )
+    showError('toast.taskError')
+  }
 }
 
 function startEdit(task: DailyTask) {
@@ -80,15 +101,23 @@ async function saveEdit(taskId: string) {
     return
   }
 
+  const original = tasks.value.find((t) => t.id === taskId)?.title
   tasks.value = tasks.value.map((t) =>
     t.id === taskId ? { ...t, title: trimmed } : t
   )
   editingId.value = null
 
-  await client
+  const { error } = await client
     .from('daily_tasks')
     .update({ title: trimmed })
     .eq('id', taskId)
+
+  if (error) {
+    tasks.value = tasks.value.map((t) =>
+      t.id === taskId ? { ...t, title: original ?? trimmed } : t
+    )
+    showError('toast.taskError')
+  }
 }
 
 function cancelEdit() {
@@ -96,8 +125,17 @@ function cancelEdit() {
 }
 
 async function deleteTask(taskId: string) {
+  const removed = tasks.value.find((t) => t.id === taskId)
   tasks.value = tasks.value.filter((t) => t.id !== taskId)
-  await client.from('daily_tasks').delete().eq('id', taskId)
+
+  const { error } = await client.from('daily_tasks').delete().eq('id', taskId)
+
+  if (error) {
+    if (removed) {
+      tasks.value = [...tasks.value, removed]
+    }
+    showError('toast.taskError')
+  }
 }
 
 onMounted(fetchTasks)

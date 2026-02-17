@@ -28,6 +28,20 @@ export const HABIT_CATEGORIES: readonly HabitCategory[] = ['prayer', 'quran', 'c
 
 export const RAMADAN_DAYS = 30
 
+// Garden growth stages ordered from highest to lowest threshold
+export const GROWTH_STAGES = ['barren', 'sprouts', 'small', 'medium', 'lush', 'paradise'] as const
+
+export const GROWTH_STAGE_THRESHOLDS: readonly { readonly min: number; readonly stage: typeof GROWTH_STAGES[number] }[] = [
+  { min: 90, stage: 'paradise' },
+  { min: 70, stage: 'lush' },
+  { min: 50, stage: 'medium' },
+  { min: 30, stage: 'small' },
+  { min: 10, stage: 'sprouts' },
+  { min: 0, stage: 'barren' },
+] as const
+
+export const FLOWER_COUNT_DIVISOR = 10
+
 export const PRAYER_METHODS = [
   { id: 2, name: 'Islamic Society of North America (ISNA)' },
   { id: 3, name: 'Muslim World League' },

@@ -9,6 +9,7 @@ const user = useSupabaseUser()
 const session = useSupabaseSession()
 const router = useRouter()
 const { completeOnboarding } = useProfile()
+const { showError } = useAppToast()
 
 const step = ref(1)
 const totalSteps = 5
@@ -61,7 +62,7 @@ async function finish() {
   if (!userId) return
   loading.value = true
 
-  await completeOnboarding({
+  const profileResult = await completeOnboarding({
     gender: form.gender as 'male' | 'female',
     language: form.language,
     city: form.city || null,
@@ -70,6 +71,12 @@ async function finish() {
     lng: form.lng,
     ramadan_start_date: form.ramadan_start_date,
   })
+
+  if (!profileResult.ok) {
+    showError('toast.onboardingError')
+    loading.value = false
+    return
+  }
 
   // Seed default habits
   const habits = DEFAULT_HABITS.map((h) => ({
@@ -84,7 +91,13 @@ async function finish() {
     is_active: true,
   }))
 
-  await client.from('habits').insert(habits)
+  const { error: habitsError } = await client.from('habits').insert(habits)
+
+  if (habitsError) {
+    showError('toast.onboardingError')
+    loading.value = false
+    return
+  }
 
   loading.value = false
   await router.push('/dashboard')

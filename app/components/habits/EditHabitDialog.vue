@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { HABIT_CATEGORIES } from '~/utils/constants'
+import { habitSchema } from '~/utils/validation'
 import type { Habit } from '~/composables/useHabits'
 
 const { t } = useI18n()
 const { updateHabit, deleteHabit } = useHabits()
+const { showSuccess, showError } = useAppToast()
 
 const props = defineProps<{
   habit: Habit
@@ -23,19 +25,40 @@ const form = reactive({
 })
 
 async function handleSave() {
-  await updateHabit(props.habit.id, {
+  const parsed = habitSchema.safeParse({
     name_uz: form.name_uz.trim(),
     name_ru: form.name_ru.trim(),
     name_en: form.name_en.trim(),
     category: form.category,
     target_days: form.target_days,
   })
+
+  if (!parsed.success) {
+    showError('toast.validationError')
+    return
+  }
+
+  const result = await updateHabit(props.habit.id, parsed.data)
+
+  if (!result.ok) {
+    showError('toast.errorGeneric')
+    return
+  }
+
+  showSuccess('toast.habitUpdated')
   open.value = false
   emit('close')
 }
 
 async function handleDelete() {
-  await deleteHabit(props.habit.id)
+  const result = await deleteHabit(props.habit.id)
+
+  if (!result.ok) {
+    showError('toast.errorGeneric')
+    return
+  }
+
+  showSuccess('toast.habitDeleted')
   open.value = false
   emit('close')
 }

@@ -67,6 +67,14 @@
     "prayerTimes": "Время намаза",
     "dailyTasks": "Ежедневные задачи",
     "goals": "Цели",
+    "goalsProgress": "{completed} из {total} выполнено",
+    "goalCategories": {
+      "quran": "Коран",
+      "prayer": "Намаз",
+      "charity": "Милостыня",
+      "personal": "Личное",
+      "general": "Общее"
+    },
     "addTask": "Добавить задачу",
     "addGoal": "Добавить цель",
     "noTasks": "Нет задач на сегодня",
@@ -96,6 +104,8 @@
     "stats": "Статистика",
     "dailyStats": "Дневная статистика",
     "overallStats": "Общая статистика",
+    "completed": "Выполнено",
+    "notCompleted": "Не выполнено",
     "defaultHabits": {
       "fasting": "Пост",
       "prayers": "Намазы",
@@ -116,6 +126,7 @@
     "palmGrove": "Пальмовая роща",
     "bloomed": "Расцвевших тюльпанов",
     "grown": "Выросших пальм",
+    "gardenScene": "Райский сад, показывающий ваш прогресс в Рамадане",
     "stages": {
       "barren": "Пусто",
       "sprouts": "Ростки",
@@ -154,6 +165,28 @@
     "confirm": "Подтвердить",
     "yes": "Да",
     "no": "Нет"
+  },
+  "toast": {
+    "errorGeneric": "Произошла ошибка. Попробуйте ещё раз.",
+    "errorNetwork": "Ошибка сети. Проверьте подключение.",
+    "habitAdded": "Привычка добавлена.",
+    "habitUpdated": "Привычка обновлена.",
+    "habitDeleted": "Привычка удалена.",
+    "habitToggleError": "Не удалось обновить привычку. Попробуйте ещё раз.",
+    "profileSaved": "Профиль сохранён.",
+    "profileError": "Не удалось сохранить профиль.",
+    "taskAdded": "Задача добавлена.",
+    "taskSaved": "Задача сохранена.",
+    "taskDeleted": "Задача удалена.",
+    "taskError": "Не удалось обновить задачу.",
+    "goalAdded": "Цель добавлена.",
+    "goalSaved": "Цель сохранена.",
+    "goalDeleted": "Цель удалена.",
+    "goalError": "Не удалось обновить цель.",
+    "prayerTimesError": "Не удалось загрузить время намаза.",
+    "settingsSaved": "Настройки сохранены.",
+    "onboardingError": "Не удалось завершить настройку. Попробуйте ещё раз.",
+    "validationError": "Проверьте введённые данные."
   },
   "prayer": {
     "fajr": "Фаджр",

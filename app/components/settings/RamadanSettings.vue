@@ -3,12 +3,12 @@ import { PRAYER_METHODS } from '~/utils/constants'
 
 const { t } = useI18n()
 const { profile, updateProfile } = useProfile()
+const { showSuccess, showError } = useAppToast()
 
 const startDate = ref(profile.value?.ramadan_start_date ?? '2026-02-19')
 const timeAdj = ref(profile.value?.time_adjustment ?? 0)
 const method = ref(String(profile.value?.prayer_method ?? 14))
 const saving = ref(false)
-const saved = ref(false)
 
 watch(() => profile.value, (p) => {
   if (p) {
@@ -20,14 +20,18 @@ watch(() => profile.value, (p) => {
 
 async function save() {
   saving.value = true
-  await updateProfile({
+  const result = await updateProfile({
     ramadan_start_date: startDate.value,
     time_adjustment: timeAdj.value,
     prayer_method: parseInt(method.value, 10),
   })
   saving.value = false
-  saved.value = true
-  setTimeout(() => { saved.value = false }, 2000)
+
+  if (result.ok) {
+    showSuccess('toast.settingsSaved')
+  } else {
+    showError('toast.profileError')
+  }
 }
 </script>
 
@@ -62,12 +66,9 @@ async function save() {
         <Label>{{ t('settings.timeAdjustment') }}</Label>
         <Input v-model.number="timeAdj" type="number" min="-60" max="60" />
       </div>
-      <div class="flex items-center gap-2">
-        <Button :disabled="saving" @click="save">
-          {{ saving ? t('common.loading') : t('settings.save') }}
-        </Button>
-        <span v-if="saved" class="text-sm text-primary">{{ t('settings.saved') }}</span>
-      </div>
+      <Button :disabled="saving" @click="save">
+        {{ saving ? t('common.loading') : t('settings.save') }}
+      </Button>
     </CardContent>
   </Card>
 </template>

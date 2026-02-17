@@ -25,7 +25,11 @@ function verifyTelegramHash(data: TelegramAuthData, botToken: string): boolean {
   return hmac === data.hash
 }
 
+const checkRateLimit = useRateLimit({ maxRequests: 5, windowMs: 60_000 })
+
 export default defineEventHandler(async (event) => {
+  checkRateLimit(event)
+
   const body = await readBody<TelegramAuthData>(event)
 
   if (!body.id || !body.hash || !body.auth_date) {

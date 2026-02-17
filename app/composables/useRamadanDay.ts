@@ -17,7 +17,10 @@ export function useRamadanDay() {
 
   const ramadanStart = computed(() => {
     if (profile.value?.ramadan_start_date) {
-      return new Date(profile.value.ramadan_start_date + 'T00:00:00')
+      const parsed = new Date(profile.value.ramadan_start_date + 'T00:00:00')
+      if (!isNaN(parsed.getTime())) {
+        return parsed
+      }
     }
     return DEFAULT_RAMADAN_START
   })

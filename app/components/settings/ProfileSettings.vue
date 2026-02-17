@@ -1,10 +1,10 @@
 <script setup lang="ts">
 const { t } = useI18n()
 const { profile, updateProfile } = useProfile()
+const { showSuccess, showError } = useAppToast()
 
 const gender = ref(profile.value?.gender ?? 'female')
 const saving = ref(false)
-const saved = ref(false)
 
 watch(() => profile.value?.gender, (val) => {
   if (val) gender.value = val
@@ -12,10 +12,14 @@ watch(() => profile.value?.gender, (val) => {
 
 async function save() {
   saving.value = true
-  await updateProfile({ gender: gender.value as 'male' | 'female' })
+  const result = await updateProfile({ gender: gender.value as 'male' | 'female' })
   saving.value = false
-  saved.value = true
-  setTimeout(() => { saved.value = false }, 2000)
+
+  if (result.ok) {
+    showSuccess('toast.profileSaved')
+  } else {
+    showError('toast.profileError')
+  }
 }
 </script>
 
@@ -42,12 +46,9 @@ async function save() {
           </Button>
         </div>
       </div>
-      <div class="flex items-center gap-2">
-        <Button :disabled="saving" @click="save">
-          {{ saving ? t('common.loading') : t('settings.save') }}
-        </Button>
-        <span v-if="saved" class="text-sm text-primary">{{ t('settings.saved') }}</span>
-      </div>
+      <Button :disabled="saving" @click="save">
+        {{ saving ? t('common.loading') : t('settings.save') }}
+      </Button>
     </CardContent>
   </Card>
 </template>

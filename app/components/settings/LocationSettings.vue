@@ -1,11 +1,11 @@
 <script setup lang="ts">
 const { t } = useI18n()
 const { profile, updateProfile } = useProfile()
+const { showSuccess, showError } = useAppToast()
 
 const city = ref(profile.value?.city ?? '')
 const country = ref(profile.value?.country ?? '')
 const saving = ref(false)
-const saved = ref(false)
 
 watch(() => profile.value, (p) => {
   if (p) {
@@ -16,13 +16,17 @@ watch(() => profile.value, (p) => {
 
 async function save() {
   saving.value = true
-  await updateProfile({
+  const result = await updateProfile({
     city: city.value || null,
     country: country.value || null,
   })
   saving.value = false
-  saved.value = true
-  setTimeout(() => { saved.value = false }, 2000)
+
+  if (result.ok) {
+    showSuccess('toast.settingsSaved')
+  } else {
+    showError('toast.profileError')
+  }
 }
 </script>
 
@@ -42,12 +46,9 @@ async function save() {
           <Input v-model="country" :placeholder="t('onboarding.country')" />
         </div>
       </div>
-      <div class="flex items-center gap-2">
-        <Button :disabled="saving" @click="save">
-          {{ saving ? t('common.loading') : t('settings.save') }}
-        </Button>
-        <span v-if="saved" class="text-sm text-primary">{{ t('settings.saved') }}</span>
-      </div>
+      <Button :disabled="saving" @click="save">
+        {{ saving ? t('common.loading') : t('settings.save') }}
+      </Button>
     </CardContent>
   </Card>
 </template>

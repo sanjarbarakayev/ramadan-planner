@@ -67,6 +67,14 @@
     "prayerTimes": "Prayer Times",
     "dailyTasks": "Daily Tasks",
     "goals": "Goals",
+    "goalsProgress": "{completed} of {total} completed",
+    "goalCategories": {
+      "quran": "Quran",
+      "prayer": "Prayer",
+      "charity": "Charity",
+      "personal": "Personal",
+      "general": "General"
+    },
     "addTask": "Add Task",
     "addGoal": "Add Goal",
     "noTasks": "No tasks for today",
@@ -96,6 +104,8 @@
     "stats": "Statistics",
     "dailyStats": "Daily Statistics",
     "overallStats": "Overall Statistics",
+    "completed": "Completed",
+    "notCompleted": "Not completed",
     "defaultHabits": {
       "fasting": "Fasting",
       "prayers": "Prayers",
@@ -116,6 +126,7 @@
     "palmGrove": "Palm Grove",
     "bloomed": "Bloomed Tulips",
     "grown": "Grown Palms",
+    "gardenScene": "Paradise garden showing your Ramadan progress",
     "stages": {
       "barren": "Barren",
       "sprouts": "Sprouts",
@@ -154,6 +165,28 @@
     "confirm": "Confirm",
     "yes": "Yes",
     "no": "No"
+  },
+  "toast": {
+    "errorGeneric": "Something went wrong. Please try again.",
+    "errorNetwork": "Network error. Check your connection.",
+    "habitAdded": "Habit added successfully.",
+    "habitUpdated": "Habit updated.",
+    "habitDeleted": "Habit deleted.",
+    "habitToggleError": "Could not update habit. Please try again.",
+    "profileSaved": "Profile saved.",
+    "profileError": "Could not save profile.",
+    "taskAdded": "Task added.",
+    "taskSaved": "Task saved.",
+    "taskDeleted": "Task deleted.",
+    "taskError": "Could not update task.",
+    "goalAdded": "Goal added.",
+    "goalSaved": "Goal saved.",
+    "goalDeleted": "Goal deleted.",
+    "goalError": "Could not update goal.",
+    "prayerTimesError": "Could not load prayer times.",
+    "settingsSaved": "Settings saved.",
+    "onboardingError": "Could not complete setup. Please try again.",
+    "validationError": "Please check your input."
   },
   "prayer": {
     "fajr": "Fajr",

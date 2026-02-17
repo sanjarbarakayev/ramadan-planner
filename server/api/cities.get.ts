@@ -1,3 +1,5 @@
+import { citiesQuerySchema } from '../utils/schemas'
+
 interface NominatimResult {
   place_id: number
   display_name: string
@@ -12,13 +14,19 @@ interface NominatimResult {
   }
 }
 
-export default defineEventHandler(async (event) => {
-  const query = getQuery(event)
-  const q = (query.q as string)?.trim()
+const checkRateLimit = useRateLimit({ maxRequests: 20, windowMs: 60_000 })
 
-  if (!q || q.length < 2) {
+export default defineCachedEventHandler(async (event) => {
+  checkRateLimit(event)
+
+  const rawQuery = getQuery(event)
+  const parsed = citiesQuerySchema.safeParse(rawQuery)
+
+  if (!parsed.success) {
     return []
   }
+
+  const { q } = parsed.data
 
   const url = new URL('https://nominatim.openstreetmap.org/search')
   url.searchParams.set('q', q)
@@ -27,17 +35,28 @@ export default defineEventHandler(async (event) => {
   url.searchParams.set('addressdetails', '1')
   url.searchParams.set('featuretype', 'city')
 
-  const results = await $fetch<NominatimResult[]>(url.toString(), {
-    headers: {
-      'User-Agent': 'RamadanPlanner/1.0',
-    },
-  })
+  try {
+    const results = await $fetch<NominatimResult[]>(url.toString(), {
+      headers: {
+        'User-Agent': 'RamadanPlanner/1.0',
+      },
+    })
 
-  return results.map((r) => ({
-    id: r.place_id,
-    city: r.address.city || r.address.town || r.address.village || r.display_name.split(',')[0],
-    country: r.address.country || '',
-    lat: parseFloat(r.lat),
-    lng: parseFloat(r.lon),
-  }))
+    return results.map((r) => ({
+      id: r.place_id,
+      city: r.address.city || r.address.town || r.address.village || r.display_name.split(',')[0],
+      country: r.address.country || '',
+      lat: parseFloat(r.lat),
+      lng: parseFloat(r.lon),
+    }))
+  } catch {
+    throw createError({ statusCode: 502, message: 'Failed to fetch cities from upstream' })
+  }
+}, {
+  maxAge: 86400, // 24 hours
+  swr: true,
+  getKey(event) {
+    const query = getQuery(event)
+    return `cities:${(query.q as string || '').trim().toLowerCase()}`
+  },
 })

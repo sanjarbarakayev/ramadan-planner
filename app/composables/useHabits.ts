@@ -1,3 +1,6 @@
+import { success, failure } from '~/types/result'
+import type { OperationResult } from '~/types/result'
+
 export interface Habit {
   id: string
   user_id: string
@@ -40,13 +43,13 @@ export function useHabits() {
 
   function getHabitName(habit: Habit): string {
     switch (locale.value) {
-      case 'ru': return habit.name_ru || habit.name_uz
-      case 'en': return habit.name_en || habit.name_uz
+      case 'ru': return habit.name_ru?.trim() || habit.name_uz
+      case 'en': return habit.name_en?.trim() || habit.name_uz
       default: return habit.name_uz
     }
   }
 
-  async function fetchHabits() {
+  async function fetchHabits(): Promise<void> {
     const userId = getUserId()
     if (!userId) return
     loading.value = true
@@ -62,7 +65,7 @@ export function useHabits() {
     loading.value = false
   }
 
-  async function fetchEntries() {
+  async function fetchEntries(): Promise<void> {
     const userId = getUserId()
     if (!userId) return
 
@@ -82,9 +85,9 @@ export function useHabits() {
     return entries.value.get(entryKey(habitId, day)) ?? false
   }
 
-  async function toggleEntry(habitId: string, day: number) {
+  async function toggleEntry(habitId: string, day: number): Promise<OperationResult<boolean>> {
     const userId = getUserId()
-    if (!userId) return
+    if (!userId) return failure('Not authenticated')
 
     const key = entryKey(habitId, day)
     const current = entries.value.get(key) ?? false
@@ -108,10 +111,10 @@ export function useHabits() {
         })
 
       if (error) {
-        // Rollback
         const rollback = new Map(entries.value)
         rollback.set(key, current)
         entries.value = rollback
+        return failure(error.message)
       }
     } else {
       const { error } = await client
@@ -125,8 +128,11 @@ export function useHabits() {
         const rollback = new Map(entries.value)
         rollback.set(key, current)
         entries.value = rollback
+        return failure(error.message)
       }
     }
+
+    return success(newValue)
   }
 
   async function addHabit(habit: {
@@ -135,9 +141,9 @@ export function useHabits() {
     name_en: string
     category: string
     target_days: number
-  }) {
+  }): Promise<OperationResult<Habit>> {
     const userId = getUserId()
-    if (!userId) return
+    if (!userId) return failure('Not authenticated')
 
     const maxOrder = habits.value.reduce((max, h) => Math.max(max, h.sort_order), 0)
 
@@ -153,12 +159,16 @@ export function useHabits() {
       .select()
       .single()
 
-    if (!error && data) {
-      habits.value = [...habits.value, data as Habit]
+    if (error) {
+      return failure(error.message)
     }
+
+    const newHabit = data as Habit
+    habits.value = [...habits.value, newHabit]
+    return success(newHabit)
   }
 
-  async function updateHabit(id: string, updates: Partial<Habit>) {
+  async function updateHabit(id: string, updates: Partial<Habit>): Promise<OperationResult<Habit>> {
     const { data, error } = await client
       .from('habits')
       .update(updates)
@@ -166,22 +176,29 @@ export function useHabits() {
       .select()
       .single()
 
-    if (!error && data) {
-      habits.value = habits.value.map((h) =>
-        h.id === id ? (data as Habit) : h
-      )
+    if (error) {
+      return failure(error.message)
     }
+
+    const updated = data as Habit
+    habits.value = habits.value.map((h) =>
+      h.id === id ? updated : h
+    )
+    return success(updated)
   }
 
-  async function deleteHabit(id: string) {
+  async function deleteHabit(id: string): Promise<OperationResult<void>> {
     const { error } = await client
       .from('habits')
       .delete()
       .eq('id', id)
 
-    if (!error) {
-      habits.value = habits.value.filter((h) => h.id !== id)
+    if (error) {
+      return failure(error.message)
     }
+
+    habits.value = habits.value.filter((h) => h.id !== id)
+    return success(undefined)
   }
 
   return {

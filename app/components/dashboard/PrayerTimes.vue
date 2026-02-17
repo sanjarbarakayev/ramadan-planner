@@ -14,6 +14,7 @@ interface PrayerTimesData {
 
 const times = ref<PrayerTimesData | null>(null)
 const loading = ref(false)
+const { showError } = useAppToast()
 
 async function fetchPrayerTimes() {
   if (!profile.value?.city) return
@@ -31,6 +32,8 @@ async function fetchPrayerTimes() {
     if (data.value) {
       times.value = data.value as PrayerTimesData
     }
+  } catch {
+    showError('toast.prayerTimesError')
   } finally {
     loading.value = false
   }
@@ -38,10 +41,15 @@ async function fetchPrayerTimes() {
 
 function adjustTime(time: string): string {
   if (!time || !profile.value?.time_adjustment) return time
-  const [hours, minutes] = time.split(':').map(Number)
+  const parts = time.split(':')
+  if (parts.length !== 2) return time
+  const hours = Number(parts[0])
+  const minutes = Number(parts[1])
+  if (isNaN(hours) || isNaN(minutes)) return time
   const totalMinutes = hours * 60 + minutes + profile.value.time_adjustment
-  const h = Math.floor(totalMinutes / 60) % 24
-  const m = totalMinutes % 60
+  // Use ((n % m) + m) % m to handle negative modulo correctly
+  const h = ((Math.floor(totalMinutes / 60) % 24) + 24) % 24
+  const m = ((totalMinutes % 60) + 60) % 60
   return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`
 }
 

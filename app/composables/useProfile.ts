@@ -1,3 +1,6 @@
+import { success, failure } from '~/types/result'
+import type { OperationResult } from '~/types/result'
+
 export interface Profile {
   id: string
   gender: 'male' | 'female' | null
@@ -33,9 +36,9 @@ export function useProfile() {
     return user.value?.id || session.value?.user?.id
   }
 
-  async function fetchProfile() {
+  async function fetchProfile(): Promise<OperationResult<Profile>> {
     const userId = getUserId()
-    if (!userId) return null
+    if (!userId) return failure('Not authenticated')
     loading.value = true
 
     const { data, error } = await client
@@ -44,43 +47,41 @@ export function useProfile() {
       .eq('id', userId)
       .single()
 
+    loading.value = false
+
     if (error) {
-      console.error('Error fetching profile:', error)
-      loading.value = false
-      return null
+      return failure(error.message)
     }
 
     profile.value = data as Profile
-    loading.value = false
-    return profile.value
+    return success(profile.value)
   }
 
-  async function updateProfile(updates: Partial<Profile>) {
+  async function updateProfile(updates: Partial<Profile>): Promise<OperationResult<Profile>> {
     const userId = getUserId()
-    if (!userId) return null
+    if (!userId) return failure('Not authenticated')
 
-    // Auto-sync theme when gender changes
-    if (updates.gender) {
-      updates.theme = genderToTheme(updates.gender)
-    }
+    // Auto-sync theme when gender changes (immutable)
+    const finalUpdates = updates.gender
+      ? { ...updates, theme: genderToTheme(updates.gender) }
+      : updates
 
     const { data, error } = await client
       .from('profiles')
-      .update(updates)
+      .update(finalUpdates)
       .eq('id', userId)
       .select()
       .single()
 
     if (error) {
-      console.error('Error updating profile:', error)
-      return null
+      return failure(error.message)
     }
 
     profile.value = data as Profile
-    return profile.value
+    return success(profile.value)
   }
 
-  async function completeOnboarding(profileData: Partial<Profile>) {
+  async function completeOnboarding(profileData: Partial<Profile>): Promise<OperationResult<Profile>> {
     return updateProfile({
       ...profileData,
       onboarding_complete: true,

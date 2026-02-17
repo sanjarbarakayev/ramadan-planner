@@ -1,99 +1,40 @@
 <script setup lang="ts">
 const { t } = useI18n()
-const client = useSupabaseClient()
-const user = useSupabaseUser()
-const session = useSupabaseSession()
+const {
+  goals,
+  fetchGoals,
+  addGoal,
+  toggleGoal,
+  deleteGoal,
+  updateGoal,
+  completedCount,
+  totalCount,
+} = useGoals()
 
-function getUserId(): string | undefined {
-  return user.value?.id || session.value?.user?.id
-}
-
-interface Goal {
-  id: string
-  title: string
-  description: string
-  completed: boolean
-}
-
-const goals = ref<Goal[]>([])
-const newGoal = ref('')
+const newGoalTitle = ref('')
 const editingId = ref<string | null>(null)
 const editingTitle = ref('')
 
-async function fetchGoals() {
-  const userId = getUserId()
-  if (!userId) return
-
-  const { data } = await client
-    .from('goals')
-    .select('*')
-    .eq('user_id', userId)
-    .order('created_at')
-
-  goals.value = (data ?? []) as Goal[]
+async function handleAddGoal() {
+  if (!newGoalTitle.value.trim()) return
+  await addGoal({ title: newGoalTitle.value.trim(), category: 'general' })
+  newGoalTitle.value = ''
 }
 
-async function addGoal() {
-  const userId = getUserId()
-  if (!userId || !newGoal.value.trim()) return
-
-  const { data, error } = await client
-    .from('goals')
-    .insert({
-      user_id: userId,
-      title: newGoal.value.trim(),
-    })
-    .select()
-    .single()
-
-  if (!error && data) {
-    goals.value = [...goals.value, data as Goal]
-    newGoal.value = ''
-  }
-}
-
-async function toggleGoal(goal: Goal) {
-  const newCompleted = !goal.completed
-  goals.value = goals.value.map((g) =>
-    g.id === goal.id ? { ...g, completed: newCompleted } : g
-  )
-
-  await client
-    .from('goals')
-    .update({ completed: newCompleted })
-    .eq('id', goal.id)
-}
-
-function startEdit(goal: Goal) {
+function startEdit(goal: { id: string; title: string }) {
   editingId.value = goal.id
   editingTitle.value = goal.title
 }
 
 async function saveEdit(goalId: string) {
   const trimmed = editingTitle.value.trim()
-  if (!trimmed) {
-    editingId.value = null
-    return
-  }
-
-  goals.value = goals.value.map((g) =>
-    g.id === goalId ? { ...g, title: trimmed } : g
-  )
   editingId.value = null
-
-  await client
-    .from('goals')
-    .update({ title: trimmed })
-    .eq('id', goalId)
+  if (!trimmed) return
+  await updateGoal(goalId, { title: trimmed })
 }
 
 function cancelEdit() {
   editingId.value = null
-}
-
-async function deleteGoal(goalId: string) {
-  goals.value = goals.value.filter((g) => g.id !== goalId)
-  await client.from('goals').delete().eq('id', goalId)
 }
 
 onMounted(fetchGoals)
@@ -101,8 +42,11 @@ onMounted(fetchGoals)
 
 <template>
   <Card>
-    <CardHeader>
+    <CardHeader class="flex flex-row items-center justify-between">
       <CardTitle class="text-base">{{ t('dashboard.goals') }}</CardTitle>
+      <span v-if="totalCount > 0" class="text-xs text-muted-foreground">
+        {{ completedCount }}/{{ totalCount }}
+      </span>
     </CardHeader>
     <CardContent class="space-y-3">
       <div v-if="goals.length === 0" class="text-sm text-muted-foreground text-center py-2">
@@ -116,7 +60,7 @@ onMounted(fetchGoals)
       >
         <Checkbox
           :checked="goal.completed"
-          @update:checked="toggleGoal(goal)"
+          @update:checked="toggleGoal(goal.id)"
         />
 
         <Input
@@ -160,13 +104,13 @@ onMounted(fetchGoals)
         </div>
       </div>
 
-      <form class="flex gap-2" @submit.prevent="addGoal">
+      <form class="flex gap-2" @submit.prevent="handleAddGoal">
         <Input
-          v-model="newGoal"
+          v-model="newGoalTitle"
           :placeholder="t('dashboard.addGoal')"
           class="h-8 text-sm"
         />
-        <Button type="submit" size="sm" class="h-8" :disabled="!newGoal.trim()">
+        <Button type="submit" size="sm" class="h-8" :disabled="!newGoalTitle.trim()">
           {{ t('common.add') }}
         </Button>
       </form>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { GrowthStage } from '~/composables/useGarden'
+import { GROWTH_STAGES } from '~/utils/constants'
 
 const props = defineProps<{
   stage: GrowthStage
@@ -8,8 +9,7 @@ const props = defineProps<{
 }>()
 
 const stageIndex = computed(() => {
-  const stages: GrowthStage[] = ['barren', 'sprouts', 'small', 'medium', 'lush', 'paradise']
-  return stages.indexOf(props.stage)
+  return GROWTH_STAGES.indexOf(props.stage)
 })
 
 const skyColors = computed(() => {
@@ -81,7 +81,8 @@ const sparkles = [
 </script>
 
 <template>
-  <svg viewBox="0 0 600 400" class="block w-full h-auto">
+  <svg viewBox="0 0 600 400" class="block w-full h-auto" role="img" :aria-label="$t('garden.gardenScene')">
+    <title>{{ $t('garden.gardenScene') }}</title>
     <defs>
       <linearGradient id="tulip-sky" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" :stop-color="skyColors.top" />
@@ -403,5 +404,13 @@ const sparkles = [
 @keyframes sparkle-pulse {
   0%, 100% { opacity: 0.3; transform: scale(0.7); }
   50% { opacity: 1; transform: scale(1.2); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .butterfly-float,
+  .river-shimmer,
+  .sparkle-pulse {
+    animation: none;
+  }
 }
 </style>

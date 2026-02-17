@@ -67,6 +67,14 @@
     "prayerTimes": "Namoz vaqtlari",
     "dailyTasks": "Kunlik vazifalar",
     "goals": "Maqsadlar",
+    "goalsProgress": "{total} tadan {completed} tasi bajarildi",
+    "goalCategories": {
+      "quran": "Qur'on",
+      "prayer": "Namoz",
+      "charity": "Sadaqa",
+      "personal": "Shaxsiy",
+      "general": "Umumiy"
+    },
     "addTask": "Vazifa qo'shish",
     "addGoal": "Maqsad qo'shish",
     "noTasks": "Bugungi vazifalar yo'q",
@@ -96,6 +104,8 @@
     "stats": "Statistika",
     "dailyStats": "Kunlik statistika",
     "overallStats": "Umumiy statistika",
+    "completed": "Bajarildi",
+    "notCompleted": "Bajarilmadi",
     "defaultHabits": {
       "fasting": "Ro'za",
       "prayers": "Namozlar",
@@ -116,6 +126,7 @@
     "palmGrove": "Xurmozor",
     "bloomed": "Ochilgan lolalar",
     "grown": "O'sgan xurmolar",
+    "gardenScene": "Ramazon natijangizni ko'rsatuvchi jannat bog'i",
     "stages": {
       "barren": "Bo'sh",
       "sprouts": "Unib chiqdi",
@@ -154,6 +165,28 @@
     "confirm": "Tasdiqlash",
     "yes": "Ha",
     "no": "Yo'q"
+  },
+  "toast": {
+    "errorGeneric": "Xatolik yuz berdi. Qayta urinib ko'ring.",
+    "errorNetwork": "Tarmoq xatosi. Internetni tekshiring.",
+    "habitAdded": "Odat qo'shildi.",
+    "habitUpdated": "Odat yangilandi.",
+    "habitDeleted": "Odat o'chirildi.",
+    "habitToggleError": "Odatni yangilab bo'lmadi. Qayta urinib ko'ring.",
+    "profileSaved": "Profil saqlandi.",
+    "profileError": "Profilni saqlab bo'lmadi.",
+    "taskAdded": "Vazifa qo'shildi.",
+    "taskSaved": "Vazifa saqlandi.",
+    "taskDeleted": "Vazifa o'chirildi.",
+    "taskError": "Vazifani yangilab bo'lmadi.",
+    "goalAdded": "Maqsad qo'shildi.",
+    "goalSaved": "Maqsad saqlandi.",
+    "goalDeleted": "Maqsad o'chirildi.",
+    "goalError": "Maqsadni yangilab bo'lmadi.",
+    "prayerTimesError": "Namoz vaqtlarini yuklab bo'lmadi.",
+    "settingsSaved": "Sozlamalar saqlandi.",
+    "onboardingError": "Sozlashni yakunlab bo'lmadi. Qayta urinib ko'ring.",
+    "validationError": "Ma'lumotlarni tekshiring."
   },
   "prayer": {
     "fajr": "Bomdod",

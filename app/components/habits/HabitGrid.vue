@@ -4,6 +4,14 @@ import { RAMADAN_DAYS, HABIT_CATEGORIES } from '~/utils/constants'
 const { t } = useI18n()
 const { habits, isCompleted, toggleEntry, getHabitName } = useHabits()
 const { currentDay } = useRamadanDay()
+const { showError } = useAppToast()
+
+async function handleToggle(habitId: string, day: number) {
+  const result = await toggleEntry(habitId, day)
+  if (!result.ok) {
+    showError('toast.habitToggleError')
+  }
+}
 
 const days = Array.from({ length: RAMADAN_DAYS }, (_, i) => i + 1)
 
@@ -50,7 +58,7 @@ const groupedHabits = computed(() => {
                 :current-day="currentDay"
                 :is-completed="isCompleted"
                 :get-habit-name="getHabitName"
-                @toggle="toggleEntry"
+                @toggle="handleToggle"
               />
             </template>
           </tbody>

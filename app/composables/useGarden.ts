@@ -1,4 +1,6 @@
-export type GrowthStage = 'barren' | 'sprouts' | 'small' | 'medium' | 'lush' | 'paradise'
+import { GROWTH_STAGE_THRESHOLDS, FLOWER_COUNT_DIVISOR } from '~/utils/constants'
+
+export type GrowthStage = typeof GROWTH_STAGE_THRESHOLDS[number]['stage']
 
 export function useGarden() {
   const { overallPercentage: realPercentage } = useStats()
@@ -11,12 +13,8 @@ export function useGarden() {
 
   const growthStage = computed((): GrowthStage => {
     const pct = overallPercentage.value
-    if (pct >= 90) return 'paradise'
-    if (pct >= 70) return 'lush'
-    if (pct >= 50) return 'medium'
-    if (pct >= 30) return 'small'
-    if (pct >= 10) return 'sprouts'
-    return 'barren'
+    const matched = GROWTH_STAGE_THRESHOLDS.find((t) => pct >= t.min)
+    return matched?.stage ?? 'barren'
   })
 
   const gardenType = computed(() => {
@@ -24,7 +22,7 @@ export function useGarden() {
   })
 
   const flowerCount = computed(() => {
-    return Math.floor(overallPercentage.value / 10)
+    return Math.floor(overallPercentage.value / FLOWER_COUNT_DIVISOR)
   })
 
   return {

@@ -42,6 +42,8 @@ const showEdit = ref(false)
         :class="isCompleted(habit.id, day)
           ? 'bg-primary border-primary text-primary-foreground'
           : 'border-input hover:border-primary/50'"
+        :aria-label="`${getHabitName(habit)} - ${$t('habits.day')} ${day}: ${isCompleted(habit.id, day) ? $t('habits.completed') : $t('habits.notCompleted')}`"
+        :aria-pressed="isCompleted(habit.id, day)"
         @click="emit('toggle', habit.id, day)"
       >
         <svg

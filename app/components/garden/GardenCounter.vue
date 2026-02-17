@@ -64,7 +64,7 @@ const stageBadgeColor = computed(() => {
     </Card>
     <Card>
       <CardContent class="p-4 text-center">
-        <p class="text-3xl font-bold">{{ percentage }}%</p>
+        <p class="text-3xl font-bold" aria-live="polite">{{ percentage }}%</p>
         <span
           class="mt-1 inline-block rounded-full border px-2.5 py-0.5 text-xs font-medium"
           :class="stageBadgeColor"
