@@ -19,7 +19,6 @@ const client = useSupabaseClient()
 const router = useRouter()
 const loading = ref(false)
 
-const botUsername = config.public.telegramBotUsername as string
 const botId = config.public.telegramBotId as string
 
 async function handleTelegramAuth(user: TelegramUser) {
@@ -53,6 +52,24 @@ async function handleTelegramAuth(user: TelegramUser) {
   }
 }
 
+function parseTelegramUser(raw: unknown): TelegramUser | null {
+  let data = raw
+  if (typeof data === 'string') {
+    try { data = JSON.parse(data) } catch { return null }
+  }
+  if (!data || typeof data !== 'object') return null
+
+  // Telegram may wrap result in { event: 'auth_result', result: {...} }
+  const obj = data as Record<string, unknown>
+  const user = obj.event === 'auth_result' && obj.result
+    ? obj.result as Record<string, unknown>
+    : obj
+
+  return typeof user === 'object' && user !== null && 'id' in user
+    ? user as unknown as TelegramUser
+    : null
+}
+
 function openTelegramAuth() {
   if (!botId) {
     emit('error', 'Telegram bot not configured')
@@ -60,14 +77,9 @@ function openTelegramAuth() {
   }
 
   const origin = window.location.origin
-  const callbackName = `__tgAuthCallback_${Date.now()}`
+  const returnTo = `${origin}/auth/telegram-callback`
 
-  ;(window as Record<string, unknown>)[callbackName] = (user: TelegramUser) => {
-    delete (window as Record<string, unknown>)[callbackName]
-    handleTelegramAuth(user)
-  }
-
-  const authUrl = `https://oauth.telegram.org/auth?bot_id=${botId}&origin=${encodeURIComponent(origin)}&embed=0&request_access=write&return_to=${encodeURIComponent(origin)}`
+  const authUrl = `https://oauth.telegram.org/auth?bot_id=${botId}&origin=${encodeURIComponent(origin)}&embed=0&request_access=write&return_to=${encodeURIComponent(returnTo)}`
 
   const popup = window.open(
     authUrl,
@@ -77,19 +89,30 @@ function openTelegramAuth() {
 
   if (!popup) {
     emit('error', 'Popup blocked. Please allow popups for this site.')
-    delete (window as Record<string, unknown>)[callbackName]
     return
   }
 
-  // Listen for auth result via postMessage
   function onMessage(event: MessageEvent) {
-    if (event.origin !== 'https://oauth.telegram.org') return
+    // Accept from oauth.telegram.org (direct postMessage) or our own origin (callback page)
+    if (event.origin !== 'https://oauth.telegram.org' && event.origin !== origin) return
 
-    window.removeEventListener('message', onMessage)
-
-    if (event.data && typeof event.data === 'object' && 'id' in event.data) {
-      handleTelegramAuth(event.data as TelegramUser)
+    const user = parseTelegramUser(event.data)
+    if (user) {
+      cleanup()
+      handleTelegramAuth(user)
     }
+  }
+
+  const pollInterval = window.setInterval(() => {
+    if (popup.closed) {
+      cleanup()
+    }
+  }, 500)
+
+  function cleanup() {
+    window.removeEventListener('message', onMessage)
+    clearInterval(pollInterval)
+    try { popup.close() } catch {}
   }
 
   window.addEventListener('message', onMessage)
