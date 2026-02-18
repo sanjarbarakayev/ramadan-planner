@@ -12,16 +12,14 @@ export type HabitCategory = 'prayer' | 'quran' | 'charity' | 'food' | 'worship'
 
 export const DEFAULT_HABITS: readonly DefaultHabit[] = [
   { key: 'fasting', nameUz: "Ro'za", nameRu: 'Пост', nameEn: 'Fasting', category: 'worship', targetDays: 30, sortOrder: 1 },
-  { key: 'prayers', nameUz: 'Namozlar', nameRu: 'Намазы', nameEn: 'Prayers', category: 'prayer', targetDays: 30, sortOrder: 2 },
-  { key: 'quran', nameUz: "Qur'on tilovati - 1 soat", nameRu: 'Чтение Корана - 1 час', nameEn: 'Quran Recitation - 1 hour', category: 'quran', targetDays: 30, sortOrder: 3 },
-  { key: 'dhikr', nameUz: 'Zikrlar - 1000 ta', nameRu: 'Зикр - 1000 раз', nameEn: 'Dhikr - 1000 times', category: 'worship', targetDays: 30, sortOrder: 4 },
-  { key: 'salawat', nameUz: 'Salovot aytish', nameRu: 'Салават', nameEn: 'Salawat', category: 'worship', targetDays: 30, sortOrder: 5 },
-  { key: 'ehson', nameUz: 'Ehson', nameRu: 'Благотворительность', nameEn: 'Charity', category: 'charity', targetDays: 30, sortOrder: 6 },
-  { key: 'silai_rahm', nameUz: 'Silai rahm - kamida 1 kishi', nameRu: 'Поддержание родственных связей - минимум 1 человек', nameEn: 'Family ties - at least 1 person', category: 'charity', targetDays: 30, sortOrder: 7 },
-  { key: 'social_media', nameUz: 'Ijtimoiy tarmoqlar', nameRu: 'Социальные сети', nameEn: 'Social media', category: 'worship', targetDays: 30, sortOrder: 8 },
-  { key: 'tahajjud', nameUz: 'Tahajjud va tungi ibodatlar', nameRu: 'Тахаджуд и ночные молитвы', nameEn: 'Tahajjud & night prayers', category: 'prayer', targetDays: 30, sortOrder: 9 },
-  { key: 'asma_ul_husna', nameUz: 'Asmol Husno', nameRu: 'Асмауль Хусна', nameEn: 'Asma ul Husna', category: 'worship', targetDays: 30, sortOrder: 10 },
-  { key: 'duas', nameUz: 'Duolar', nameRu: 'Дуа', nameEn: 'Duas', category: 'worship', targetDays: 30, sortOrder: 11 },
+  { key: 'taraweeh', nameUz: 'Taroveh namozi', nameRu: 'Таравих намаз', nameEn: 'Taraweeh prayer', category: 'prayer', targetDays: 30, sortOrder: 2 },
+  { key: 'tahajjud', nameUz: 'Tahajjud namozi', nameRu: 'Тахаджуд намаз', nameEn: 'Tahajjud prayer', category: 'prayer', targetDays: 30, sortOrder: 3 },
+  { key: 'quran', nameUz: "Qur'on tilovati", nameRu: 'Чтение Корана', nameEn: 'Quran recitation', category: 'quran', targetDays: 30, sortOrder: 4 },
+  { key: 'dhikr', nameUz: 'Zikr', nameRu: 'Зикр', nameEn: 'Dhikr', category: 'worship', targetDays: 30, sortOrder: 5 },
+  { key: 'salawat', nameUz: 'Salovot', nameRu: 'Салават', nameEn: 'Salawat', category: 'worship', targetDays: 30, sortOrder: 6 },
+  { key: 'dua', nameUz: 'Duo', nameRu: 'Дуа', nameEn: 'Dua', category: 'worship', targetDays: 30, sortOrder: 7 },
+  { key: 'sadaqah', nameUz: 'Sadaqa', nameRu: 'Садака', nameEn: 'Sadaqah', category: 'charity', targetDays: 30, sortOrder: 8 },
+  { key: 'silai_rahm', nameUz: 'Silai rahm', nameRu: 'Поддержание родственных связей', nameEn: 'Family ties', category: 'charity', targetDays: 30, sortOrder: 9 },
 ] as const
 
 export const HABIT_CATEGORIES: readonly HabitCategory[] = ['prayer', 'quran', 'charity', 'food', 'worship'] as const

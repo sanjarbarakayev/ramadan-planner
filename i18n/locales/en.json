@@ -29,9 +29,6 @@
   "onboarding": {
     "welcome": "Welcome!",
     "selectLanguage": "Select Language",
-    "selectGender": "Select Gender",
-    "male": "Male",
-    "female": "Female",
     "selectLocation": "Select Your City",
     "city": "City",
     "country": "Country",
@@ -166,7 +163,6 @@
     "location": "Location",
     "ramadan": "Ramadan Settings",
     "account": "Account",
-    "gender": "Gender",
     "save": "Save",
     "saved": "Saved!",
     "changePassword": "Change Password",

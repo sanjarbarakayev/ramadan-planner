@@ -11,9 +11,8 @@ function setupRamadanDayDeps(profileDate?: string, devDateOverride?: string) {
   useState<number | null>('dev-garden-override', () => null)
   const profile = useState<Profile | null>('profile', () => profileDate ? {
     id: 'test-user',
-    gender: 'male' as const,
     language: 'en',
-    theme: 'men',
+    theme: 'default',
     city: null,
     country: null,
     lat: null,

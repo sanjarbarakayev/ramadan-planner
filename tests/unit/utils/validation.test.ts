@@ -120,7 +120,6 @@ describe('goalSchema', () => {
 describe('profileSchema', () => {
   it('accepts valid profile data', () => {
     const result = profileSchema.safeParse({
-      gender: 'male',
       language: 'uz',
       time_adjustment: 5,
     })
@@ -130,11 +129,6 @@ describe('profileSchema', () => {
   it('accepts empty object (all optional)', () => {
     const result = profileSchema.safeParse({})
     expect(result.success).toBe(true)
-  })
-
-  it('rejects invalid gender', () => {
-    const result = profileSchema.safeParse({ gender: 'other' })
-    expect(result.success).toBe(false)
   })
 
   it('rejects invalid language', () => {

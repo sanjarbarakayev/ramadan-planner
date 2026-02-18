@@ -27,7 +27,7 @@ async function handleToggle(juz: number) {
           class="flex h-9 w-full items-center justify-center rounded-md text-sm font-medium transition-colors"
           :class="completedJuzs.get(juz)
             ? 'bg-primary text-primary-foreground'
-            : 'bg-muted text-muted-foreground hover:bg-muted/80'"
+            : 'border border-border bg-muted/50 text-muted-foreground hover:bg-muted'"
           @click="handleToggle(juz)"
         >
           {{ juz }}

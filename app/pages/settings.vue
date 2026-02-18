@@ -8,7 +8,6 @@ const { t } = useI18n()
   <div class="space-y-6 max-w-2xl">
     <h1 class="text-2xl font-bold">{{ t('settings.title') }}</h1>
 
-    <SettingsProfileSettings />
     <SettingsLanguageSettings />
     <SettingsLocationSettings />
     <SettingsRamadanSettings />

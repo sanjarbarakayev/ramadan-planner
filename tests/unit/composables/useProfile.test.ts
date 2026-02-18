@@ -12,7 +12,6 @@ beforeEach(() => {
 
 const mockProfile: Profile = {
   id: 'test-user-id',
-  gender: 'male',
   language: 'en',
   theme: 'default',
   city: 'Tashkent',

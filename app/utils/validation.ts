@@ -22,7 +22,6 @@ export const journalEntrySchema = z.object({
 })
 
 export const profileSchema = z.object({
-  gender: z.enum(['male', 'female']).optional(),
   language: z.enum(['uz', 'ru', 'en']).optional(),
   time_adjustment: z.number().int().min(-60).max(60).optional(),
   prayer_method: z.number().int().optional(),

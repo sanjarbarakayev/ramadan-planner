@@ -5,8 +5,6 @@ export type GrowthStage = typeof GROWTH_STAGE_THRESHOLDS[number]['stage']
 export function useGarden() {
   const { overallPercentage: realPercentage } = useStats()
   const { override: devOverride } = useDevGarden()
-  const { profile } = useProfile()
-
   const overallPercentage = computed(() =>
     devOverride.value !== null ? devOverride.value : realPercentage.value
   )
@@ -17,9 +15,7 @@ export function useGarden() {
     return matched?.stage ?? 'barren'
   })
 
-  const gardenType = computed(() => {
-    return profile.value?.gender === 'male' ? 'palm' : 'tulip'
-  })
+  const gardenType = computed(() => 'palm')
 
   const flowerCount = computed(() => {
     return Math.floor(overallPercentage.value / FLOWER_COUNT_DIVISOR)

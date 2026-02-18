@@ -29,9 +29,6 @@
   "onboarding": {
     "welcome": "Добро пожаловать!",
     "selectLanguage": "Выберите язык",
-    "selectGender": "Выберите пол",
-    "male": "Мужской",
-    "female": "Женский",
     "selectLocation": "Выберите город",
     "city": "Город",
     "country": "Страна",
@@ -166,7 +163,6 @@
     "location": "Местоположение",
     "ramadan": "Настройки Рамадана",
     "account": "Аккаунт",
-    "gender": "Пол",
     "save": "Сохранить",
     "saved": "Сохранено!",
     "changePassword": "Изменить пароль",

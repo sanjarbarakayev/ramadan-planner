@@ -12,14 +12,13 @@ const { completeOnboarding } = useProfile()
 const { showError } = useAppToast()
 
 const step = ref(1)
-const totalSteps = 5
+const totalSteps = 4
 const loading = ref(false)
 const dateLoading = ref(false)
 const dateAutoDetected = ref(false)
 
 const form = reactive({
   language: locale.value,
-  gender: '' as 'male' | 'female' | '',
   city: '',
   country: '',
   lat: null as number | null,
@@ -63,7 +62,6 @@ async function finish() {
   loading.value = true
 
   const profileResult = await completeOnboarding({
-    gender: form.gender as 'male' | 'female',
     language: form.language,
     city: form.city || null,
     country: form.country || null,
@@ -106,10 +104,9 @@ async function finish() {
 const canProceed = computed(() => {
   switch (step.value) {
     case 1: return !!form.language
-    case 2: return !!form.gender
-    case 3: return true
-    case 4: return !!form.ramadan_start_date
-    case 5: return true
+    case 2: return true
+    case 3: return !!form.ramadan_start_date
+    case 4: return true
     default: return false
   }
 })
@@ -128,6 +125,8 @@ const canProceed = computed(() => {
       </CardHeader>
 
       <CardContent>
+        <SharedOnboardingIllustration :step="step" />
+
         <!-- Step 1: Language -->
         <div v-if="step === 1" class="space-y-4">
           <h3 class="text-lg font-medium text-center">
@@ -150,31 +149,8 @@ const canProceed = computed(() => {
           </div>
         </div>
 
-        <!-- Step 2: Gender -->
+        <!-- Step 2: Location -->
         <div v-if="step === 2" class="space-y-4">
-          <h3 class="text-lg font-medium text-center">
-            {{ t('onboarding.selectGender') }}
-          </h3>
-          <div class="grid grid-cols-2 gap-4">
-            <Button
-              :variant="form.gender === 'male' ? 'default' : 'outline'"
-              class="h-16 text-lg"
-              @click="form.gender = 'male'"
-            >
-              {{ t('onboarding.male') }}
-            </Button>
-            <Button
-              :variant="form.gender === 'female' ? 'default' : 'outline'"
-              class="h-16 text-lg"
-              @click="form.gender = 'female'"
-            >
-              {{ t('onboarding.female') }}
-            </Button>
-          </div>
-        </div>
-
-        <!-- Step 3: Location -->
-        <div v-if="step === 3" class="space-y-4">
           <h3 class="text-lg font-medium text-center">
             {{ t('onboarding.selectLocation') }}
           </h3>
@@ -191,8 +167,8 @@ const canProceed = computed(() => {
           </p>
         </div>
 
-        <!-- Step 4: Ramadan Start Date -->
-        <div v-if="step === 4" class="space-y-4">
+        <!-- Step 3: Ramadan Start Date -->
+        <div v-if="step === 3" class="space-y-4">
           <h3 class="text-lg font-medium text-center">
             {{ t('onboarding.ramadanStart') }}
           </h3>
@@ -206,8 +182,8 @@ const canProceed = computed(() => {
           />
         </div>
 
-        <!-- Step 5: Confirmation -->
-        <div v-if="step === 5" class="space-y-4 text-center">
+        <!-- Step 4: Confirmation -->
+        <div v-if="step === 4" class="space-y-4 text-center">
           <h3 class="text-lg font-medium">
             {{ t('onboarding.confirm') }}
           </h3>
@@ -215,10 +191,6 @@ const canProceed = computed(() => {
             <p>
               <span class="font-medium">{{ t('settings.language') }}:</span>
               {{ form.language === 'uz' ? "O'zbekcha" : form.language === 'ru' ? 'Русский' : 'English' }}
-            </p>
-            <p>
-              <span class="font-medium">{{ t('settings.gender') }}:</span>
-              {{ form.gender === 'male' ? t('onboarding.male') : t('onboarding.female') }}
             </p>
             <p v-if="form.city">
               <span class="font-medium">{{ t('onboarding.city') }}:</span>

@@ -29,9 +29,6 @@
   "onboarding": {
     "welcome": "Xush kelibsiz!",
     "selectLanguage": "Tilni tanlang",
-    "selectGender": "Jinsni tanlang",
-    "male": "Erkak",
-    "female": "Ayol",
     "selectLocation": "Shahringizni tanlang",
     "city": "Shahar",
     "country": "Davlat",
@@ -166,7 +163,6 @@
     "location": "Joylashuv",
     "ramadan": "Ramazon sozlamalari",
     "account": "Hisob",
-    "gender": "Jins",
     "save": "Saqlash",
     "saved": "Saqlandi!",
     "changePassword": "Parolni o'zgartirish",

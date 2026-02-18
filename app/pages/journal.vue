@@ -90,13 +90,17 @@ onMounted(() => {
       </CardContent>
     </Card>
 
+    <SharedSectionDivider v-if="!loading && sortedEntries.length > 0" />
+
     <div v-if="loading" class="text-sm text-muted-foreground text-center py-8">
       {{ t('common.loading') }}
     </div>
 
-    <div v-else-if="sortedEntries.length === 0" class="text-sm text-muted-foreground text-center py-8">
-      {{ t('journal.empty') }}
-    </div>
+    <SharedEmptyState
+      v-else-if="sortedEntries.length === 0"
+      variant="journal"
+      :message="t('journal.empty')"
+    />
 
     <div v-else class="relative space-y-4 pl-6 before:absolute before:left-2 before:top-2 before:bottom-2 before:w-px before:bg-border">
       <div

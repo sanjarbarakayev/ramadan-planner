@@ -15,9 +15,19 @@ function isActive(path: string) {
 </script>
 
 <template>
-  <aside class="flex w-64 flex-col border-r border-sidebar-border bg-sidebar">
-    <div class="flex h-16 items-center px-6">
-      <NuxtLink to="/dashboard" class="text-xl font-bold text-sidebar-foreground">
+  <aside class="relative flex w-64 flex-col border-r border-sidebar-border bg-sidebar overflow-hidden">
+    <!-- Geometric pattern overlay -->
+    <svg aria-hidden="true" class="pointer-events-none absolute inset-0 h-full w-full opacity-[0.06]" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <defs>
+        <pattern id="sidebar-geom" width="32" height="32" patternUnits="userSpaceOnUse">
+          <path d="M16,0 L32,16 L16,32 L0,16 Z" fill="none" stroke="#b08518" stroke-width="0.5" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#sidebar-geom)" />
+    </svg>
+    <div class="flex h-20 items-center gap-3 px-6">
+      <img src="/logo.svg" alt="" class="h-10 w-10 rounded-xl ring-2 ring-[#dbb84a]/30" />
+      <NuxtLink to="/dashboard" class="text-lg font-bold text-sidebar-foreground">
         {{ t('app.title') }}
       </NuxtLink>
     </div>

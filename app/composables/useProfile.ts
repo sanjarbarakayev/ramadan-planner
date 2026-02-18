@@ -3,7 +3,6 @@ import type { OperationResult } from '~/types/result'
 
 export interface Profile {
   id: string
-  gender: 'male' | 'female' | null
   language: string
   theme: string
   city: string | null

@@ -60,13 +60,13 @@ onMounted(() => {
 </script>
 
 <template>
-  <Card>
-    <CardContent class="flex flex-col items-center justify-center py-6">
+  <Card class="bg-gradient-to-br from-[oklch(0.30_0.04_175)] to-[oklch(0.24_0.035_180)] border-0 shadow-lg">
+    <CardContent class="flex flex-col items-center justify-center py-8">
       <template v-if="countdown">
-        <p class="text-sm text-muted-foreground mb-2">{{ countdown.label }}</p>
-        <p class="text-4xl font-bold tabular-nums tracking-wider">{{ countdown.time }}</p>
+        <p class="text-sm font-medium text-[#dbb84a]/80 mb-2">{{ countdown.label }}</p>
+        <p class="text-5xl font-bold tabular-nums tracking-wider text-[#f2e4a8]">{{ countdown.time }}</p>
       </template>
-      <p v-else class="text-sm text-muted-foreground">
+      <p v-else class="text-sm text-[#dbb84a]/70">
         {{ t('dashboard.countdown.noData') }}
       </p>
     </CardContent>
