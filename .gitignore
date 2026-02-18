@@ -34,3 +34,4 @@ supabase/.temp/
 
 # Claude Code
 .claude/
+.vercel

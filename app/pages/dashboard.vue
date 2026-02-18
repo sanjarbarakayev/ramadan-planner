@@ -10,8 +10,6 @@ onMounted(async () => {
 
 <template>
   <div class="space-y-6">
-    <DashboardMotivationalBanner />
-
     <DashboardQuickStats />
 
     <div class="grid gap-6 lg:grid-cols-2">
@@ -22,9 +20,7 @@ onMounted(async () => {
         <DashboardDailyTasks />
       </div>
       <div class="space-y-6">
-        <DashboardAsmaUlHusna />
         <DashboardDailyZikr />
-        <DashboardGoalsList />
       </div>
     </div>
   </div>

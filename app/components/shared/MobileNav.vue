@@ -5,7 +5,6 @@ const route = useRoute()
 const navItems = computed(() => [
   { to: '/dashboard', label: t('nav.dashboard'), icon: 'home' },
   { to: '/habits', label: t('nav.habits'), icon: 'grid' },
-  { to: '/garden', label: t('nav.garden'), icon: 'flower' },
   { to: '/settings', label: t('nav.settings'), icon: 'settings' },
 ])
 
