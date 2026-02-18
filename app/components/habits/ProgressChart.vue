@@ -1,11 +1,8 @@
 <script setup lang="ts">
 const { t } = useI18n()
 const { dailyCompletionData } = useStats()
-const { currentDay } = useRamadanDay()
 
 const data = computed(() => dailyCompletionData())
-
-const maxDay = computed(() => Math.max(currentDay.value, 1))
 
 const chartWidth = 500
 const chartHeight = 200
@@ -13,9 +10,11 @@ const padding = { top: 20, right: 20, bottom: 30, left: 40 }
 const innerWidth = chartWidth - padding.left - padding.right
 const innerHeight = chartHeight - padding.top - padding.bottom
 
+const totalDays = 30
+
 const points = computed(() => {
-  return data.value.map((d, i) => {
-    const x = padding.left + (i / Math.max(data.value.length - 1, 1)) * innerWidth
+  return data.value.map((d) => {
+    const x = padding.left + ((d.day - 1) / (totalDays - 1)) * innerWidth
     const y = padding.top + innerHeight - (d.percentage / 100) * innerHeight
     return { x, y, day: d.day, percentage: d.percentage }
   })
@@ -101,18 +100,18 @@ const areaPath = computed(() => {
           class="text-primary"
         />
 
-        <!-- X axis labels -->
+        <!-- X axis labels (always show full 30-day range) -->
         <text
-          v-for="p in points.filter((_, i) => i % 5 === 0 || i === points.length - 1)"
-          :key="`x-${p.day}`"
-          :x="p.x"
+          v-for="day in [1, 5, 10, 15, 20, 25, 30]"
+          :key="`x-${day}`"
+          :x="padding.left + ((day - 1) / (totalDays - 1)) * innerWidth"
           :y="chartHeight - 5"
           text-anchor="middle"
           fill="currentColor"
           fill-opacity="0.5"
           font-size="10"
         >
-          {{ p.day }}
+          {{ day }}
         </text>
       </svg>
     </CardContent>
