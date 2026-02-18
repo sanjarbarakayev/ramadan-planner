@@ -18,6 +18,7 @@ onMounted(async () => {
       <div class="space-y-6">
         <DashboardDailyProgress />
         <DashboardPrayerTimes />
+        <DashboardSahurIftarDuas />
         <DashboardDailyTasks />
       </div>
       <div class="space-y-6">
