@@ -1,98 +1,39 @@
 <script setup lang="ts">
-import { dailyTaskSchema } from '~/utils/validation'
-
 const { t } = useI18n()
-const client = useSupabaseClient()
-const user = useSupabaseUser()
-const session = useSupabaseSession()
-const { currentDay } = useRamadanDay()
 const { showSuccess, showError } = useAppToast()
+const { currentDay } = useRamadanDay()
+const {
+  tasks,
+  loading,
+  addTask: addTaskAction,
+  toggleTask: toggleTaskAction,
+  updateTaskTitle,
+  deleteTask: deleteTaskAction,
+  fetchTasks,
+} = useDailyTasks()
 
-function getUserId(): string | undefined {
-  return user.value?.id || session.value?.user?.id
-}
-
-interface DailyTask {
-  id: string
-  title: string
-  completed: boolean
-  sort_order: number
-}
-
-const tasks = ref<DailyTask[]>([])
-const loading = ref(false)
 const newTask = ref('')
 const editingId = ref<string | null>(null)
 const editingTitle = ref('')
 
-async function fetchTasks() {
-  const userId = getUserId()
-  if (!userId || currentDay.value === 0) return
-
-  loading.value = true
-  const { data } = await client
-    .from('daily_tasks')
-    .select('*')
-    .eq('user_id', userId)
-    .eq('ramadan_day', currentDay.value)
-    .order('sort_order')
-
-  tasks.value = (data ?? []) as DailyTask[]
-  loading.value = false
-}
-
-async function addTask() {
-  const userId = getUserId()
-  if (!userId || currentDay.value === 0) return
-
-  const parsed = dailyTaskSchema.safeParse({ title: newTask.value.trim() })
-  if (!parsed.success) return
-
-  const { data, error } = await client
-    .from('daily_tasks')
-    .insert({
-      user_id: userId,
-      ramadan_day: currentDay.value,
-      title: parsed.data.title,
-      sort_order: tasks.value.length,
-    })
-    .select()
-    .single()
-
-  if (error) {
-    showError('toast.taskError')
-    return
-  }
-
-  if (data) {
-    tasks.value = [...tasks.value, data as DailyTask]
+async function handleAddTask() {
+  const result = await addTaskAction(newTask.value)
+  if (result.ok) {
     newTask.value = ''
     showSuccess('toast.taskAdded')
-  }
-}
-
-async function toggleTask(task: DailyTask) {
-  const previous = task.completed
-  const newCompleted = !previous
-  tasks.value = tasks.value.map((t) =>
-    t.id === task.id ? { ...t, completed: newCompleted } : t
-  )
-
-  const { error } = await client
-    .from('daily_tasks')
-    .update({ completed: newCompleted })
-    .eq('id', task.id)
-
-  if (error) {
-    // Rollback
-    tasks.value = tasks.value.map((t) =>
-      t.id === task.id ? { ...t, completed: previous } : t
-    )
+  } else {
     showError('toast.taskError')
   }
 }
 
-function startEdit(task: DailyTask) {
+async function handleToggleTask(taskId: string) {
+  const result = await toggleTaskAction(taskId)
+  if (!result.ok) {
+    showError('toast.taskError')
+  }
+}
+
+function startEdit(task: { id: string; title: string }) {
   editingId.value = task.id
   editingTitle.value = task.title
 }
@@ -104,21 +45,9 @@ async function saveEdit(taskId: string) {
     return
   }
 
-  const original = tasks.value.find((t) => t.id === taskId)?.title
-  tasks.value = tasks.value.map((t) =>
-    t.id === taskId ? { ...t, title: trimmed } : t
-  )
   editingId.value = null
-
-  const { error } = await client
-    .from('daily_tasks')
-    .update({ title: trimmed })
-    .eq('id', taskId)
-
-  if (error) {
-    tasks.value = tasks.value.map((t) =>
-      t.id === taskId ? { ...t, title: original ?? trimmed } : t
-    )
+  const result = await updateTaskTitle(taskId, trimmed)
+  if (!result.ok) {
     showError('toast.taskError')
   }
 }
@@ -127,21 +56,13 @@ function cancelEdit() {
   editingId.value = null
 }
 
-async function deleteTask(taskId: string) {
-  const removed = tasks.value.find((t) => t.id === taskId)
-  tasks.value = tasks.value.filter((t) => t.id !== taskId)
-
-  const { error } = await client.from('daily_tasks').delete().eq('id', taskId)
-
-  if (error) {
-    if (removed) {
-      tasks.value = [...tasks.value, removed]
-    }
+async function handleDeleteTask(taskId: string) {
+  const result = await deleteTaskAction(taskId)
+  if (!result.ok) {
     showError('toast.taskError')
   }
 }
 
-onMounted(fetchTasks)
 watch(currentDay, fetchTasks)
 </script>
 
@@ -169,7 +90,7 @@ watch(currentDay, fetchTasks)
       >
         <Checkbox
           :checked="task.completed"
-          @update:checked="toggleTask(task)"
+          @update:checked="handleToggleTask(task.id)"
         />
 
         <Input
@@ -204,7 +125,7 @@ watch(currentDay, fetchTasks)
             variant="ghost"
             size="icon"
             class="h-6 w-6 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity hover:text-destructive"
-            @click="deleteTask(task.id)"
+            @click="handleDeleteTask(task.id)"
           >
             <svg class="h-3 w-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -215,7 +136,7 @@ watch(currentDay, fetchTasks)
 
       </template>
 
-      <form v-if="!loading" class="flex gap-2" @submit.prevent="addTask">
+      <form v-if="!loading" class="flex gap-2" @submit.prevent="handleAddTask">
         <Input
           v-model="newTask"
           :placeholder="t('dashboard.addTask')"
