@@ -1,19 +1,9 @@
 <script setup lang="ts">
-const { fetchProfile, themeClass } = useProfile()
+const { fetchProfile } = useProfile()
 const user = useSupabaseUser()
 const { isActive: isTelegram } = useTelegram()
-const themeCookie = useCookie('app_theme', { default: () => 'theme-women', maxAge: 60 * 60 * 24 * 90 })
 
 const isDev = import.meta.dev
-
-const appliedTheme = computed(() => {
-  if (themeClass.value) return themeClass.value
-  return themeCookie.value
-})
-
-useHead({
-  htmlAttrs: { class: appliedTheme },
-})
 
 useTelegramBackButton()
 
@@ -22,10 +12,6 @@ onMounted(async () => {
   if (user.value) {
     await fetchProfile()
   }
-})
-
-watch(appliedTheme, (cls) => {
-  themeCookie.value = cls
 })
 </script>
 

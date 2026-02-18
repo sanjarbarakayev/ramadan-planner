@@ -4,7 +4,7 @@ import {
   setSupabaseMockResponse,
 } from '../../mocks/imports'
 
-import { genderToTheme, useProfile, type Profile } from '~/composables/useProfile'
+import { useProfile, type Profile } from '~/composables/useProfile'
 
 beforeEach(() => {
   clearStateRegistry()
@@ -14,7 +14,7 @@ const mockProfile: Profile = {
   id: 'test-user-id',
   gender: 'male',
   language: 'en',
-  theme: 'men',
+  theme: 'default',
   city: 'Tashkent',
   country: 'Uzbekistan',
   lat: 41.3,
@@ -25,20 +25,6 @@ const mockProfile: Profile = {
   onboarding_complete: true,
 }
 
-describe('genderToTheme', () => {
-  it('returns "men" for male', () => {
-    expect(genderToTheme('male')).toBe('men')
-  })
-
-  it('returns "women" for female', () => {
-    expect(genderToTheme('female')).toBe('women')
-  })
-
-  it('returns "women" for null', () => {
-    expect(genderToTheme(null)).toBe('women')
-  })
-})
-
 describe('useProfile', () => {
   it('profile starts as null', () => {
     const { profile } = useProfile()
@@ -48,28 +34,6 @@ describe('useProfile', () => {
   it('loading starts as false', () => {
     const { loading } = useProfile()
     expect(loading.value).toBe(false)
-  })
-
-  it('themeClass is null when no profile', () => {
-    const { themeClass } = useProfile()
-    expect(themeClass.value).toBe(null)
-  })
-
-  it('themeClass returns theme-men for male profile', async () => {
-    setSupabaseMockResponse({ data: mockProfile, error: null })
-    const { fetchProfile, themeClass } = useProfile()
-    await fetchProfile()
-    expect(themeClass.value).toBe('theme-men')
-  })
-
-  it('themeClass returns theme-women for female profile', async () => {
-    setSupabaseMockResponse({
-      data: { ...mockProfile, gender: 'female' },
-      error: null,
-    })
-    const { fetchProfile, themeClass } = useProfile()
-    await fetchProfile()
-    expect(themeClass.value).toBe('theme-women')
   })
 
   describe('fetchProfile', () => {
@@ -127,28 +91,6 @@ describe('useProfile', () => {
       const { updateProfile } = useProfile()
       const result = await updateProfile({ city: 'London' })
       expect(result.ok).toBe(false)
-    })
-
-    it('auto-syncs theme when gender is male (immutable update)', async () => {
-      setSupabaseMockResponse({ data: mockProfile, error: null })
-      const { updateProfile } = useProfile()
-      const result = await updateProfile({ gender: 'male' })
-      expect(result.ok).toBe(true)
-    })
-
-    it('auto-syncs theme when gender is female', async () => {
-      const femaleProfile = { ...mockProfile, gender: 'female' as const, theme: 'women' }
-      setSupabaseMockResponse({ data: femaleProfile, error: null })
-      const { updateProfile } = useProfile()
-      const result = await updateProfile({ gender: 'female' })
-      expect(result.ok).toBe(true)
-    })
-
-    it('does not add theme when gender is not provided', async () => {
-      setSupabaseMockResponse({ data: { ...mockProfile, city: 'Moscow' }, error: null })
-      const { updateProfile } = useProfile()
-      const result = await updateProfile({ city: 'Moscow' })
-      expect(result.ok).toBe(true)
     })
   })
 

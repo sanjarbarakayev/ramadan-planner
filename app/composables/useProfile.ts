@@ -16,21 +16,12 @@ export interface Profile {
   onboarding_complete: boolean
 }
 
-export function genderToTheme(gender: 'male' | 'female' | null): 'men' | 'women' {
-  return gender === 'male' ? 'men' : 'women'
-}
-
 export function useProfile() {
   const client = useSupabaseClient()
   const user = useSupabaseUser()
   const session = useSupabaseSession()
   const profile = useState<Profile | null>('profile', () => null)
   const loading = ref(false)
-
-  const themeClass = computed(() => {
-    if (!profile.value) return null
-    return `theme-${genderToTheme(profile.value.gender)}`
-  })
 
   function getUserId(): string | undefined {
     return user.value?.id || session.value?.user?.id
@@ -61,14 +52,9 @@ export function useProfile() {
     const userId = getUserId()
     if (!userId) return failure('Not authenticated')
 
-    // Auto-sync theme when gender changes (immutable)
-    const finalUpdates = updates.gender
-      ? { ...updates, theme: genderToTheme(updates.gender) }
-      : updates
-
     const { data, error } = await client
       .from('profiles')
-      .update(finalUpdates)
+      .update(updates)
       .eq('id', userId)
       .select()
       .single()
@@ -91,7 +77,6 @@ export function useProfile() {
   return {
     profile: readonly(profile),
     loading: readonly(loading),
-    themeClass,
     fetchProfile,
     updateProfile,
     completeOnboarding,

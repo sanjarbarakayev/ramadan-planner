@@ -14,7 +14,7 @@ import {
 
 // Pre-load composables so they are cached and available for global stubs
 import { useHabits } from '~/composables/useHabits'
-import { useProfile, genderToTheme } from '~/composables/useProfile'
+import { useProfile } from '~/composables/useProfile'
 import { useRamadanDay } from '~/composables/useRamadanDay'
 import { useStats } from '~/composables/useStats'
 import { useDevDate, useDevGarden } from '~/composables/useDevDate'
@@ -51,5 +51,4 @@ vi.stubGlobal('useStats', useStats)
 vi.stubGlobal('useDevDate', useDevDate)
 vi.stubGlobal('useDevGarden', useDevGarden)
 vi.stubGlobal('useGarden', useGarden)
-vi.stubGlobal('genderToTheme', genderToTheme)
 vi.stubGlobal('useGoals', useGoals)
