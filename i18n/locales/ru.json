@@ -6,6 +6,7 @@
   "nav": {
     "dashboard": "Главная",
     "habits": "Привычки",
+    "journal": "Дневник",
     "garden": "Сад",
     "settings": "Настройки"
   },
@@ -150,6 +151,14 @@
       "paradise": "Райский сад"
     }
   },
+  "journal": {
+    "title": "Дневник",
+    "prompt": "Что я почувствовал сегодня?",
+    "save": "Сохранить",
+    "empty": "Записей пока нет",
+    "dayLabel": "День {day}",
+    "charCount": "{count}/{max}"
+  },
   "settings": {
     "title": "Настройки",
     "profile": "Профиль",
@@ -198,6 +207,9 @@
     "goalSaved": "Цель сохранена.",
     "goalDeleted": "Цель удалена.",
     "goalError": "Не удалось обновить цель.",
+    "journalSaved": "Дневник сохранён.",
+    "journalError": "Не удалось сохранить дневник.",
+    "journalDeleted": "Запись удалена.",
     "prayerEntryError": "Не удалось обновить запись намаза.",
     "quranError": "Не удалось обновить прогресс Корана.",
     "prayerTimesError": "Не удалось загрузить время намаза.",

@@ -17,6 +17,10 @@ export const goalSchema = z.object({
   title: z.string().min(1).max(200),
 })
 
+export const journalEntrySchema = z.object({
+  content: z.string().min(1).max(500),
+})
+
 export const profileSchema = z.object({
   gender: z.enum(['male', 'female']).optional(),
   language: z.enum(['uz', 'ru', 'en']).optional(),

@@ -6,6 +6,7 @@
   "nav": {
     "dashboard": "Bosh sahifa",
     "habits": "Odatlar",
+    "journal": "Kundalik",
     "garden": "Bog'",
     "settings": "Sozlamalar"
   },
@@ -150,6 +151,14 @@
       "paradise": "Jannat bog'i"
     }
   },
+  "journal": {
+    "title": "Kundalik",
+    "prompt": "Bugun nimani his qildim?",
+    "save": "Saqlash",
+    "empty": "Hali yozuvlar yo'q",
+    "dayLabel": "{day}-kun",
+    "charCount": "{count}/{max}"
+  },
   "settings": {
     "title": "Sozlamalar",
     "profile": "Profil",
@@ -198,6 +207,9 @@
     "goalSaved": "Maqsad saqlandi.",
     "goalDeleted": "Maqsad o'chirildi.",
     "goalError": "Maqsadni yangilab bo'lmadi.",
+    "journalSaved": "Kundalik saqlandi.",
+    "journalError": "Kundalikni saqlab bo'lmadi.",
+    "journalDeleted": "Yozuv o'chirildi.",
     "prayerEntryError": "Namoz yozuvini yangilab bo'lmadi.",
     "quranError": "Qur'on progressini yangilab bo'lmadi.",
     "prayerTimesError": "Namoz vaqtlarini yuklab bo'lmadi.",
