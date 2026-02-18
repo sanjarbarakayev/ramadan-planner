@@ -19,8 +19,6 @@ import { useRamadanDay } from '~/composables/useRamadanDay'
 import { useStats } from '~/composables/useStats'
 import { useDevDate, useDevGarden } from '~/composables/useDevDate'
 import { useGarden } from '~/composables/useGarden'
-import { useGoals } from '~/composables/useGoals'
-import { useDailyTasks } from '~/composables/useDailyTasks'
 
 // Clear shared state and reset mocks between tests
 beforeEach(() => {
@@ -52,5 +50,3 @@ vi.stubGlobal('useStats', useStats)
 vi.stubGlobal('useDevDate', useDevDate)
 vi.stubGlobal('useDevGarden', useDevGarden)
 vi.stubGlobal('useGarden', useGarden)
-vi.stubGlobal('useGoals', useGoals)
-vi.stubGlobal('useDailyTasks', useDailyTasks)

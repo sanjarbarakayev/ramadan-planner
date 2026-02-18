@@ -9,14 +9,6 @@ export const habitSchema = z.object({
   target_days: z.number().int().min(1).max(30),
 })
 
-export const dailyTaskSchema = z.object({
-  title: z.string().min(1).max(200),
-})
-
-export const goalSchema = z.object({
-  title: z.string().min(1).max(200),
-})
-
 export const journalEntrySchema = z.object({
   content: z.string().min(1).max(500),
 })

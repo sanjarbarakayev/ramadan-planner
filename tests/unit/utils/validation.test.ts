@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { habitSchema, dailyTaskSchema, goalSchema, profileSchema } from '../../../app/utils/validation'
+import { habitSchema, profileSchema } from '../../../app/utils/validation'
 
 describe('habitSchema', () => {
   it('accepts valid habit data', () => {
@@ -80,40 +80,6 @@ describe('habitSchema', () => {
       expect(result.data.name_ru).toBe('')
       expect(result.data.name_en).toBe('')
     }
-  })
-})
-
-describe('dailyTaskSchema', () => {
-  it('accepts valid task title', () => {
-    const result = dailyTaskSchema.safeParse({ title: 'Read Quran' })
-    expect(result.success).toBe(true)
-  })
-
-  it('rejects empty title', () => {
-    const result = dailyTaskSchema.safeParse({ title: '' })
-    expect(result.success).toBe(false)
-  })
-
-  it('rejects title over 200 chars', () => {
-    const result = dailyTaskSchema.safeParse({ title: 'a'.repeat(201) })
-    expect(result.success).toBe(false)
-  })
-})
-
-describe('goalSchema', () => {
-  it('accepts valid goal title', () => {
-    const result = goalSchema.safeParse({ title: 'Complete Quran' })
-    expect(result.success).toBe(true)
-  })
-
-  it('rejects empty title', () => {
-    const result = goalSchema.safeParse({ title: '' })
-    expect(result.success).toBe(false)
-  })
-
-  it('rejects title over 200 chars', () => {
-    const result = goalSchema.safeParse({ title: 'a'.repeat(201) })
-    expect(result.success).toBe(false)
   })
 })
 

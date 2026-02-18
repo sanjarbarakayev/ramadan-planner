@@ -66,17 +66,6 @@
     "sahurDua": "Saharlik",
     "iftarDua": "Iftorlik",
     "prayerTimes": "Namoz vaqtlari",
-    "goals": "Maqsadlar",
-    "goalsProgress": "{total} tadan {completed} tasi bajarildi",
-    "goalCategories": {
-      "quran": "Qur'on",
-      "prayer": "Namoz",
-      "charity": "Sadaqa",
-      "personal": "Shaxsiy",
-      "general": "Umumiy"
-    },
-    "addGoal": "Maqsad qo'shish",
-    "noGoals": "Maqsadlar qo'shilmagan",
     "prayerStreak": {
       "title": "Namoz davomiyligi",
       "todayCount": "Bugun {count}/5 namoz o'qildi"
@@ -194,10 +183,6 @@
     "habitToggleError": "Odatni yangilab bo'lmadi. Qayta urinib ko'ring.",
     "profileSaved": "Profil saqlandi.",
     "profileError": "Profilni saqlab bo'lmadi.",
-    "goalAdded": "Maqsad qo'shildi.",
-    "goalSaved": "Maqsad saqlandi.",
-    "goalDeleted": "Maqsad o'chirildi.",
-    "goalError": "Maqsadni yangilab bo'lmadi.",
     "journalSaved": "Kundalik saqlandi.",
     "journalError": "Kundalikni saqlab bo'lmadi.",
     "journalDeleted": "Yozuv o'chirildi.",

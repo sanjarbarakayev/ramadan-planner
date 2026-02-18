@@ -66,17 +66,6 @@
     "sahurDua": "Сахур",
     "iftarDua": "Ифтар",
     "prayerTimes": "Время намаза",
-    "goals": "Цели",
-    "goalsProgress": "{completed} из {total} выполнено",
-    "goalCategories": {
-      "quran": "Коран",
-      "prayer": "Намаз",
-      "charity": "Милостыня",
-      "personal": "Личное",
-      "general": "Общее"
-    },
-    "addGoal": "Добавить цель",
-    "noGoals": "Цели не добавлены",
     "prayerStreak": {
       "title": "Серия намазов",
       "todayCount": "Сегодня {count}/5 намазов"
@@ -194,10 +183,6 @@
     "habitToggleError": "Не удалось обновить привычку. Попробуйте ещё раз.",
     "profileSaved": "Профиль сохранён.",
     "profileError": "Не удалось сохранить профиль.",
-    "goalAdded": "Цель добавлена.",
-    "goalSaved": "Цель сохранена.",
-    "goalDeleted": "Цель удалена.",
-    "goalError": "Не удалось обновить цель.",
     "journalSaved": "Дневник сохранён.",
     "journalError": "Не удалось сохранить дневник.",
     "journalDeleted": "Запись удалена.",

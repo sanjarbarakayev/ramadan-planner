@@ -66,17 +66,6 @@
     "sahurDua": "Sahur",
     "iftarDua": "Iftar",
     "prayerTimes": "Prayer Times",
-    "goals": "Goals",
-    "goalsProgress": "{completed} of {total} completed",
-    "goalCategories": {
-      "quran": "Quran",
-      "prayer": "Prayer",
-      "charity": "Charity",
-      "personal": "Personal",
-      "general": "General"
-    },
-    "addGoal": "Add Goal",
-    "noGoals": "No goals added",
     "prayerStreak": {
       "title": "Prayer Streak",
       "todayCount": "{count}/5 prayers today"
@@ -194,10 +183,6 @@
     "habitToggleError": "Could not update habit. Please try again.",
     "profileSaved": "Profile saved.",
     "profileError": "Could not save profile.",
-    "goalAdded": "Goal added.",
-    "goalSaved": "Goal saved.",
-    "goalDeleted": "Goal deleted.",
-    "goalError": "Could not update goal.",
     "journalSaved": "Journal entry saved.",
     "journalError": "Could not save journal entry.",
     "journalDeleted": "Entry deleted.",
