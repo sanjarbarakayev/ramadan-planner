@@ -66,7 +66,6 @@
     "sahurDua": "Sahur",
     "iftarDua": "Iftar",
     "prayerTimes": "Prayer Times",
-    "dailyTasks": "Daily Tasks",
     "goals": "Goals",
     "goalsProgress": "{completed} of {total} completed",
     "goalCategories": {
@@ -76,9 +75,7 @@
       "personal": "Personal",
       "general": "General"
     },
-    "addTask": "Add Task",
     "addGoal": "Add Goal",
-    "noTasks": "No tasks for today",
     "noGoals": "No goals added",
     "prayerStreak": {
       "title": "Prayer Streak",
@@ -118,6 +115,8 @@
     "overallStats": "Overall Statistics",
     "completed": "Completed",
     "notCompleted": "Not completed",
+    "uncheckConfirmTitle": "Uncheck habit?",
+    "uncheckConfirmMessage": "Are you sure you want to unmark this habit as completed?",
     "defaultHabits": {
       "fasting": "Fasting",
       "prayers": "Prayers",
@@ -195,10 +194,6 @@
     "habitToggleError": "Could not update habit. Please try again.",
     "profileSaved": "Profile saved.",
     "profileError": "Could not save profile.",
-    "taskAdded": "Task added.",
-    "taskSaved": "Task saved.",
-    "taskDeleted": "Task deleted.",
-    "taskError": "Could not update task.",
     "goalAdded": "Goal added.",
     "goalSaved": "Goal saved.",
     "goalDeleted": "Goal deleted.",

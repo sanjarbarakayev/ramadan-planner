@@ -6,7 +6,32 @@ const { habits, loading, isCompleted, toggleEntry, getHabitName } = useHabits()
 const { currentDay } = useRamadanDay()
 const { showError } = useAppToast()
 
-async function handleToggle(habitId: string, day: number) {
+const showUncheckConfirm = ref(false)
+const pendingUncheck = ref<{ habitId: string; day: number } | null>(null)
+
+function handleToggle(habitId: string, day: number) {
+  if (isCompleted(habitId, day)) {
+    pendingUncheck.value = { habitId, day }
+    showUncheckConfirm.value = true
+    return
+  }
+  doToggle(habitId, day)
+}
+
+async function confirmUncheck() {
+  if (pendingUncheck.value) {
+    await doToggle(pendingUncheck.value.habitId, pendingUncheck.value.day)
+  }
+  pendingUncheck.value = null
+  showUncheckConfirm.value = false
+}
+
+function cancelUncheck() {
+  pendingUncheck.value = null
+  showUncheckConfirm.value = false
+}
+
+async function doToggle(habitId: string, day: number) {
   const result = await toggleEntry(habitId, day)
   if (!result.ok) {
     showError('toast.habitToggleError')
@@ -88,4 +113,17 @@ const groupedHabits = computed(() => {
       </div>
     </CardContent>
   </Card>
+
+  <AlertDialog :open="showUncheckConfirm" @update:open="cancelUncheck">
+    <AlertDialogContent>
+      <AlertDialogHeader>
+        <AlertDialogTitle>{{ t('habits.uncheckConfirmTitle') }}</AlertDialogTitle>
+        <AlertDialogDescription>{{ t('habits.uncheckConfirmMessage') }}</AlertDialogDescription>
+      </AlertDialogHeader>
+      <AlertDialogFooter>
+        <AlertDialogCancel @click="cancelUncheck">{{ t('common.cancel') }}</AlertDialogCancel>
+        <AlertDialogAction @click="confirmUncheck">{{ t('common.confirm') }}</AlertDialogAction>
+      </AlertDialogFooter>
+    </AlertDialogContent>
+  </AlertDialog>
 </template>

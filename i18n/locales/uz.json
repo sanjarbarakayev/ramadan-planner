@@ -66,7 +66,6 @@
     "sahurDua": "Saharlik",
     "iftarDua": "Iftorlik",
     "prayerTimes": "Namoz vaqtlari",
-    "dailyTasks": "Kunlik vazifalar",
     "goals": "Maqsadlar",
     "goalsProgress": "{total} tadan {completed} tasi bajarildi",
     "goalCategories": {
@@ -76,9 +75,7 @@
       "personal": "Shaxsiy",
       "general": "Umumiy"
     },
-    "addTask": "Vazifa qo'shish",
     "addGoal": "Maqsad qo'shish",
-    "noTasks": "Bugungi vazifalar yo'q",
     "noGoals": "Maqsadlar qo'shilmagan",
     "prayerStreak": {
       "title": "Namoz davomiyligi",
@@ -118,6 +115,8 @@
     "overallStats": "Umumiy statistika",
     "completed": "Bajarildi",
     "notCompleted": "Bajarilmadi",
+    "uncheckConfirmTitle": "Odatni bekor qilasizmi?",
+    "uncheckConfirmMessage": "Bu odatni bajarilmagan deb belgilashni xohlaysizmi?",
     "defaultHabits": {
       "fasting": "Ro'za",
       "prayers": "Namozlar",
@@ -195,10 +194,6 @@
     "habitToggleError": "Odatni yangilab bo'lmadi. Qayta urinib ko'ring.",
     "profileSaved": "Profil saqlandi.",
     "profileError": "Profilni saqlab bo'lmadi.",
-    "taskAdded": "Vazifa qo'shildi.",
-    "taskSaved": "Vazifa saqlandi.",
-    "taskDeleted": "Vazifa o'chirildi.",
-    "taskError": "Vazifani yangilab bo'lmadi.",
     "goalAdded": "Maqsad qo'shildi.",
     "goalSaved": "Maqsad saqlandi.",
     "goalDeleted": "Maqsad o'chirildi.",

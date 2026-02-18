@@ -66,7 +66,6 @@
     "sahurDua": "Сахур",
     "iftarDua": "Ифтар",
     "prayerTimes": "Время намаза",
-    "dailyTasks": "Ежедневные задачи",
     "goals": "Цели",
     "goalsProgress": "{completed} из {total} выполнено",
     "goalCategories": {
@@ -76,9 +75,7 @@
       "personal": "Личное",
       "general": "Общее"
     },
-    "addTask": "Добавить задачу",
     "addGoal": "Добавить цель",
-    "noTasks": "Нет задач на сегодня",
     "noGoals": "Цели не добавлены",
     "prayerStreak": {
       "title": "Серия намазов",
@@ -118,6 +115,8 @@
     "overallStats": "Общая статистика",
     "completed": "Выполнено",
     "notCompleted": "Не выполнено",
+    "uncheckConfirmTitle": "Снять отметку?",
+    "uncheckConfirmMessage": "Вы уверены, что хотите снять отметку о выполнении этой привычки?",
     "defaultHabits": {
       "fasting": "Пост",
       "prayers": "Намазы",
@@ -195,10 +194,6 @@
     "habitToggleError": "Не удалось обновить привычку. Попробуйте ещё раз.",
     "profileSaved": "Профиль сохранён.",
     "profileError": "Не удалось сохранить профиль.",
-    "taskAdded": "Задача добавлена.",
-    "taskSaved": "Задача сохранена.",
-    "taskDeleted": "Задача удалена.",
-    "taskError": "Не удалось обновить задачу.",
     "goalAdded": "Цель добавлена.",
     "goalSaved": "Цель сохранена.",
     "goalDeleted": "Цель удалена.",
