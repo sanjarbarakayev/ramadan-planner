@@ -6,7 +6,7 @@
   "nav": {
     "dashboard": "Главная",
     "habits": "Привычки",
-    "journal": "Дневник",
+    "quotes": "Цитаты",
     "garden": "Сад",
     "settings": "Настройки"
   },
@@ -136,13 +136,30 @@
       "paradise": "Райский сад"
     }
   },
-  "journal": {
-    "title": "Дневник",
-    "prompt": "Что я почувствовал сегодня?",
-    "save": "Сохранить",
-    "empty": "Записей пока нет",
-    "dayLabel": "День {day}",
-    "charCount": "{count}/{max}"
+  "quotes": {
+    "title": "Ежедневные цитаты",
+    "todayQuote": "Цитата дня",
+    "previousQuotes": "Предыдущие цитаты",
+    "share": "Поделиться",
+    "download": "Скачать",
+    "shareTitle": "Цитата Рамадана",
+    "day": "День {day}",
+    "empty": "Цитаты доступны во время Рамадана",
+    "categories": {
+      "quran": "Коран",
+      "hadith": "Хадис",
+      "wisdom": "Мудрость"
+    },
+    "customQuote": "Своя цитата",
+    "customHint": "Создайте красивую карточку из любимого аята, хадиса или мудрости и поделитесь ею.",
+    "customText": "Текст цитаты",
+    "customTextPlaceholder": "Введите текст на арабском или другом языке...",
+    "customMeaning": "Перевод / значение",
+    "customMeaningPlaceholder": "Перевод или пояснение (необязательно)",
+    "customSource": "Источник",
+    "customSourcePlaceholder": "Например: Аль-Бакара 2:255",
+    "generateCard": "Создать карточку",
+    "customPreview": "Ваша карточка"
   },
   "settings": {
     "title": "Настройки",
@@ -183,9 +200,9 @@
     "habitToggleError": "Не удалось обновить привычку. Попробуйте ещё раз.",
     "profileSaved": "Профиль сохранён.",
     "profileError": "Не удалось сохранить профиль.",
-    "journalSaved": "Дневник сохранён.",
-    "journalError": "Не удалось сохранить дневник.",
-    "journalDeleted": "Запись удалена.",
+    "quoteShared": "Цитата отправлена!",
+    "quoteDownloaded": "Цитата сохранена на устройство.",
+    "shareError": "Не удалось поделиться цитатой. Попробуйте скачать.",
     "prayerEntryError": "Не удалось обновить запись намаза.",
     "quranError": "Не удалось обновить прогресс Корана.",
     "prayerTimesError": "Не удалось загрузить время намаза.",

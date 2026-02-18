@@ -9,10 +9,6 @@ export const habitSchema = z.object({
   target_days: z.number().int().min(1).max(30),
 })
 
-export const journalEntrySchema = z.object({
-  content: z.string().min(1).max(500),
-})
-
 export const profileSchema = z.object({
   language: z.enum(['uz', 'ru', 'en']).optional(),
   time_adjustment: z.number().int().min(-60).max(60).optional(),

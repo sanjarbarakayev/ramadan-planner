@@ -6,7 +6,7 @@
   "nav": {
     "dashboard": "Dashboard",
     "habits": "Habits",
-    "journal": "Journal",
+    "quotes": "Quotes",
     "garden": "Garden",
     "settings": "Settings"
   },
@@ -136,13 +136,30 @@
       "paradise": "Paradise Garden"
     }
   },
-  "journal": {
-    "title": "Journal",
-    "prompt": "What did I feel today?",
-    "save": "Save",
-    "empty": "No entries yet",
-    "dayLabel": "Day {day}",
-    "charCount": "{count}/{max}"
+  "quotes": {
+    "title": "Daily Quotes",
+    "todayQuote": "Today's Quote",
+    "previousQuotes": "Previous Quotes",
+    "share": "Share",
+    "download": "Download",
+    "shareTitle": "Ramadan Quote",
+    "day": "Day {day}",
+    "empty": "Quotes are available during Ramadan",
+    "categories": {
+      "quran": "Quran",
+      "hadith": "Hadith",
+      "wisdom": "Wisdom"
+    },
+    "customQuote": "Your Own Quote",
+    "customHint": "Create a beautiful card from your favorite ayah, hadith, or wise saying and share it.",
+    "customText": "Quote text",
+    "customTextPlaceholder": "Enter Arabic or any text...",
+    "customMeaning": "Translation / meaning",
+    "customMeaningPlaceholder": "Translation or explanation (optional)",
+    "customSource": "Source",
+    "customSourcePlaceholder": "e.g. Al-Baqarah 2:255",
+    "generateCard": "Generate Card",
+    "customPreview": "Your Card"
   },
   "settings": {
     "title": "Settings",
@@ -183,9 +200,9 @@
     "habitToggleError": "Could not update habit. Please try again.",
     "profileSaved": "Profile saved.",
     "profileError": "Could not save profile.",
-    "journalSaved": "Journal entry saved.",
-    "journalError": "Could not save journal entry.",
-    "journalDeleted": "Entry deleted.",
+    "quoteShared": "Quote shared!",
+    "quoteDownloaded": "Quote saved to your device.",
+    "shareError": "Could not share quote. Try downloading instead.",
     "prayerEntryError": "Could not update prayer entry.",
     "quranError": "Could not update Quran progress.",
     "prayerTimesError": "Could not load prayer times.",

@@ -6,7 +6,7 @@
   "nav": {
     "dashboard": "Bosh sahifa",
     "habits": "Odatlar",
-    "journal": "Kundalik",
+    "quotes": "Iqtiboslar",
     "garden": "Bog'",
     "settings": "Sozlamalar"
   },
@@ -136,13 +136,30 @@
       "paradise": "Jannat bog'i"
     }
   },
-  "journal": {
-    "title": "Kundalik",
-    "prompt": "Bugun nimani his qildim?",
-    "save": "Saqlash",
-    "empty": "Hali yozuvlar yo'q",
-    "dayLabel": "{day}-kun",
-    "charCount": "{count}/{max}"
+  "quotes": {
+    "title": "Kundalik iqtiboslar",
+    "todayQuote": "Bugungi iqtibos",
+    "previousQuotes": "Oldingi iqtiboslar",
+    "share": "Ulashish",
+    "download": "Yuklab olish",
+    "shareTitle": "Ramazon iqtibosi",
+    "day": "{day}-kun",
+    "empty": "Iqtiboslar Ramazon oyida ko'rsatiladi",
+    "categories": {
+      "quran": "Qur'on",
+      "hadith": "Hadis",
+      "wisdom": "Hikmat"
+    },
+    "customQuote": "O'z iqtibosingiz",
+    "customHint": "O'zingiz yoqtirgan oyat, hadis yoki hikmatli so'zni chiroyli karta qilib ulashing.",
+    "customText": "Iqtibos matni",
+    "customTextPlaceholder": "Arabcha yoki o'zbekcha matnni kiriting...",
+    "customMeaning": "Tarjima / ma'nosi",
+    "customMeaningPlaceholder": "Tarjima yoki izoh (ixtiyoriy)",
+    "customSource": "Manba",
+    "customSourcePlaceholder": "Masalan: Al-Baqara 2:255",
+    "generateCard": "Karta yaratish",
+    "customPreview": "Sizning kartangiz"
   },
   "settings": {
     "title": "Sozlamalar",
@@ -183,9 +200,9 @@
     "habitToggleError": "Odatni yangilab bo'lmadi. Qayta urinib ko'ring.",
     "profileSaved": "Profil saqlandi.",
     "profileError": "Profilni saqlab bo'lmadi.",
-    "journalSaved": "Kundalik saqlandi.",
-    "journalError": "Kundalikni saqlab bo'lmadi.",
-    "journalDeleted": "Yozuv o'chirildi.",
+    "quoteShared": "Iqtibos ulashildi!",
+    "quoteDownloaded": "Iqtibos qurilmangizga saqlandi.",
+    "shareError": "Iqtibosni ulashib bo'lmadi. Yuklab olishni sinab ko'ring.",
     "prayerEntryError": "Namoz yozuvini yangilab bo'lmadi.",
     "quranError": "Qur'on progressini yangilab bo'lmadi.",
     "prayerTimesError": "Namoz vaqtlarini yuklab bo'lmadi.",
