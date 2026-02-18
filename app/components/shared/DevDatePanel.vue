@@ -1,19 +1,25 @@
 <script setup lang="ts">
+import { addDays, format } from 'date-fns'
+
 const { override, isActive, setDate, reset } = useDevDate()
-const { currentDay, daysUntil, isBefore, isDuring, isAfter } = useRamadanDay()
+const { currentDay, daysUntil, isBefore, isDuring, isAfter, ramadanStart } = useRamadanDay()
 const { override: gardenOverride, isActive: gardenActive, setPercentage, reset: resetGarden } = useDevGarden()
 
 const expanded = ref(false)
 
-const presets = [
-  { label: '10 kun oldin', date: '2026-02-09' },
-  { label: '1-kun', date: '2026-02-19' },
-  { label: '5-kun', date: '2026-02-23' },
-  { label: '15-kun (50%)', date: '2026-03-05' },
-  { label: '25-kun', date: '2026-03-15' },
-  { label: '30-kun (oxirgi)', date: '2026-03-20' },
-  { label: 'Ramazondan keyin', date: '2026-03-21' },
-]
+function dayToDate(offsetDays: number): string {
+  return format(addDays(ramadanStart.value, offsetDays), 'yyyy-MM-dd')
+}
+
+const presets = computed(() => [
+  { label: '10 kun oldin', date: dayToDate(-10) },
+  { label: '1-kun', date: dayToDate(0) },
+  { label: '5-kun', date: dayToDate(4) },
+  { label: '15-kun (50%)', date: dayToDate(14) },
+  { label: '25-kun', date: dayToDate(24) },
+  { label: '30-kun (oxirgi)', date: dayToDate(29) },
+  { label: 'Ramazondan keyin', date: dayToDate(30) },
+])
 
 const gardenPresets = [
   { label: '0% (bo\'sh)', value: 0 },

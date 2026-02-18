@@ -19,11 +19,12 @@ function handleToggle(habitId: string, day: number) {
 }
 
 async function confirmUncheck() {
-  if (pendingUncheck.value) {
-    await doToggle(pendingUncheck.value.habitId, pendingUncheck.value.day)
-  }
+  const pending = pendingUncheck.value
   pendingUncheck.value = null
   showUncheckConfirm.value = false
+  if (pending) {
+    await doToggle(pending.habitId, pending.day)
+  }
 }
 
 function cancelUncheck() {
@@ -114,7 +115,7 @@ const groupedHabits = computed(() => {
     </CardContent>
   </Card>
 
-  <AlertDialog :open="showUncheckConfirm" @update:open="cancelUncheck">
+  <AlertDialog :open="showUncheckConfirm" @update:open="val => showUncheckConfirm = val">
     <AlertDialogContent>
       <AlertDialogHeader>
         <AlertDialogTitle>{{ t('habits.uncheckConfirmTitle') }}</AlertDialogTitle>
