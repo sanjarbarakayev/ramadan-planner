@@ -82,6 +82,10 @@
     "addGoal": "Добавить цель",
     "noTasks": "Нет задач на сегодня",
     "noGoals": "Цели не добавлены",
+    "prayerStreak": {
+      "title": "Серия намазов",
+      "todayCount": "Сегодня {count}/5 намазов"
+    },
     "quranTracker": "Хатм Корана",
     "quranProgress": "Прочитано {completed}/30 джузов",
     "countdown": {
@@ -194,6 +198,7 @@
     "goalSaved": "Цель сохранена.",
     "goalDeleted": "Цель удалена.",
     "goalError": "Не удалось обновить цель.",
+    "prayerEntryError": "Не удалось обновить запись намаза.",
     "quranError": "Не удалось обновить прогресс Корана.",
     "prayerTimesError": "Не удалось загрузить время намаза.",
     "settingsSaved": "Настройки сохранены.",
