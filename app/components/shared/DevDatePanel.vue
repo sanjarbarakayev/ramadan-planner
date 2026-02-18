@@ -38,7 +38,7 @@ function resetAll() {
 </script>
 
 <template>
-  <div class="fixed bottom-4 left-4 z-50">
+  <div class="fixed bottom-20 left-4 z-50 lg:bottom-4">
     <button
       class="rounded-lg bg-yellow-500 px-3 py-1.5 text-xs font-bold text-black shadow-lg hover:bg-yellow-400"
       @click="expanded = !expanded"

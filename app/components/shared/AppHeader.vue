@@ -15,24 +15,24 @@ async function signOut() {
 </script>
 
 <template>
-  <header class="flex h-16 items-center justify-between border-b border-border bg-card px-4 lg:px-6">
-    <div class="flex items-center gap-3">
-      <h2 class="text-lg font-semibold lg:hidden">
+  <header class="flex h-14 items-center justify-between border-b border-border bg-card px-3 sm:h-16 sm:px-4 lg:px-6">
+    <div class="flex min-w-0 items-center gap-2 sm:gap-3">
+      <h2 class="truncate text-base font-semibold sm:text-lg lg:hidden">
         {{ t('app.title') }}
       </h2>
 
-      <Badge v-if="isDuring" variant="secondary" class="text-sm">
+      <Badge v-if="isDuring" variant="secondary" class="shrink-0 text-xs sm:text-sm">
         {{ t('dashboard.ramadanDay', { day: currentDay }) }}
       </Badge>
-      <Badge v-else-if="isBefore" variant="outline" class="text-sm">
+      <Badge v-else-if="isBefore" variant="outline" class="shrink-0 text-xs sm:text-sm">
         {{ t('dashboard.daysUntilRamadan', { days: daysUntil }) }}
       </Badge>
     </div>
 
-    <div class="flex items-center gap-2">
-      <!-- Locale Switcher -->
-      <Select :model-value="locale" @update:model-value="setLocale($event)">
-        <SelectTrigger class="w-[110px] h-9">
+    <div class="flex shrink-0 items-center gap-2">
+      <!-- Locale Switcher (hidden on mobile - available in Settings) -->
+      <Select :model-value="locale" @update:model-value="setLocale($event)" class="hidden sm:inline-flex">
+        <SelectTrigger class="h-9 w-[110px]">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
