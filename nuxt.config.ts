@@ -87,11 +87,11 @@ export default defineNuxtConfig({
         { name: 'theme-color', content: '#0e2f2b' },
         { property: 'og:title', content: 'Ramazon Rejam' },
         { property: 'og:description', content: 'Ramazon oyini rejali va baraka bilan o\'tkazing' },
-        { property: 'og:image', content: 'https://sanjar-ramadan-planner.vercel.app/og-image.png' },
+        { property: 'og:image', content: 'https://ramazon-rejam.vercel.app/og-image.png' },
         { property: 'og:type', content: 'website' },
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:title', content: 'Ramazon Rejam' },
-        { name: 'twitter:image', content: 'https://sanjar-ramadan-planner.vercel.app/og-image.png' },
+        { name: 'twitter:image', content: 'https://ramazon-rejam.vercel.app/og-image.png' },
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
