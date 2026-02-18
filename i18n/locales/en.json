@@ -81,7 +81,12 @@
     "addTask": "Add Task",
     "addGoal": "Add Goal",
     "noTasks": "No tasks for today",
-    "noGoals": "No goals added"
+    "noGoals": "No goals added",
+    "countdown": {
+      "toSahur": "Until Suhoor",
+      "toIftar": "Until Iftar",
+      "noData": "Prayer times not loaded"
+    }
   },
   "habits": {
     "title": "Habit Tracker",

@@ -81,7 +81,12 @@
     "addTask": "Vazifa qo'shish",
     "addGoal": "Maqsad qo'shish",
     "noTasks": "Bugungi vazifalar yo'q",
-    "noGoals": "Maqsadlar qo'shilmagan"
+    "noGoals": "Maqsadlar qo'shilmagan",
+    "countdown": {
+      "toSahur": "Saharlikgacha",
+      "toIftar": "Iftorlikkagacha",
+      "noData": "Namoz vaqtlari yuklanmagan"
+    }
   },
   "habits": {
     "title": "Odatlar jadvali",
