@@ -82,6 +82,8 @@
     "addGoal": "Add Goal",
     "noTasks": "No tasks for today",
     "noGoals": "No goals added",
+    "quranTracker": "Quran Khatm",
+    "quranProgress": "{completed}/30 juz read",
     "countdown": {
       "toSahur": "Until Suhoor",
       "toIftar": "Until Iftar",
@@ -192,6 +194,7 @@
     "goalSaved": "Goal saved.",
     "goalDeleted": "Goal deleted.",
     "goalError": "Could not update goal.",
+    "quranError": "Could not update Quran progress.",
     "prayerTimesError": "Could not load prayer times.",
     "settingsSaved": "Settings saved.",
     "onboardingError": "Could not complete setup. Please try again.",

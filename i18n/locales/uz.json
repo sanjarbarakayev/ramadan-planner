@@ -82,6 +82,8 @@
     "addGoal": "Maqsad qo'shish",
     "noTasks": "Bugungi vazifalar yo'q",
     "noGoals": "Maqsadlar qo'shilmagan",
+    "quranTracker": "Qur'on xitmlari",
+    "quranProgress": "{completed}/30 juz o'qildi",
     "countdown": {
       "toSahur": "Saharlikgacha",
       "toIftar": "Iftorlikkagacha",
@@ -192,6 +194,7 @@
     "goalSaved": "Maqsad saqlandi.",
     "goalDeleted": "Maqsad o'chirildi.",
     "goalError": "Maqsadni yangilab bo'lmadi.",
+    "quranError": "Qur'on progressini yangilab bo'lmadi.",
     "prayerTimesError": "Namoz vaqtlarini yuklab bo'lmadi.",
     "settingsSaved": "Sozlamalar saqlandi.",
     "onboardingError": "Sozlashni yakunlab bo'lmadi. Qayta urinib ko'ring.",

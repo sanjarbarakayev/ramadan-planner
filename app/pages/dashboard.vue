@@ -2,9 +2,10 @@
 definePageMeta({ middleware: ['auth', 'onboarding'] })
 
 const { fetchHabits, fetchEntries } = useHabits()
+const { fetchProgress } = useQuranProgress()
 
 onMounted(async () => {
-  await Promise.all([fetchHabits(), fetchEntries()])
+  await Promise.all([fetchHabits(), fetchEntries(), fetchProgress()])
 })
 </script>
 
@@ -21,6 +22,7 @@ onMounted(async () => {
         <DashboardDailyTasks />
       </div>
       <div class="space-y-6">
+        <DashboardQuranTracker />
         <DashboardDailyZikr />
       </div>
     </div>
