@@ -1,28 +1,28 @@
 <svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#060b1f"/>
-      <stop offset="40%" stop-color="#0e1444"/>
-      <stop offset="100%" stop-color="#1a1f5a"/>
+      <stop offset="0%" stop-color="#0e2f2b"/>
+      <stop offset="45%" stop-color="#092420"/>
+      <stop offset="100%" stop-color="#051614"/>
     </linearGradient>
     <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#c9952e"/>
-      <stop offset="50%" stop-color="#f5d063"/>
-      <stop offset="100%" stop-color="#c9952e"/>
+      <stop offset="0%" stop-color="#b08518"/>
+      <stop offset="50%" stop-color="#dbb84a"/>
+      <stop offset="100%" stop-color="#b08518"/>
     </linearGradient>
-    <linearGradient id="moonGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#f7dc6f"/>
-      <stop offset="100%" stop-color="#c9952e"/>
+    <linearGradient id="moonGrad" x1="0.2" y1="0" x2="0.8" y2="1">
+      <stop offset="0%" stop-color="#f2e4a8"/>
+      <stop offset="45%" stop-color="#dbb84a"/>
+      <stop offset="100%" stop-color="#b08518"/>
     </linearGradient>
     <linearGradient id="horizon" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="transparent"/>
-      <stop offset="100%" stop-color="#c9952e" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#b08518" stop-opacity="0.06"/>
     </linearGradient>
-    <!-- Soft natural moon glow - no hard edges -->
     <radialGradient id="moonAura" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#f5d063" stop-opacity="0.15"/>
-      <stop offset="40%" stop-color="#f5d063" stop-opacity="0.06"/>
-      <stop offset="100%" stop-color="#f5d063" stop-opacity="0"/>
+      <stop offset="0%" stop-color="#dbb84a" stop-opacity="0.15"/>
+      <stop offset="40%" stop-color="#dbb84a" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#dbb84a" stop-opacity="0"/>
     </radialGradient>
     <filter id="textGlow" x="-10%" y="-10%" width="120%" height="120%">
       <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
@@ -33,22 +33,25 @@
       </feMerge>
     </filter>
     <pattern id="geom" width="40" height="40" patternUnits="userSpaceOnUse">
-      <path d="M20,0 L40,20 L20,40 L0,20 Z" fill="none" stroke="#c9952e" stroke-width="0.5" opacity="0.12"/>
+      <path d="M20,0 L40,20 L20,40 L0,20 Z" fill="none" stroke="#b08518" stroke-width="0.5" opacity="0.12"/>
     </pattern>
     <pattern id="stars" width="250" height="250" patternUnits="userSpaceOnUse">
-      <circle cx="30" cy="20" r="1" fill="white" opacity="0.5"/>
-      <circle cx="100" cy="55" r="0.7" fill="white" opacity="0.3"/>
-      <circle cx="180" cy="30" r="1.2" fill="white" opacity="0.45"/>
-      <circle cx="50" cy="110" r="0.8" fill="white" opacity="0.3"/>
-      <circle cx="140" cy="90" r="1" fill="white" opacity="0.2"/>
-      <circle cx="220" cy="130" r="0.6" fill="white" opacity="0.4"/>
-      <circle cx="70" cy="180" r="1" fill="white" opacity="0.3"/>
-      <circle cx="160" cy="200" r="0.7" fill="white" opacity="0.4"/>
-      <circle cx="240" cy="220" r="0.9" fill="white" opacity="0.2"/>
-      <circle cx="15" cy="240" r="0.8" fill="white" opacity="0.35"/>
+      <circle cx="30" cy="20" r="1" fill="#dbb84a" opacity="0.45"/>
+      <circle cx="100" cy="55" r="0.7" fill="#c9a63e" opacity="0.25"/>
+      <circle cx="180" cy="30" r="1.2" fill="#dbb84a" opacity="0.40"/>
+      <circle cx="50" cy="110" r="0.8" fill="#c9a63e" opacity="0.22"/>
+      <circle cx="140" cy="90" r="1" fill="#b8962e" opacity="0.18"/>
+      <circle cx="220" cy="130" r="0.6" fill="#dbb84a" opacity="0.35"/>
+      <circle cx="70" cy="180" r="1" fill="#c9a63e" opacity="0.25"/>
+      <circle cx="160" cy="200" r="0.7" fill="#dbb84a" opacity="0.32"/>
+      <circle cx="240" cy="220" r="0.9" fill="#b8962e" opacity="0.18"/>
+      <circle cx="15" cy="240" r="0.8" fill="#c9a63e" opacity="0.28"/>
     </pattern>
     <clipPath id="clip">
       <rect width="1200" height="630"/>
+    </clipPath>
+    <clipPath id="crescentClip">
+      <path d="M 0,0 L 1200,0 L 1200,630 L 0,630 Z M 621,126 a 39,39 0 1,1 0,-0.01 Z" clip-rule="evenodd"/>
     </clipPath>
   </defs>
 
@@ -58,7 +61,7 @@
 
     <!-- Geometric pattern border -->
     <rect x="20" y="20" width="1160" height="590" fill="url(#geom)" rx="8"/>
-    <rect x="20" y="20" width="1160" height="590" fill="none" stroke="#c9952e" stroke-width="0.8" opacity="0.2" rx="8"/>
+    <rect x="20" y="20" width="1160" height="590" fill="none" stroke="#b08518" stroke-width="0.8" opacity="0.2" rx="8"/>
 
     <!-- Stars -->
     <rect width="1200" height="400" fill="url(#stars)"/>
@@ -66,49 +69,46 @@
     <!-- Horizon glow -->
     <rect x="0" y="430" width="1200" height="200" fill="url(#horizon)"/>
 
-    <!-- Moon glow (soft, natural) -->
+    <!-- Moon glow -->
     <circle cx="595" cy="155" r="160" fill="url(#moonAura)"/>
 
-    <!-- Crescent Moon as clipped shape — no dark disc possible -->
-    <defs>
-      <clipPath id="crescentClip">
-        <path d="M 0,0 L 1200,0 L 1200,630 L 0,630 Z M 618,143 a 42,42 0 1,1 0,-0.01 Z" clip-rule="evenodd"/>
-      </clipPath>
-    </defs>
+    <!-- Crescent Moon -->
     <circle cx="600" cy="155" r="50" fill="url(#moonGrad)" clip-path="url(#crescentClip)"/>
 
-    <!-- Stars near crescent -->
-    <g transform="translate(660, 118)">
-      <polygon points="0,-8 2,-2.5 8,-2.5 3.2,1.5 5,8 0,4 -5,8 -3.2,1.5 -8,-2.5 -2,-2.5" fill="#f5d063" opacity="0.9"/>
-    </g>
-    <g transform="translate(645, 143)">
-      <polygon points="0,-4.5 1.2,-1.5 4.5,-1.5 1.8,0.8 2.8,4.5 0,2.2 -2.8,4.5 -1.8,0.8 -4.5,-1.5 -1.2,-1.5" fill="#f5d063" opacity="0.5"/>
-    </g>
+    <!-- Scattered stars -->
+    <circle cx="660" cy="115" r="2" fill="#dbb84a" opacity="0.45"/>
+    <circle cx="648" cy="148" r="1.4" fill="#c9a63e" opacity="0.30"/>
+    <circle cx="530" cy="98" r="1.8" fill="#dbb84a" opacity="0.38"/>
+    <circle cx="680" cy="185" r="1.2" fill="#c9a63e" opacity="0.25"/>
+    <circle cx="510" cy="175" r="1.5" fill="#b8962e" opacity="0.20"/>
+    <circle cx="695" cy="140" r="1" fill="#b8962e" opacity="0.18"/>
+    <circle cx="555" cy="130" r="0.8" fill="#a68525" opacity="0.12"/>
+    <circle cx="670" cy="170" r="0.7" fill="#a68525" opacity="0.10"/>
 
     <!-- Main Title -->
     <text x="600" y="320" text-anchor="middle" font-family="'Helvetica Neue', 'Segoe UI', Arial, sans-serif" font-size="90" font-weight="700" fill="url(#gold)" filter="url(#textGlow)" letter-spacing="-1">
       Ramazon Rejam
     </text>
 
-    <!-- Subtitle — large and readable -->
-    <text x="600" y="378" text-anchor="middle" font-family="'Helvetica Neue', 'Segoe UI', Arial, sans-serif" font-size="24" fill="#e2e8f0" letter-spacing="2.5" font-weight="300">
+    <!-- Subtitle -->
+    <text x="600" y="378" text-anchor="middle" font-family="'Helvetica Neue', 'Segoe UI', Arial, sans-serif" font-size="24" fill="#c8d5ca" letter-spacing="2.5" font-weight="300">
       RAMAZON OYINI REJALI VA BARAKA BILAN O'TKAZING
     </text>
 
     <!-- Decorative divider -->
     <g transform="translate(600, 410)" opacity="0.5">
-      <line x1="-100" y1="0" x2="-15" y2="0" stroke="#c9952e" stroke-width="1"/>
-      <polygon points="0,-5 5,0 0,5 -5,0" fill="#c9952e"/>
-      <line x1="15" y1="0" x2="100" y2="0" stroke="#c9952e" stroke-width="1"/>
+      <line x1="-100" y1="0" x2="-15" y2="0" stroke="#b08518" stroke-width="1"/>
+      <polygon points="0,-5 5,0 0,5 -5,0" fill="#b08518"/>
+      <line x1="15" y1="0" x2="100" y2="0" stroke="#b08518" stroke-width="1"/>
     </g>
 
-    <!-- Feature line — bigger and brighter -->
-    <text x="600" y="462" text-anchor="middle" font-family="'Helvetica Neue', 'Segoe UI', Arial, sans-serif" font-size="22" fill="#a0aac8" letter-spacing="3" font-weight="400">
-      NAMOZ  ·  ODATLAR  ·  ZIKR  ·  RUHIY BOG'
+    <!-- Feature line -->
+    <text x="600" y="462" text-anchor="middle" font-family="'Helvetica Neue', 'Segoe UI', Arial, sans-serif" font-size="22" fill="#8fa89a" letter-spacing="3" font-weight="400">
+      NAMOZ  ·  QUR'ON  ·  ZIKR  ·  KUNDALIK
     </text>
 
     <!-- Mosque silhouette -->
-    <g transform="translate(0, 630)" fill="#0a0f30">
+    <g transform="translate(0, 630)" fill="#031210">
       <rect x="0" y="-60" width="1200" height="65"/>
 
       <!-- Left minaret -->
@@ -136,6 +136,6 @@
     </g>
 
     <!-- Horizon glow line -->
-    <line x1="100" y1="568" x2="1100" y2="568" stroke="#c9952e" stroke-width="0.5" opacity="0.12"/>
+    <line x1="100" y1="568" x2="1100" y2="568" stroke="#b08518" stroke-width="0.5" opacity="0.12"/>
   </g>
 </svg>

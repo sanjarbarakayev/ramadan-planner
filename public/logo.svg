@@ -1,0 +1,73 @@
+<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#0e2f2b"/>
+      <stop offset="45%" stop-color="#092420"/>
+      <stop offset="100%" stop-color="#051614"/>
+    </linearGradient>
+    <linearGradient id="moonGrad" x1="0.2" y1="0" x2="0.8" y2="1">
+      <stop offset="0%" stop-color="#f2e4a8"/>
+      <stop offset="45%" stop-color="#dbb84a"/>
+      <stop offset="100%" stop-color="#b08518"/>
+    </linearGradient>
+    <clipPath id="crescentClip">
+      <path d="M 0,0 L 512,0 L 512,512 L 0,512 Z M 290,180 a 82,82 0 1,1 0,-0.01 Z" clip-rule="evenodd"/>
+    </clipPath>
+    <clipPath id="bgClip">
+      <rect width="512" height="512" rx="112"/>
+    </clipPath>
+    <radialGradient id="moonGlow" cx="48%" cy="46%" r="40%">
+      <stop offset="0%" stop-color="#dbb84a" stop-opacity="0.14"/>
+      <stop offset="45%" stop-color="#dbb84a" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#dbb84a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+
+  <!-- Moon glow -->
+  <rect width="512" height="512" rx="112" fill="url(#moonGlow)"/>
+
+  <!-- Stars -->
+  <g clip-path="url(#bgClip)">
+    <!-- Bright -->
+    <circle cx="78" cy="72" r="2" fill="#dbb84a" opacity="0.45"/>
+    <circle cx="420" cy="95" r="2.2" fill="#dbb84a" opacity="0.40"/>
+    <circle cx="135" cy="410" r="2" fill="#dbb84a" opacity="0.35"/>
+    <circle cx="390" cy="380" r="1.8" fill="#dbb84a" opacity="0.32"/>
+    <circle cx="450" cy="260" r="2" fill="#dbb84a" opacity="0.28"/>
+
+    <!-- Medium -->
+    <circle cx="60" cy="200" r="1.4" fill="#c9a63e" opacity="0.25"/>
+    <circle cx="105" cy="310" r="1.3" fill="#c9a63e" opacity="0.22"/>
+    <circle cx="170" cy="455" r="1.5" fill="#c9a63e" opacity="0.25"/>
+    <circle cx="340" cy="450" r="1.4" fill="#c9a63e" opacity="0.22"/>
+    <circle cx="470" cy="170" r="1.3" fill="#c9a63e" opacity="0.24"/>
+    <circle cx="410" cy="440" r="1.2" fill="#c9a63e" opacity="0.20"/>
+    <circle cx="55" cy="365" r="1.4" fill="#c9a63e" opacity="0.22"/>
+
+    <!-- Small -->
+    <circle cx="90" cy="140" r="1" fill="#b8962e" opacity="0.18"/>
+    <circle cx="48" cy="280" r="0.9" fill="#b8962e" opacity="0.15"/>
+    <circle cx="155" cy="60" r="1" fill="#b8962e" opacity="0.17"/>
+    <circle cx="310" cy="55" r="0.9" fill="#b8962e" opacity="0.15"/>
+    <circle cx="480" cy="330" r="1" fill="#b8962e" opacity="0.17"/>
+    <circle cx="365" cy="65" r="0.8" fill="#b8962e" opacity="0.14"/>
+    <circle cx="260" cy="460" r="1" fill="#b8962e" opacity="0.15"/>
+    <circle cx="75" cy="450" r="0.9" fill="#b8962e" opacity="0.13"/>
+    <circle cx="440" cy="50" r="0.8" fill="#b8962e" opacity="0.12"/>
+
+    <!-- Dust -->
+    <circle cx="120" cy="240" r="0.6" fill="#a68525" opacity="0.10"/>
+    <circle cx="200" cy="50" r="0.5" fill="#a68525" opacity="0.08"/>
+    <circle cx="475" cy="420" r="0.6" fill="#a68525" opacity="0.09"/>
+    <circle cx="50" cy="115" r="0.5" fill="#a68525" opacity="0.08"/>
+    <circle cx="330" cy="480" r="0.5" fill="#a68525" opacity="0.07"/>
+    <circle cx="490" cy="120" r="0.6" fill="#a68525" opacity="0.08"/>
+    <circle cx="65" cy="480" r="0.5" fill="#a68525" opacity="0.07"/>
+  </g>
+
+  <!-- Crescent -->
+  <circle cx="245" cy="240" r="105" fill="url(#moonGrad)" clip-path="url(#crescentClip)"/>
+</svg>

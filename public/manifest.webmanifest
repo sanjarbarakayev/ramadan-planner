@@ -1,0 +1,27 @@
+{
+  "name": "Ramazon Rejam",
+  "short_name": "Ramazon",
+  "description": "Ramazon oyini rejali va baraka bilan o'tkazing",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#051614",
+  "theme_color": "#0e2f2b",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
