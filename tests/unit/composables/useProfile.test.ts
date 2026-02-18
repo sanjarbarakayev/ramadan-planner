@@ -19,7 +19,7 @@ const mockProfile: Profile = {
   lat: 41.3,
   lng: 69.3,
   ramadan_start_date: '2026-02-19',
-  prayer_method: 14,
+  prayer_method: 3,
   time_adjustment: 0,
   onboarding_complete: true,
 }

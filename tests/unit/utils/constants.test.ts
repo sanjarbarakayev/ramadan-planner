@@ -9,8 +9,8 @@ import {
 } from '~/utils/constants'
 
 describe('DEFAULT_HABITS', () => {
-  it('has 11 default habits', () => {
-    expect(DEFAULT_HABITS).toHaveLength(11)
+  it('has 9 default habits', () => {
+    expect(DEFAULT_HABITS).toHaveLength(9)
   })
 
   it('each habit has required fields', () => {
@@ -25,9 +25,9 @@ describe('DEFAULT_HABITS', () => {
     }
   })
 
-  it('sort orders are sequential from 1 to 11', () => {
+  it('sort orders are sequential from 1 to 9', () => {
     const sortOrders = DEFAULT_HABITS.map((h) => h.sortOrder)
-    expect(sortOrders).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
+    expect(sortOrders).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9])
   })
 })
 
@@ -52,8 +52,8 @@ describe('RAMADAN_DAYS', () => {
 })
 
 describe('PRAYER_METHODS', () => {
-  it('has 13 methods', () => {
-    expect(PRAYER_METHODS).toHaveLength(13)
+  it('has 21 methods', () => {
+    expect(PRAYER_METHODS).toHaveLength(21)
   })
 
   it('each method has id and name', () => {

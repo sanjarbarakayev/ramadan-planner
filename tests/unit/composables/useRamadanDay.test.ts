@@ -18,7 +18,7 @@ function setupRamadanDayDeps(profileDate?: string, devDateOverride?: string) {
     lat: null,
     lng: null,
     ramadan_start_date: profileDate,
-    prayer_method: 14,
+    prayer_method: 3,
     time_adjustment: 0,
     onboarding_complete: true,
   } : null)

@@ -70,7 +70,7 @@ async function deleteAccount() {
 
       <Separator />
 
-      <div class="flex gap-3">
+      <div class="flex flex-wrap gap-3">
         <Button v-if="isTelegram" variant="outline" @click="closeApp">
           {{ t('settings.closeApp') }}
         </Button>

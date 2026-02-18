@@ -72,7 +72,7 @@ onMounted(() => {
 
         <clipPath id="loader-crescent">
           <path
-            d="M 0,0 L 1400,0 L 1400,900 L 0,900 Z M 728,388 a 30,30 0 1,1 0,-0.01 Z"
+            d="M 0,0 L 1400,0 L 1400,900 L 0,900 Z M 718,386 a 33,33 0 1,1 0,-0.01 Z"
             clip-rule="evenodd"
           />
         </clipPath>

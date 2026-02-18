@@ -24,7 +24,7 @@ onMounted(async () => {
     <div class="flex flex-1 flex-col">
       <SharedAppHeader v-if="!isTelegram" />
 
-      <main class="flex-1 overflow-auto p-4 pb-20 lg:p-6 lg:pb-6">
+      <main class="flex-1 overflow-auto overflow-x-hidden p-4 pb-20 lg:p-6 lg:pb-6">
         <slot />
       </main>
     </div>

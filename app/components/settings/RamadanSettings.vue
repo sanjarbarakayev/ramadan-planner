@@ -7,14 +7,14 @@ const { showSuccess, showError } = useAppToast()
 
 const startDate = ref(profile.value?.ramadan_start_date ?? '2026-02-19')
 const timeAdj = ref(profile.value?.time_adjustment ?? 0)
-const method = ref(String(profile.value?.prayer_method ?? 14))
+const method = ref(String(profile.value?.prayer_method ?? 3))
 const saving = ref(false)
 
 watch(() => profile.value, (p) => {
   if (p) {
     startDate.value = p.ramadan_start_date ?? '2026-02-19'
     timeAdj.value = p.time_adjustment ?? 0
-    method.value = String(p.prayer_method ?? 14)
+    method.value = String(p.prayer_method ?? 3)
   }
 })
 

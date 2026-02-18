@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const { t } = useI18n()
-const { profile } = useProfile()
+const { profile, updateProfile } = useProfile()
 const { adjustedTimes, loading, fetchPrayerTimes } = usePrayerTimes()
 
 const prayerList = computed(() => {
@@ -15,6 +15,20 @@ const prayerList = computed(() => {
     { key: 'isha', label: t('prayer.isha'), time: adjustedTimes.value.Isha, highlight: false },
   ]
 })
+
+const hasCity = computed(() => Boolean(profile.value?.city))
+
+async function onCitySelect(location: { city: string; country: string; lat: number; lng: number }) {
+  const result = await updateProfile({
+    city: location.city,
+    country: location.country,
+    lat: location.lat,
+    lng: location.lng,
+  })
+  if (result.ok) {
+    await fetchPrayerTimes()
+  }
+}
 
 watch(() => profile.value?.city, (city) => {
   if (city && !adjustedTimes.value) fetchPrayerTimes()
@@ -31,8 +45,14 @@ watch(() => profile.value?.city, (city) => {
       <div v-if="loading" class="text-sm text-muted-foreground text-center py-4">
         {{ t('common.loading') }}
       </div>
+      <div v-else-if="!hasCity" class="py-2">
+        <p class="text-sm text-muted-foreground text-center mb-3">
+          {{ t('onboarding.selectLocation') }}
+        </p>
+        <LocationSearch @select="onCitySelect" />
+      </div>
       <div v-else-if="!adjustedTimes" class="text-sm text-muted-foreground text-center py-4">
-        {{ t('onboarding.selectLocation') }}
+        {{ t('dashboard.countdown.noData') }}
       </div>
       <div v-else class="space-y-1">
         <div

@@ -50,7 +50,7 @@ export function usePrayerTimes() {
         params: {
           city: profile.value.city,
           country: profile.value.country ?? '',
-          method: profile.value.prayer_method ?? 14,
+          method: profile.value.prayer_method ?? 3,
         },
       })
 

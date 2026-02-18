@@ -1,29 +1,26 @@
 <script setup lang="ts">
 const { t } = useI18n()
 const { profile, updateProfile } = useProfile()
+const { fetchPrayerTimes } = usePrayerTimes()
 const { showSuccess, showError } = useAppToast()
 
-const city = ref(profile.value?.city ?? '')
-const country = ref(profile.value?.country ?? '')
-const saving = ref(false)
-
-watch(() => profile.value, (p) => {
-  if (p) {
-    city.value = p.city ?? ''
-    country.value = p.country ?? ''
-  }
+const currentCity = computed(() => {
+  if (!profile.value?.city) return null
+  const parts = [profile.value.city, profile.value.country].filter(Boolean)
+  return parts.join(', ')
 })
 
-async function save() {
-  saving.value = true
+async function onCitySelect(location: { city: string; country: string; lat: number; lng: number }) {
   const result = await updateProfile({
-    city: city.value || null,
-    country: country.value || null,
+    city: location.city,
+    country: location.country,
+    lat: location.lat,
+    lng: location.lng,
   })
-  saving.value = false
 
   if (result.ok) {
     showSuccess('toast.settingsSaved')
+    await fetchPrayerTimes()
   } else {
     showError('toast.profileError')
   }
@@ -36,19 +33,10 @@ async function save() {
       <CardTitle class="text-base">{{ t('settings.location') }}</CardTitle>
     </CardHeader>
     <CardContent class="space-y-4">
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div class="space-y-2">
-          <Label>{{ t('onboarding.city') }}</Label>
-          <Input v-model="city" :placeholder="t('onboarding.city')" />
-        </div>
-        <div class="space-y-2">
-          <Label>{{ t('onboarding.country') }}</Label>
-          <Input v-model="country" :placeholder="t('onboarding.country')" />
-        </div>
+      <div v-if="currentCity" class="text-sm text-muted-foreground">
+        {{ currentCity }}
       </div>
-      <Button :disabled="saving" @click="save">
-        {{ saving ? t('common.loading') : t('settings.save') }}
-      </Button>
+      <LocationSearch @select="onCitySelect" />
     </CardContent>
   </Card>
 </template>

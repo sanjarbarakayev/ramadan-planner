@@ -9,7 +9,7 @@ create table public.profiles (
   lat double precision,
   lng double precision,
   ramadan_start_date date default '2026-02-19',
-  prayer_method integer default 14,
+  prayer_method integer default 3,
   time_adjustment integer default 0,
   onboarding_complete boolean default false,
   created_at timestamptz default now(),

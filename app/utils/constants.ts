@@ -41,8 +41,10 @@ export const GROWTH_STAGE_THRESHOLDS: readonly { readonly min: number; readonly 
 export const FLOWER_COUNT_DIVISOR = 10
 
 export const PRAYER_METHODS = [
-  { id: 2, name: 'Islamic Society of North America (ISNA)' },
   { id: 3, name: 'Muslim World League' },
+  { id: 14, name: 'Spiritual Administration of Muslims of Russia' },
+  { id: 13, name: 'Diyanet (Turkey)' },
+  { id: 2, name: 'Islamic Society of North America (ISNA)' },
   { id: 4, name: 'Umm Al-Qura University, Makkah' },
   { id: 5, name: 'Egyptian General Authority of Survey' },
   { id: 1, name: 'University of Islamic Sciences, Karachi' },
@@ -51,7 +53,13 @@ export const PRAYER_METHODS = [
   { id: 10, name: 'Qatar' },
   { id: 11, name: 'Majlis Ugama Islam Singapura' },
   { id: 12, name: 'UOIF (France)' },
-  { id: 13, name: 'Diyanet (Turkey)' },
-  { id: 14, name: 'Spiritual Administration of Muslims of Russia' },
-  { id: 15, name: "Moonsighting Committee Worldwide" },
+  { id: 15, name: 'Moonsighting Committee Worldwide' },
+  { id: 16, name: 'Dubai' },
+  { id: 17, name: 'JAKIM (Malaysia)' },
+  { id: 18, name: 'Tunisia' },
+  { id: 19, name: 'Algeria' },
+  { id: 20, name: 'Indonesia (KEMENAG)' },
+  { id: 21, name: 'Morocco' },
+  { id: 22, name: 'Comunidade Islamica de Lisboa (Portugal)' },
+  { id: 23, name: 'Jordan' },
 ] as const

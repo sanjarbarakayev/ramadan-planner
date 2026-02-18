@@ -1,87 +1,260 @@
 <svg width="640" height="640" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#0e2f2b"/>
-      <stop offset="45%" stop-color="#092420"/>
+    <!-- Background gradient -->
+    <linearGradient id="bg" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#051a17"/>
+      <stop offset="35%" stop-color="#0a2925"/>
+      <stop offset="70%" stop-color="#092420"/>
       <stop offset="100%" stop-color="#051614"/>
     </linearGradient>
+
+    <!-- Gold gradients -->
     <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#b08518"/>
+      <stop offset="0%" stop-color="#c9952a"/>
       <stop offset="50%" stop-color="#dbb84a"/>
-      <stop offset="100%" stop-color="#b08518"/>
+      <stop offset="100%" stop-color="#c9952a"/>
     </linearGradient>
-    <linearGradient id="moonGrad" x1="0.2" y1="0" x2="0.8" y2="1">
+    <linearGradient id="goldLight" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#f2e4a8"/>
-      <stop offset="45%" stop-color="#dbb84a"/>
+      <stop offset="100%" stop-color="#dbb84a"/>
+    </linearGradient>
+    <linearGradient id="moonGrad" x1="0.15" y1="0.1" x2="0.85" y2="0.9">
+      <stop offset="0%" stop-color="#f5edc0"/>
+      <stop offset="30%" stop-color="#f2e4a8"/>
+      <stop offset="60%" stop-color="#dbb84a"/>
       <stop offset="100%" stop-color="#b08518"/>
     </linearGradient>
-    <radialGradient id="moonAura" cx="50%" cy="40%" r="45%">
-      <stop offset="0%" stop-color="#dbb84a" stop-opacity="0.15"/>
-      <stop offset="40%" stop-color="#dbb84a" stop-opacity="0.06"/>
+
+    <!-- Glow effects -->
+    <radialGradient id="moonAura" cx="50%" cy="38%" r="50%">
+      <stop offset="0%" stop-color="#dbb84a" stop-opacity="0.20"/>
+      <stop offset="25%" stop-color="#dbb84a" stop-opacity="0.10"/>
+      <stop offset="50%" stop-color="#dbb84a" stop-opacity="0.04"/>
       <stop offset="100%" stop-color="#dbb84a" stop-opacity="0"/>
     </radialGradient>
-    <pattern id="geom" width="32" height="32" patternUnits="userSpaceOnUse">
-      <path d="M16,0 L32,16 L16,32 L0,16 Z" fill="none" stroke="#b08518" stroke-width="0.4" opacity="0.12"/>
+    <radialGradient id="innerGlow" cx="50%" cy="42%" r="35%">
+      <stop offset="0%" stop-color="#dbb84a" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#dbb84a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bottomGlow" cx="50%" cy="100%" r="60%">
+      <stop offset="0%" stop-color="#b08518" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#b08518" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Filters -->
+    <filter id="moonShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0.85 0.7 0.2 0 0  0.7 0.6 0.1 0 0  0.2 0.1 0 0 0  0 0 0 0.25 0"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="textGlow" x="-15%" y="-15%" width="130%" height="130%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0.85 0.7 0.1 0 0  0.7 0.5 0 0 0  0.1 0 0 0 0  0 0 0 0.2 0"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+      <feColorMatrix type="matrix" values="0.85 0.7 0.2 0 0  0.7 0.55 0 0 0  0.1 0 0 0 0  0 0 0 0.3 0"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Islamic geometric pattern -->
+    <pattern id="geom" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M24,0 L48,24 L24,48 L0,24 Z" fill="none" stroke="#b08518" stroke-width="0.4" opacity="0.08"/>
+      <path d="M24,8 L40,24 L24,40 L8,24 Z" fill="none" stroke="#b08518" stroke-width="0.3" opacity="0.05"/>
     </pattern>
+
+    <!-- Ornamental pattern for border -->
+    <pattern id="borderGeom" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="12" cy="12" r="1" fill="#b08518" opacity="0.15"/>
+      <path d="M12,0 L24,12 L12,24 L0,12 Z" fill="none" stroke="#b08518" stroke-width="0.3" opacity="0.12"/>
+    </pattern>
+
+    <!-- Crescent clip -->
     <clipPath id="crescentClip">
-      <path d="M 0,0 L 640,0 L 640,640 L 0,640 Z M 348,163 a 51,51 0 1,1 0,-0.01 Z" clip-rule="evenodd"/>
+      <path d="M 0,0 L 640,0 L 640,640 L 0,640 Z M 362,152 a 58,58 0 1,1 0,-0.01 Z" clip-rule="evenodd"/>
     </clipPath>
   </defs>
 
-  <!-- Background -->
+  <!-- Base background -->
   <rect width="640" height="640" fill="url(#bg)"/>
+
+  <!-- Geometric pattern layer -->
   <rect width="640" height="640" fill="url(#geom)"/>
 
-  <!-- Moon glow -->
-  <circle cx="315" cy="200" r="160" fill="url(#moonAura)"/>
+  <!-- Atmospheric glow -->
+  <rect width="640" height="640" fill="url(#innerGlow)"/>
+  <rect width="640" height="640" fill="url(#bottomGlow)"/>
 
-  <!-- Crescent -->
-  <circle cx="320" cy="200" r="65" fill="url(#moonGrad)" clip-path="url(#crescentClip)"/>
+  <!-- Ornamental border -->
+  <rect x="16" y="16" width="608" height="608" fill="none" stroke="#b08518" stroke-width="0.6" opacity="0.15" rx="4"/>
+  <rect x="24" y="24" width="592" height="592" fill="none" stroke="#b08518" stroke-width="0.3" opacity="0.10" rx="2"/>
 
-  <!-- Scattered stars -->
-  <circle cx="398" cy="160" r="2.2" fill="#dbb84a" opacity="0.45"/>
-  <circle cx="380" cy="138" r="1.5" fill="#c9a63e" opacity="0.30"/>
-  <circle cx="420" cy="195" r="1.3" fill="#c9a63e" opacity="0.25"/>
-  <circle cx="255" cy="145" r="1.8" fill="#dbb84a" opacity="0.38"/>
-  <circle cx="440" cy="140" r="1" fill="#b8962e" opacity="0.18"/>
-  <circle cx="270" cy="250" r="1.4" fill="#c9a63e" opacity="0.22"/>
-  <circle cx="410" cy="240" r="1.2" fill="#b8962e" opacity="0.18"/>
-  <circle cx="185" cy="180" r="1.6" fill="#dbb84a" opacity="0.32"/>
-  <circle cx="450" cy="110" r="0.9" fill="#a68525" opacity="0.12"/>
-  <circle cx="230" cy="120" r="1" fill="#b8962e" opacity="0.15"/>
-  <circle cx="160" cy="130" r="0.8" fill="#a68525" opacity="0.10"/>
-  <circle cx="470" cy="175" r="0.7" fill="#a68525" opacity="0.09"/>
-  <circle cx="130" cy="220" r="1.3" fill="#c9a63e" opacity="0.22"/>
-  <circle cx="490" cy="230" r="1" fill="#b8962e" opacity="0.15"/>
-  <circle cx="110" cy="95" r="1.5" fill="#dbb84a" opacity="0.35"/>
-  <circle cx="500" cy="85" r="1.2" fill="#c9a63e" opacity="0.25"/>
-  <circle cx="80" cy="290" r="0.9" fill="#a68525" opacity="0.10"/>
-  <circle cx="530" cy="150" r="0.8" fill="#a68525" opacity="0.08"/>
+  <!-- Corner ornaments -->
+  <g opacity="0.20" fill="none" stroke="#b08518" stroke-width="0.6">
+    <!-- Top-left -->
+    <path d="M 32,52 L 32,32 L 52,32"/>
+    <path d="M 36,60 L 36,36 L 60,36"/>
+    <circle cx="32" cy="32" r="2" fill="#b08518"/>
+    <!-- Top-right -->
+    <path d="M 588,32 L 608,32 L 608,52"/>
+    <path d="M 580,36 L 604,36 L 604,60"/>
+    <circle cx="608" cy="32" r="2" fill="#b08518"/>
+    <!-- Bottom-left -->
+    <path d="M 32,588 L 32,608 L 52,608"/>
+    <path d="M 36,580 L 36,604 L 60,604"/>
+    <circle cx="32" cy="608" r="2" fill="#b08518"/>
+    <!-- Bottom-right -->
+    <path d="M 608,588 L 608,608 L 588,608"/>
+    <path d="M 604,580 L 604,604 L 580,604"/>
+    <circle cx="608" cy="608" r="2" fill="#b08518"/>
+  </g>
 
-  <!-- Title -->
-  <text x="320" y="370" text-anchor="middle" font-family="'Helvetica Neue', Arial, sans-serif" font-size="62" font-weight="700" fill="url(#gold)" letter-spacing="-1">
+  <!-- Stars - layered for depth -->
+  <!-- Bright stars -->
+  <circle cx="90" cy="85" r="2" fill="#dbb84a" opacity="0.50"/>
+  <circle cx="535" cy="95" r="2.2" fill="#dbb84a" opacity="0.45"/>
+  <circle cx="165" cy="295" r="2" fill="#dbb84a" opacity="0.38"/>
+  <circle cx="485" cy="275" r="1.8" fill="#dbb84a" opacity="0.35"/>
+  <circle cx="555" cy="195" r="1.8" fill="#dbb84a" opacity="0.32"/>
+  <circle cx="100" cy="195" r="1.6" fill="#dbb84a" opacity="0.30"/>
+  <circle cx="455" cy="115" r="1.5" fill="#dbb84a" opacity="0.28"/>
+
+  <!-- Medium stars -->
+  <circle cx="65" cy="155" r="1.3" fill="#c9a63e" opacity="0.22"/>
+  <circle cx="195" cy="110" r="1.4" fill="#c9a63e" opacity="0.24"/>
+  <circle cx="565" cy="155" r="1.2" fill="#c9a63e" opacity="0.20"/>
+  <circle cx="140" cy="240" r="1.3" fill="#c9a63e" opacity="0.22"/>
+  <circle cx="510" cy="230" r="1.4" fill="#c9a63e" opacity="0.20"/>
+  <circle cx="430" cy="70" r="1.2" fill="#c9a63e" opacity="0.18"/>
+  <circle cx="70" cy="320" r="1.3" fill="#c9a63e" opacity="0.16"/>
+  <circle cx="560" cy="310" r="1.1" fill="#c9a63e" opacity="0.16"/>
+
+  <!-- Faint stars -->
+  <circle cx="48" cy="250" r="0.9" fill="#b8962e" opacity="0.14"/>
+  <circle cx="230" cy="75" r="1" fill="#b8962e" opacity="0.15"/>
+  <circle cx="410" cy="55" r="0.8" fill="#b8962e" opacity="0.12"/>
+  <circle cx="590" cy="250" r="0.9" fill="#b8962e" opacity="0.13"/>
+  <circle cx="125" cy="350" r="0.8" fill="#b8962e" opacity="0.11"/>
+  <circle cx="500" cy="340" r="0.9" fill="#b8962e" opacity="0.12"/>
+  <circle cx="350" cy="60" r="0.7" fill="#b8962e" opacity="0.10"/>
+  <circle cx="80" cy="400" r="0.8" fill="#b8962e" opacity="0.10"/>
+  <circle cx="560" cy="380" r="0.7" fill="#b8962e" opacity="0.09"/>
+
+  <!-- Dust particles -->
+  <circle cx="155" cy="150" r="0.5" fill="#a68525" opacity="0.08"/>
+  <circle cx="485" cy="150" r="0.6" fill="#a68525" opacity="0.07"/>
+  <circle cx="260" cy="55" r="0.5" fill="#a68525" opacity="0.06"/>
+  <circle cx="590" cy="130" r="0.4" fill="#a68525" opacity="0.06"/>
+  <circle cx="50" cy="440" r="0.5" fill="#a68525" opacity="0.06"/>
+
+  <!-- Moon aura -->
+  <circle cx="320" cy="188" r="180" fill="url(#moonAura)"/>
+
+  <!-- Crescent Moon with glow -->
+  <circle cx="320" cy="188" r="72" fill="url(#moonGrad)" clip-path="url(#crescentClip)" filter="url(#moonShadow)"/>
+
+  <!-- Near-moon stars (twinkling around the crescent) -->
+  <circle cx="408" cy="145" r="1.8" fill="#f2e4a8" opacity="0.50"/>
+  <circle cx="392" cy="120" r="1.2" fill="#dbb84a" opacity="0.35"/>
+  <circle cx="425" cy="180" r="1" fill="#c9a63e" opacity="0.25"/>
+  <circle cx="240" cy="128" r="1.5" fill="#dbb84a" opacity="0.30"/>
+  <circle cx="215" cy="165" r="1" fill="#c9a63e" opacity="0.20"/>
+  <circle cx="425" cy="220" r="0.8" fill="#b8962e" opacity="0.15"/>
+  <circle cx="220" cy="240" r="0.9" fill="#b8962e" opacity="0.14"/>
+  <circle cx="395" cy="250" r="0.7" fill="#a68525" opacity="0.10"/>
+
+  <!-- Decorative arch -->
+  <path d="M 180,340 Q 180,305 215,290 Q 260,275 320,268 Q 380,275 425,290 Q 460,305 460,340" fill="none" stroke="#b08518" stroke-width="0.8" opacity="0.18"/>
+  <path d="M 190,340 Q 190,310 222,296 Q 265,282 320,276 Q 375,282 418,296 Q 450,310 450,340" fill="none" stroke="#b08518" stroke-width="0.4" opacity="0.10"/>
+
+  <!-- Main Title -->
+  <text x="320" y="380" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="68" font-weight="700" fill="url(#gold)" filter="url(#textGlow)" letter-spacing="2">
     Ramazon
   </text>
-  <text x="320" y="430" text-anchor="middle" font-family="'Helvetica Neue', Arial, sans-serif" font-size="62" font-weight="700" fill="url(#gold)" letter-spacing="-1">
+  <text x="320" y="445" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="68" font-weight="700" fill="url(#gold)" filter="url(#textGlow)" letter-spacing="2">
     Rejam
   </text>
 
+  <!-- Ornamental divider -->
+  <g transform="translate(320, 470)" opacity="0.35">
+    <line x1="-120" y1="0" x2="-20" y2="0" stroke="url(#goldLight)" stroke-width="0.8"/>
+    <line x1="20" y1="0" x2="120" y2="0" stroke="url(#goldLight)" stroke-width="0.8"/>
+    <polygon points="0,-6 7,0 0,6 -7,0" fill="#dbb84a"/>
+    <circle cx="-18" cy="0" r="1.5" fill="#dbb84a"/>
+    <circle cx="18" cy="0" r="1.5" fill="#dbb84a"/>
+    <circle cx="-130" cy="0" r="1.2" fill="#dbb84a" opacity="0.5"/>
+    <circle cx="130" cy="0" r="1.2" fill="#dbb84a" opacity="0.5"/>
+  </g>
+
   <!-- Subtitle -->
-  <text x="320" y="475" text-anchor="middle" font-family="'Helvetica Neue', Arial, sans-serif" font-size="16" fill="#8fa89a" letter-spacing="3">
-    NAMOZ · ZIKR · ODATLAR
+  <text x="320" y="505" text-anchor="middle" font-family="'Helvetica Neue', 'Segoe UI', Arial, sans-serif" font-size="17" fill="#8fa89a" letter-spacing="4" font-weight="400" filter="url(#softGlow)">
+    NAMOZ  ·  QUR'ON  ·  ZIKR
   </text>
 
-  <!-- Mosque silhouette -->
+  <!-- Mosque silhouette - more detailed -->
   <g transform="translate(0, 640)" fill="#031210">
-    <rect x="0" y="-50" width="640" height="55"/>
-    <ellipse cx="200" cy="-55" rx="35" ry="25"/>
-    <ellipse cx="320" cy="-58" rx="60" ry="42"/>
-    <rect x="317" y="-105" width="6" height="14"/>
-    <circle cx="320" cy="-107" r="5"/>
-    <ellipse cx="440" cy="-55" rx="35" ry="25"/>
-    <rect x="120" y="-95" width="6" height="48" rx="1"/>
-    <circle cx="123" cy="-97" r="3"/>
-    <rect x="514" y="-95" width="6" height="48" rx="1"/>
-    <circle cx="517" cy="-97" r="3"/>
+    <!-- Base -->
+    <rect x="0" y="-48" width="640" height="52"/>
+
+    <!-- Left outer minaret -->
+    <rect x="85" y="-105" width="6" height="60" rx="1"/>
+    <ellipse cx="88" cy="-107" rx="5.5" ry="4"/>
+    <rect x="86.5" y="-120" width="3" height="15"/>
+    <circle cx="88" cy="-122" r="2.5" fill="#031210"/>
+    <line x1="85" y1="-123" x2="91" y2="-123" stroke="#031210" stroke-width="0.5"/>
+
+    <!-- Left dome -->
+    <ellipse cx="210" cy="-52" rx="40" ry="28"/>
+    <rect x="208" y="-84" width="4" height="10"/>
+    <circle cx="210" cy="-86" r="3"/>
+
+    <!-- Center large dome -->
+    <ellipse cx="320" cy="-55" rx="72" ry="50"/>
+    <rect x="317.5" y="-112" width="5" height="14"/>
+    <circle cx="320" cy="-114" r="4.5"/>
+
+    <!-- Right dome -->
+    <ellipse cx="430" cy="-52" rx="40" ry="28"/>
+    <rect x="428" y="-84" width="4" height="10"/>
+    <circle cx="430" cy="-86" r="3"/>
+
+    <!-- Right outer minaret -->
+    <rect x="549" y="-105" width="6" height="60" rx="1"/>
+    <ellipse cx="552" cy="-107" rx="5.5" ry="4"/>
+    <rect x="550.5" y="-120" width="3" height="15"/>
+    <circle cx="552" cy="-122" r="2.5" fill="#031210"/>
+    <line x1="549" y1="-123" x2="555" y2="-123" stroke="#031210" stroke-width="0.5"/>
+
+    <!-- Inner left minaret -->
+    <rect x="148" y="-88" width="5" height="42" rx="1"/>
+    <ellipse cx="150.5" cy="-90" rx="4.5" ry="3.5"/>
+    <rect x="149.5" y="-100" width="2" height="12"/>
+    <circle cx="150.5" cy="-102" r="2"/>
+
+    <!-- Inner right minaret -->
+    <rect x="487" y="-88" width="5" height="42" rx="1"/>
+    <ellipse cx="489.5" cy="-90" rx="4.5" ry="3.5"/>
+    <rect x="488.5" y="-100" width="2" height="12"/>
+    <circle cx="489.5" cy="-102" r="2"/>
+
+    <!-- Windows on base -->
+    <ellipse cx="240" cy="-30" rx="6" ry="9" fill="#051a17" opacity="0.4"/>
+    <ellipse cx="280" cy="-30" rx="6" ry="9" fill="#051a17" opacity="0.4"/>
+    <ellipse cx="320" cy="-30" rx="7" ry="10" fill="#051a17" opacity="0.4"/>
+    <ellipse cx="360" cy="-30" rx="6" ry="9" fill="#051a17" opacity="0.4"/>
+    <ellipse cx="400" cy="-30" rx="6" ry="9" fill="#051a17" opacity="0.4"/>
   </g>
+
+  <!-- Horizon glow line -->
+  <line x1="60" y1="590" x2="580" y2="590" stroke="#b08518" stroke-width="0.5" opacity="0.08"/>
 </svg>

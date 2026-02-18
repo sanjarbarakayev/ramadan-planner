@@ -66,9 +66,19 @@ onMounted(() => {
         <p class="text-sm font-medium text-[#dbb84a]/80 mb-2">{{ countdown.label }}</p>
         <p class="text-5xl font-bold tabular-nums tracking-wider text-[#f2e4a8]">{{ countdown.time }}</p>
       </template>
-      <p v-else class="text-sm text-[#dbb84a]/70">
-        {{ t('dashboard.countdown.noData') }}
-      </p>
+      <div v-else class="flex flex-col items-center gap-2">
+        <p class="text-sm text-[#dbb84a]/70">
+          {{ t('dashboard.countdown.noData') }}
+        </p>
+        <Button
+          variant="outline"
+          size="sm"
+          class="border-[#dbb84a]/30 text-[#dbb84a] hover:bg-[#dbb84a]/10 hover:text-[#f2e4a8]"
+          @click="navigateTo('/settings')"
+        >
+          {{ t('onboarding.selectLocation') }}
+        </Button>
+      </div>
     </CardContent>
   </Card>
 </template>
