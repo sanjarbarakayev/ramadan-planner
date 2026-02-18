@@ -82,8 +82,15 @@ export default defineNuxtConfig({
         },
       ],
       meta: [
-        { name: 'description', content: 'Ramazon oyida odatlarni kuzatish va ibodat rejasi' },
+        { name: 'description', content: 'Ramazon oyini rejali va baraka bilan o\'tkazing' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1, viewport-fit=cover' },
+        { property: 'og:title', content: 'Ramazon Rejam' },
+        { property: 'og:description', content: 'Ramazon oyini rejali va baraka bilan o\'tkazing' },
+        { property: 'og:image', content: 'https://sanjar-ramadan-planner.vercel.app/og-image.png' },
+        { property: 'og:type', content: 'website' },
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:title', content: 'Ramazon Rejam' },
+        { name: 'twitter:image', content: 'https://sanjar-ramadan-planner.vercel.app/og-image.png' },
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
